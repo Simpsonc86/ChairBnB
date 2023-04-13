@@ -10,6 +10,40 @@ module.exports = (sequelize, DataTypes) => {
 
   User.init(
     {
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [2, 30],
+          isAlpha:true
+          // isCapitalized(value){
+          //   if(value[0]!==value[0].Uppercase()){
+          //     throw new Error("First name must be capitalized.");
+          //   }
+          // }
+        }
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [2, 30],
+          isAlpha:true
+          // isCapitalized(value){
+          //   if(value[0]!==value[0].Uppercase()){
+          //     throw new Error("Last name must be capitalized.");
+          //   }
+          // }
+        }
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 256],
+          isEmail: true
+        }
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -20,14 +54,6 @@ module.exports = (sequelize, DataTypes) => {
               throw new Error("Cannot be an email.");
             }
           }
-        }
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: [3, 256],
-          isEmail: true
         }
       },
       hashedPassword: {

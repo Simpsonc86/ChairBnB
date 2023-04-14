@@ -1,6 +1,3 @@
-# Airbnb
-
-
 <!--!!START SILENT -->
 # AirBnB Clone
 <!--!!END -->

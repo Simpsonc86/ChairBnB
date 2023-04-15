@@ -42,9 +42,9 @@ module.exports = {
         country: "India",
         lat: 28.5983,
         lng: 83.9310,
-        name: "Hot spot",
-        description: "Hottest place in the city. Nightlife sizzle!",
-        price: 300,
+        name: "Enlightenment",
+        description: "Highest rental place on earth!",
+        price: 9999.99,
       }
     ], {});
   },
@@ -53,7 +53,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: { [Op.in]: [1, 2, 3] }
-    }, {});
+      ownerId: { [Op.in]: [1, 2, 3] },
+    },{});
   }
 };

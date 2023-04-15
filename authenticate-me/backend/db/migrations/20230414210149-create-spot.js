@@ -39,10 +39,10 @@ module.exports = {
         allowNull: false,
       },
       lat: {
-        type: Sequelize.INTEGER(2)//from  -90 to 90
+        type: Sequelize.DECIMAL(6,4)//from  -90 to 90
       },
       lng: {
-        type: Sequelize.INTEGER(3)//from -180 to 180
+        type: Sequelize.DECIMAL(7,4)//from -180 to 180
       },
       name: {
         type: Sequelize.STRING(60),

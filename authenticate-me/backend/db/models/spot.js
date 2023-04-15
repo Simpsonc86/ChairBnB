@@ -49,32 +49,44 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     country: {
-      type:DataTypes.STRING,
+      type:DataTypes.STRING(30),
       allowNull:false,
       validate:{
-        isAlpha:true
+        isAlpha:true,
+        len:[3,60]
       }
     },
     lat: {
-      type:DataTypes.INTEGER,
+      type:DataTypes.INTEGER(2),
       validate:{
         min:-90,
         max:90
       }
     },
     lng: {
-      type:DataTypes.INTEGER,
+      type:DataTypes.INTEGER(3),
       validate:{
         min:-180,
         max:180
       }
     },
     name: {
-      type:DataTypes.STRING,
-      allowNull:false
+      type:DataTypes.STRING(60),
+      allowNull:false,
+      validate:{
+        isAlpha:true
+      }
     },
     description: DataTypes.STRING,
-    price: DataTypes.DECIMAL
+    price: {
+      type:DataTypes.DECIMAL(6,2),
+      allowNull:false,
+      validate:{
+        min:100,
+        max:9999.99
+
+      }
+    }
   }, {
     sequelize,
     modelName: 'Spot',

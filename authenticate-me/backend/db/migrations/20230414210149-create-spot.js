@@ -35,7 +35,7 @@ module.exports = {
 
       },
       country: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.STRING(60),
         allowNull: false,
       },
       lat: {
@@ -45,7 +45,7 @@ module.exports = {
         type: Sequelize.INTEGER(3)//from -180 to 180
       },
       name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(60),
         allowNull: false,
       },
       description: {

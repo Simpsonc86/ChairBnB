@@ -4,9 +4,10 @@
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
+};
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  up: async (queryInterface, Sequelize) => {
     options.tableName = 'Spots';
     return queryInterface.bulkInsert(options, [
       {
@@ -44,18 +45,15 @@ module.exports = {
         name:"Hot spot",
         description:"Hottest place in the city. Nightlife sizzle!",
         price: 300,
-      },
-    ]
-      
-    )
+      }
+    ],{});
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  down: async (queryInterface, Sequelize) => {
+    options.tableName = 'Spots';
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(options, {
+      ownerId: {[Op.like]:[1, 2, 3] }
+    }, {});
   }
 };

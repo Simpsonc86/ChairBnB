@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false
     },
     stars: {
-      type:DataTypes.INTEGER(1),
+      type:DataTypes.INTEGER,
       allowNull:false,
       validate:{
         min:1,

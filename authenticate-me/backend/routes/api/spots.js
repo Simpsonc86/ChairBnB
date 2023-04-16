@@ -73,6 +73,8 @@ router.get('/', async (req, res) => {
 // Get all details from a spot by spotId
 router.get('/:spotId', async(req,res)=>{
     const where= {};
+
+    // can refactor lazyload to redefine response object property order if needed
     let spot = await Spot.findByPk(req.params.spotId,{
         include:[
             {

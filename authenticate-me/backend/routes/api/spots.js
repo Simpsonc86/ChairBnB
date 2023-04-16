@@ -70,5 +70,53 @@ router.get('/', async (req, res) => {
     res.json(spotArr);
 
 })
+// Get all details from a spot by spotId
+router.get('/:spotId', async(req,res)=>{
+    const where= {};
+    let spot = await Spot.findByPk(req.params.spotId,{
+        include:[
+            {
+                model:Review
+            },
+            {
+                model:SpotImage,
+                attributes:["id","url","preview"]
+                
+            },
+            {
+                model:User,
+                // as:"Owner",
+                attributes:["id","firstName","lastName"]
+            },
+        ],
+    });
 
+    if(!spot){
+        res.status(404)
+        res.json({message:"Spot couldn't be found!"})
+    }else{
+
+        spot =spot.toJSON();
+        spot.Owner = spot.User;
+
+        // calculate average stars from spot reviews and add to spot response object
+        let starsSum = 0;
+        let reviewsCount = 0;
+
+        //get the sum of all stars and count of this spot's reviews
+        spot.Reviews.forEach((review)=>{
+            starsSum += review.stars;
+            reviewsCount++;
+        })
+        spot.numReviews = reviewsCount;
+        spot.avgStarRating = starsSum/reviewsCount;
+
+        // remove unused table data from spot response object
+        delete spot.User;
+        delete spot.Reviews;
+
+    }
+
+    res.json(spot)
+})
 module.exports = router;

@@ -71,32 +71,34 @@ router.get('/', async (req, res) => {
 
 })
 // Get all details from a spot by spotId
-router.get('/:spotId', async(req,res)=>{
-    const where= {};
-    let spot = await Spot.findByPk(req.params.spotId,{
-        include:[
+router.get('/:spotId', async (req, res) => {
+    const where = {};
+
+    // can refactor lazyload to redefine response object property order if needed
+    let spot = await Spot.findByPk(req.params.spotId, {
+        include: [
             {
-                model:Review
+                model: Review
             },
             {
-                model:SpotImage,
-                attributes:["id","url","preview"]
-                
+                model: SpotImage,
+                attributes: ["id", "url", "preview"]
+
             },
             {
-                model:User,
+                model: User,
                 // as:"Owner",
-                attributes:["id","firstName","lastName"]
+                attributes: ["id", "firstName", "lastName"]
             },
         ],
     });
 
-    if(!spot){
+    if (!spot) {
         res.status(404)
-        res.json({message:"Spot couldn't be found!"})
-    }else{
+        res.json({ message: "Spot couldn't be found!" })
+    } else {
 
-        spot =spot.toJSON();
+        spot = spot.toJSON();
         spot.Owner = spot.User;
 
         // calculate average stars from spot reviews and add to spot response object
@@ -104,12 +106,12 @@ router.get('/:spotId', async(req,res)=>{
         let reviewsCount = 0;
 
         //get the sum of all stars and count of this spot's reviews
-        spot.Reviews.forEach((review)=>{
+        spot.Reviews.forEach((review) => {
             starsSum += review.stars;
             reviewsCount++;
         })
         spot.numReviews = reviewsCount;
-        spot.avgStarRating = starsSum/reviewsCount;
+        spot.avgStarRating = starsSum / reviewsCount;
 
         // remove unused table data from spot response object
         delete spot.User;

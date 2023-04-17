@@ -43,8 +43,8 @@ router.get('/', async (req, res) => {
             //increment number of reviews count
             spotCount++;
         }
-        //find the average stars for each spot
-        spotArr[i].avgRating = (starsSum / spotCount)
+        //find the average stars for each spot fixed to one decimal point
+        spotArr[i].avgRating = (starsSum / spotCount).toFixed(1);
 
 
         //iterate through each Spot image to look for previewable images
@@ -67,7 +67,7 @@ router.get('/', async (req, res) => {
 
     }
 
-    res.json(spotArr);
+    res.json({"Spots":spotArr});
 
 })
 // Get all details from a spot by spotId
@@ -111,7 +111,7 @@ router.get('/:spotId', async (req, res) => {
             reviewsCount++;
         })
         spot.numReviews = reviewsCount;
-        spot.avgStarRating = starsSum / reviewsCount;
+        spot.avgStarRating = (starsSum / reviewsCount).toFixed(1);
 
         // remove unused table data from spot response object
         delete spot.User;

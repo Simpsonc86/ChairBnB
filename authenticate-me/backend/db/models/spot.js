@@ -50,7 +50,6 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING(30),
       allowNull:false,
       validate:{
-        isAlpha:true,
         len:[3,60]
       }
     },
@@ -71,7 +70,6 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type:DataTypes.STRING(60),
       allowNull:false,
-    
     },
     description: DataTypes.STRING,
     price: {

@@ -113,9 +113,10 @@ router.get('/:spotId', async (req, res) => {
             reviewsCount++;
         })
         spot.numReviews = reviewsCount;
-        const avgStarRtg = (starsSum / reviewsCount).toFixed(1)
+        const avgStarRtg = (starsSum / reviewsCount).toFixed(1);
         spot.avgStarRating = parseFloat(avgStarRtg);
-        spot.price = parseInt(spot.price.toFixed(0))
+        const price = spot.price.toFixed(0);
+        spot.price = parseInt(price);
 
         // remove unused table data from spot response object
         delete spot.User;

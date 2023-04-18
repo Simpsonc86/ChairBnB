@@ -1,8 +1,46 @@
 // backend/routes/api/spots.js
 const express = require('express');
-const { Op } = require('sequelize');
 const { User, Spot, Booking, Review, ReviewImage, SpotImage } = require('../../db/models');
+
+const { requireAuth } = require('../../utils/auth');
+const {check}= require('express-validator')
+const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require('sequelize');
+
 const router = express.Router();
+
+
+//Spot creation validation
+const validateSpotCreation = [
+    check("address")
+        .exists({checkFalsy:true})
+        .withMessage("Street address is required"),
+    check("city")
+        .exists({checkFalsy:true})
+        .withMessage("City is required"),
+    check("state")
+        .exists({checkFalsy:true})
+        .withMessage("State is required"),
+    check("country")
+        .exists({checkFalsy:true})
+        .withMessage("Country"),
+    check("lat")
+        .isFloat({min:-90, max:90})
+        .withMessage("Latitude is not valid"),
+    check("lng")
+        .isFloat({min:-180, max:180})
+        .withMessage("Longitude is not valid"),
+    check("name")
+        .exists({max:50})
+        .withMessage("Name is less than 50"),
+    check("description")
+        .exists({checkFalsy:true})
+        .withMessage("Description is required"),
+    check("price")
+        .exists({checkFalsy:true})
+        .withMessage("Price per day is required"),
+    handleValidationErrors    
+];
 
 // Get All Spots
 router.get('/', async (req, res) => {
@@ -252,11 +290,26 @@ router.get('/:spotId/reviews', async (req,res)=>{
     if(!reviews){
         res.status(404)
         res.json({ message: "Spot couldn't be found!" })
-    }else{
-        
     }
-
+    
     res.json({"Reviews":reviews})
 
+});
+
+// Create a spot
+
+router.post('/',[requireAuth, validateSpotCreation] ,async(req,res)=>{
+    const {user} = req;
+    if(user){
+        const {address,city,state,country,lat,lng,name,description,price} = req.body;
+
+        const newSpot = await Spot.create({
+            ownerId: user.id,
+            address,city,state,country,lat,lng,name,description,price
+        });
+
+        res.status(201);
+        res.json(newSpot);
+    }
 });
 module.exports = router;

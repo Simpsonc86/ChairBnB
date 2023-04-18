@@ -36,9 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     city:{
       type:DataTypes.STRING,
       allowNull:false,
-      validate:{
-        isAlpha:true
-      }
+ 
     },
     state: {
       type:DataTypes.STRING,
@@ -73,9 +71,7 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type:DataTypes.STRING(60),
       allowNull:false,
-      validate:{
-        isAlpha:true
-      }
+    
     },
     description: DataTypes.STRING,
     price: {

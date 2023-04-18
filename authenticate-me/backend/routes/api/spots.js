@@ -170,8 +170,8 @@ router.get('/', async (req, res) => {
     }
     res.status(200);
     res.json({"Spots":spotArr,
-//    offset,
-//    size
+   "page":page,
+   "size":size
 });
 
 });

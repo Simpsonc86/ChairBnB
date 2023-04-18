@@ -7,10 +7,81 @@ const router = express.Router();
 // Get All Spots
 router.get('/', async (req, res) => {
 
+    //destructure query params
+    let{page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+
     const where = {};
+    const errors = {};
+
+    
+    // set defaults for page and size if not specified
+    if(!page)page=1;
+    if(!size)size=20;
+
+    // parse query param strings into int and floats
+    page= parseInt(page);
+    size= parseInt(size);
+    minLat= parseFloat(minLat);
+    maxLat= parseFloat(maxLat);
+    minLng= parseFloat(minLng);
+    maxLng= parseFloat(maxLng);
+    minPrice= parseFloat(minPrice);
+    maxPrice= parseFloat(maxPrice);
+
+
+    //////handle validation errors for search filters
+    if(page<=0||isNaN(page)){
+        errors.page = 'Page must be greater than or equal to 1';
+    }
+    if(size<=0||isNaN(size)){
+        errors.size = 'Size must be greater than or equal to 1';
+    }
+    //errors handling lat
+    if(maxLat){
+        if(maxLat<-90||maxLat>90||minLat>maxLat){
+            errors.maxLat = "Maximum lattitude is invalid";
+        }
+    } 
+    if(minLat){
+        if(minLat<-90||minLat>90 ||minLat>maxLat){
+        errors.minLat = "Minimum lattitude is invalid";
+        }
+    }
+    //errors handling lng
+    if(maxLng){
+        if(maxLng<-180||maxLng>180||minLng>maxLng){
+        errors.maxLng = "Maximum longitude is invalid";
+        }
+    }
+    if(minLng){
+        if(minLng<-180||minLng>180 ||minLng>maxLng){
+        errors.minLng = "Minimum lattitude is invalid";
+        }
+    }
+
+    //errors handling price
+    if(maxPrice){
+        if(maxPrice<0||minPrice>maxPrice){
+        errors.maxPrice = "Maximum price must be greater than or equal to 0";
+       }
+    }
+    if(minPrice){
+        if(minPrice<0||minPrice>maxPrice){
+            errors.minPrice = "Minimum price must be greater than or equal to 0";
+        }
+    }
+
+    if(Object.keys(errors).length){
+        return res.json({
+            message: "Bad Request",
+            errors
+        });
+    }
+
+    
     //query for all spots and all reviews and spot images associated with each spot
     const spots = await Spot.findAll({
-        where,
+        ...where,
         include: [{
             model: Review
         },
@@ -72,6 +143,7 @@ router.get('/', async (req, res) => {
     res.json({"Spots":spotArr});
 
 });
+
 // Get all details from a spot by spotId
 router.get('/:spotId', async (req, res) => {
     const where = {};

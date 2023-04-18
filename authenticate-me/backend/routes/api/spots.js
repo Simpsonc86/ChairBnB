@@ -25,9 +25,11 @@ router.get('/', async (req, res) => {
     maxLat= parseFloat(maxLat);
     minLng= parseFloat(minLng);
     maxLng= parseFloat(maxLng);
-    minPrice= parseFloat(minPrice);
-    maxPrice= parseFloat(maxPrice);
+    minPrice= parseInt(minPrice);
+    maxPrice= parseInt(maxPrice);
 
+    // calcualte the page offset
+    const offset = (page-1)*size;
 
     //////handle validation errors for search filters
     if(page<=0||isNaN(page)){
@@ -37,39 +39,64 @@ router.get('/', async (req, res) => {
         errors.size = 'Size must be greater than or equal to 1';
     }
     //errors handling lat
-    if(maxLat){
+    if(maxLat||maxLat===0){
         if(maxLat<-90||maxLat>90||minLat>maxLat){
             errors.maxLat = "Maximum lattitude is invalid";
+        }else{
+            where.lat = {
+                [Op.lte]:maxLat
+            }
         }
     } 
-    if(minLat){
+    if(minLat||minLat===0){
         if(minLat<-90||minLat>90 ||minLat>maxLat){
         errors.minLat = "Minimum lattitude is invalid";
+        }else{
+            where.lat = {
+                [Op.gte]:minLat
+            }
         }
     }
     //errors handling lng
-    if(maxLng){
+    if(maxLng||maxLng===0){
         if(maxLng<-180||maxLng>180||minLng>maxLng){
         errors.maxLng = "Maximum longitude is invalid";
+        }else{
+            where.lng = {
+                [Op.lte]:maxLng
+            }
         }
     }
-    if(minLng){
+    if(minLng||minLng===0){
         if(minLng<-180||minLng>180 ||minLng>maxLng){
-        errors.minLng = "Minimum lattitude is invalid";
+        errors.minLng = "Minimum longitude is invalid";
+        }else{
+            where.lng = {
+                [Op.gte]:minLng
+            }
+        }
+    }
+    //errors handling price
+    if(maxPrice||maxPrice===0){
+        if(maxPrice<0||minPrice>maxPrice){
+        errors.maxPrice = "Maximum price must be greater than or equal to 0";
+        }else{
+            where.price = {
+                [Op.lte]:maxPrice
+            }
+        }
+    }
+    if(minPrice||minPrice===0){
+        if(minPrice<0||minPrice>maxPrice){
+            errors.minPrice = "Minimum price must be greater than or equal to 0";
+        }else{
+            where.price = {
+                [Op.gte]:minPrice
+            }
         }
     }
 
-    //errors handling price
-    if(maxPrice){
-        if(maxPrice<0||minPrice>maxPrice){
-        errors.maxPrice = "Maximum price must be greater than or equal to 0";
-       }
-    }
-    if(minPrice){
-        if(minPrice<0||minPrice>maxPrice){
-            errors.minPrice = "Minimum price must be greater than or equal to 0";
-        }
-    }
+
 
     if(Object.keys(errors).length){
         return res.json({
@@ -81,14 +108,16 @@ router.get('/', async (req, res) => {
     
     //query for all spots and all reviews and spot images associated with each spot
     const spots = await Spot.findAll({
-        ...where,
+        where,
         include: [{
             model: Review
         },
         {
             model: SpotImage
         },],
-        order: ['id']
+        offset:offset,
+        limit:size,
+        order: ['id'],
     });
     // console.log(typeof spots); //object
 
@@ -131,7 +160,7 @@ router.get('/', async (req, res) => {
                 spotArr[i].previewImage = "No preview image available."
             }
         }
-
+        //parse float to int
         spotArr[i].price = parseInt(spotArr[i].price)
 
         // remove the included tables from all spots in the spotArr 
@@ -139,8 +168,11 @@ router.get('/', async (req, res) => {
         delete spotArr[i].SpotImages;
 
     }
-
-    res.json({"Spots":spotArr});
+    res.status(200);
+    res.json({"Spots":spotArr,
+//    offset,
+//    size
+});
 
 });
 

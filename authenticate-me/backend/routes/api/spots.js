@@ -3,7 +3,7 @@ const express = require('express');
 const { User, Spot, Booking, Review, ReviewImage, SpotImage } = require('../../db/models');
 
 const { requireAuth } = require('../../utils/auth');
-const {check}= require('express-validator')
+const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
 
@@ -13,137 +13,137 @@ const router = express.Router();
 //Spot creation validation
 const validateSpotCreation = [
     check("address")
-        .exists({checkFalsy:true})
+        .exists({ checkFalsy: true })
         .withMessage("Street address is required"),
     check("city")
-        .exists({checkFalsy:true})
+        .exists({ checkFalsy: true })
         .withMessage("City is required"),
     check("state")
-        .exists({checkFalsy:true})
+        .exists({ checkFalsy: true })
         .withMessage("State is required"),
     check("country")
-        .exists({checkFalsy:true})
-        .withMessage("Country"),
+        .exists({ checkFalsy: true })
+        .withMessage("Country is required"),
     check("lat")
-        .isFloat({min:-90, max:90})
+        .isFloat({ min: -90, max: 90 })
         .withMessage("Latitude is not valid"),
     check("lng")
-        .isFloat({min:-180, max:180})
+        .isFloat({ min: -180, max: 180 })
         .withMessage("Longitude is not valid"),
     check("name")
-        .exists({max:50})
+        .exists({ max: 50 })
         .withMessage("Name is less than 50 characters"),
     check("description")
-        .exists({checkFalsy:true})
+        .exists({ checkFalsy: true })
         .withMessage("Description is required"),
     check("price")
-        .exists({checkFalsy:true})
+        .exists({ checkFalsy: true })
         .withMessage("Price per day is required"),
-    handleValidationErrors    
+    handleValidationErrors
 ];
 
 // Get All Spots
 router.get('/', async (req, res) => {
 
     //destructure query params
-    let{page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
     const where = {};
     const errors = {};
 
-    
+
     // set defaults for page and size if not specified
-    if(!page)page=1;
-    if(!size)size=20;
+    if (!page) page = 1;
+    if (!size) size = 20;
 
     // parse query param strings into int and floats
-    page= parseInt(page);
-    size= parseInt(size);
-    minLat= parseFloat(minLat);
-    maxLat= parseFloat(maxLat);
-    minLng= parseFloat(minLng);
-    maxLng= parseFloat(maxLng);
-    minPrice= parseInt(minPrice);
-    maxPrice= parseInt(maxPrice);
+    page = parseInt(page);
+    size = parseInt(size);
+    minLat = parseFloat(minLat);
+    maxLat = parseFloat(maxLat);
+    minLng = parseFloat(minLng);
+    maxLng = parseFloat(maxLng);
+    minPrice = parseInt(minPrice);
+    maxPrice = parseInt(maxPrice);
 
     // calcualte the page offset
-    const offset = (page-1)*size;
+    const offset = (page - 1) * size;
 
     //////handle validation errors for search filters
-    if(page<=0||isNaN(page)){
+    if (page <= 0 || isNaN(page)) {
         errors.page = 'Page must be greater than or equal to 1';
     }
-    if(size<=0||isNaN(size)){
+    if (size <= 0 || isNaN(size)) {
         errors.size = 'Size must be greater than or equal to 1';
     }
     //errors handling lat
-    if(maxLat||maxLat===0){
-        if(maxLat<-90||maxLat>90||minLat>maxLat){
+    if (maxLat || maxLat === 0) {
+        if (maxLat < -90 || maxLat > 90 || minLat > maxLat) {
             errors.maxLat = "Maximum lattitude is invalid";
-        }else{
+        } else {
             where.lat = {
-                [Op.lte]:maxLat
+                [Op.lte]: maxLat
             }
         }
-    } 
-    if(minLat||minLat===0){
-        if(minLat<-90||minLat>90 ||minLat>maxLat){
-        errors.minLat = "Minimum lattitude is invalid";
-        }else{
+    }
+    if (minLat || minLat === 0) {
+        if (minLat < -90 || minLat > 90 || minLat > maxLat) {
+            errors.minLat = "Minimum lattitude is invalid";
+        } else {
             where.lat = {
-                [Op.gte]:minLat
+                [Op.gte]: minLat
             }
         }
     }
     //errors handling lng
-    if(maxLng||maxLng===0){
-        if(maxLng<-180||maxLng>180||minLng>maxLng){
-        errors.maxLng = "Maximum longitude is invalid";
-        }else{
+    if (maxLng || maxLng === 0) {
+        if (maxLng < -180 || maxLng > 180 || minLng > maxLng) {
+            errors.maxLng = "Maximum longitude is invalid";
+        } else {
             where.lng = {
-                [Op.lte]:maxLng
+                [Op.lte]: maxLng
             }
         }
     }
-    if(minLng||minLng===0){
-        if(minLng<-180||minLng>180 ||minLng>maxLng){
-        errors.minLng = "Minimum longitude is invalid";
-        }else{
+    if (minLng || minLng === 0) {
+        if (minLng < -180 || minLng > 180 || minLng > maxLng) {
+            errors.minLng = "Minimum longitude is invalid";
+        } else {
             where.lng = {
-                [Op.gte]:minLng
+                [Op.gte]: minLng
             }
         }
     }
     //errors handling price
-    if(maxPrice||maxPrice===0){
-        if(maxPrice<0||minPrice>maxPrice){
-        errors.maxPrice = "Maximum price must be greater than or equal to 0";
-        }else{
+    if (maxPrice || maxPrice === 0) {
+        if (maxPrice < 0 || minPrice > maxPrice) {
+            errors.maxPrice = "Maximum price must be greater than or equal to 0";
+        } else {
             where.price = {
-                [Op.lte]:maxPrice
+                [Op.lte]: maxPrice
             }
         }
     }
-    if(minPrice||minPrice===0){
-        if(minPrice<0||minPrice>maxPrice){
+    if (minPrice || minPrice === 0) {
+        if (minPrice < 0 || minPrice > maxPrice) {
             errors.minPrice = "Minimum price must be greater than or equal to 0";
-        }else{
+        } else {
             where.price = {
-                [Op.gte]:minPrice
+                [Op.gte]: minPrice
             }
         }
     }
 
 
 
-    if(Object.keys(errors).length){
+    if (Object.keys(errors).length) {
         return res.json({
             message: "Bad Request",
             errors
         });
     }
 
-    
+
     //query for all spots and all reviews and spot images associated with each spot
     const spots = await Spot.findAll({
         where,
@@ -153,8 +153,8 @@ router.get('/', async (req, res) => {
         {
             model: SpotImage
         },],
-        offset:offset,
-        limit:size,
+        offset: offset,
+        limit: size,
         order: ['id'],
     });
     // console.log(typeof spots); //object
@@ -207,10 +207,11 @@ router.get('/', async (req, res) => {
 
     }
     res.status(200);
-    res.json({"Spots":spotArr,
-   "page":page,
-   "size":size
-});
+    res.json({
+        "Spots": spotArr,
+        "page": page,
+        "size": size
+    });
 
 });
 
@@ -270,46 +271,78 @@ router.get('/:spotId', async (req, res) => {
 });
 
 // Get all reviews by a Spot's id
-router.get('/:spotId/reviews', async (req,res)=>{
+router.get('/:spotId/reviews', async (req, res) => {
 
     // const where = {}
     let reviews = await Review.findAll({
-        where: {spotId: req.params.spotId},
-        include:[
+        where: { spotId: req.params.spotId },
+        include: [
             {
-                model:User,
+                model: User,
                 attributes: ["id", "firstName", "lastName"]
             },
             {
-                model:ReviewImage,
+                model: ReviewImage,
                 attributes: ['id', 'url']
             }
         ]
     });
 
-    if(!reviews){
+    if (!reviews) {
         res.status(404)
         res.json({ message: "Spot couldn't be found!" })
     }
-    
-    res.json({"Reviews":reviews})
+
+    res.json({ "Reviews": reviews })
 
 });
 
 // Create a spot
 
-router.post('/',[requireAuth, validateSpotCreation] ,async(req,res)=>{
-    const {user} = req;
-    if(user){
-        const {address,city,state,country,lat,lng,name,description,price} = req.body;
+router.post('/', [requireAuth, validateSpotCreation], async (req, res) => {
+    const { user } = req;
+    if (user) {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
         const newSpot = await Spot.create({
             ownerId: user.id,
-            address,city,state,country,lat,lng,name,description,price
+            address, city, state, country, lat, lng, name, description, price
         });
 
         res.status(201);
         res.json(newSpot);
     }
+});
+
+// Edit a spot
+router.put('/:spotId', [requireAuth, validateSpotCreation], async (req, res) => {
+    const { user } = req;
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    //if spot is not found return error
+    if (!spot) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found",
+        });
+    }
+    // authenticate user if correct owner of spot
+    if (user.id === spot.ownerId) {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+        const updatedSpot = await spot.update({
+            address, city, state, country, lat, lng, name, description, price
+        });
+
+        res.status(200);
+        res.json(updatedSpot);
+    }
+    // if not correct owner of spot
+    else {
+        res.status(403);
+        res.json({message:"Forbidden"})
+        
+    }
+
 });
 module.exports = router;

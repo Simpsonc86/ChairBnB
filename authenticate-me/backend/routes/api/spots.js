@@ -71,7 +71,7 @@ router.get('/', async (req, res) => {
 
     res.json({"Spots":spotArr});
 
-})
+});
 // Get all details from a spot by spotId
 router.get('/:spotId', async (req, res) => {
     const where = {};
@@ -125,5 +125,34 @@ router.get('/:spotId', async (req, res) => {
     }
 
     res.json(spot)
-})
+});
+
+// Get all reviews by a Spot's id
+router.get('/:spotId/reviews', async (req,res)=>{
+
+    // const where = {}
+    let reviews = await Review.findAll({
+        where: {spotId: req.params.spotId},
+        include:[
+            {
+                model:User,
+                attributes: ["id", "firstName", "lastName"]
+            },
+            {
+                model:ReviewImage,
+                attributes: ['id', 'url']
+            }
+        ]
+    });
+
+    if(!reviews){
+        res.status(404)
+        res.json({ message: "Spot couldn't be found!" })
+    }else{
+        
+    }
+
+    res.json({"Reviews":reviews})
+
+});
 module.exports = router;

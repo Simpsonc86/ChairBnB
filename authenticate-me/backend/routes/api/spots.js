@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
     spots.forEach(spot => {
         spotArr.push(spot.toJSON())
     });
-
+    /// used basic for loop for practice
     //iterate through all spots in the spotArr
     for (let i = 0; i < spotArr.length; i++) {
         let starsSum = 0;
@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
             spotCount++;
         }
         //find the average stars for each spot fixed to one decimal point
-        spotArr[i].avgRating = (starsSum / spotCount).toFixed(1);
+        spotArr[i].avgRating = parseFloat((starsSum / spotCount).toFixed(1));
 
 
         //iterate through each Spot image to look for previewable images
@@ -60,6 +60,8 @@ router.get('/', async (req, res) => {
                 spotArr[i].previewImage = "No preview image available."
             }
         }
+
+        spotArr[i].price = parseInt(spotArr[i].price)
 
         // remove the included tables from all spots in the spotArr 
         delete spotArr[i].Reviews;
@@ -111,7 +113,9 @@ router.get('/:spotId', async (req, res) => {
             reviewsCount++;
         })
         spot.numReviews = reviewsCount;
-        spot.avgStarRating = (starsSum / reviewsCount).toFixed(1);
+        const avgStarRtg = (starsSum / reviewsCount).toFixed(1)
+        spot.avgStarRating = parseFloat(avgStarRtg);
+        spot.price = parseInt(spot.price.toFixed(0))
 
         // remove unused table data from spot response object
         delete spot.User;

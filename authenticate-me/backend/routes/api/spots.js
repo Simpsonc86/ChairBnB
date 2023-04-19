@@ -101,7 +101,6 @@ router.get('/current', [requireAuth], async (req, res) => {
     })
 });
 
-
 // Get All Spots
 router.get('/', async (req, res) => {
 

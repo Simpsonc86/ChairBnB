@@ -41,6 +41,66 @@ const validateSpotCreation = [
         .withMessage("Price per day is required"),
     handleValidationErrors
 ];
+// Get all spots by current user
+router.get('/current', [requireAuth], async (req, res) => {
+    const { user } = req;
+    let spotArr = [];
+    const where = {
+        ownerId: req.user.id
+    }
+
+    const spots = await Spot.findAll({
+        where,
+        include: [
+            {
+                model: Review
+            },
+            {
+                model: SpotImage
+            }
+        ]
+    });
+    // refactor from get all spots
+    spots.forEach((spot) => {
+        spotArr.push(spot.toJSON());
+    });
+    spotArr.forEach((spot) => {
+
+        //authenticate user
+        if (user.id === spot.ownerId) {
+
+            //calculate avg star rating for each spot
+            let starSum = 0;
+            let reviewCount = 0;
+
+            //iterate through all reviews for each spot
+            spot.Reviews.forEach((review) => {
+                //add current review's stars to to sum.
+                starSum += review.stars;
+                //increment the number of reviews
+                reviewCount++;
+            });
+            //parse avg to float with one decimal point
+            spot.avgRating = parseFloat((starSum / reviewCount).toFixed(1));
+
+            spot.SpotImages.forEach((image) => {
+                if (image.preview) {
+                    return spot.previewImage = image.url;
+                }
+            });
+
+            delete spot.Reviews;
+            delete spot.SpotImages;
+
+        }
+    });
+
+    res.status(200);
+    res.json({
+        "Spots": spotArr
+    })
+});
+
 
 // Get All Spots
 router.get('/', async (req, res) => {
@@ -298,7 +358,6 @@ router.get('/:spotId/reviews', async (req, res) => {
 });
 
 // Create a spot
-
 router.post('/', [requireAuth, validateSpotCreation], async (req, res) => {
     const { user } = req;
     if (user) {
@@ -340,35 +399,38 @@ router.put('/:spotId', [requireAuth, validateSpotCreation], async (req, res) => 
     // if not correct owner of spot
     else {
         res.status(403);
-        res.json({message:"Forbidden"})
-        
+        res.json({ message: "Forbidden" })
+
     }
 
 });
 
 // Delete a spot
-router.delete('/:spotId',[requireAuth], async (req,res)=>{
-    const {user} = req;
+router.delete('/:spotId', [requireAuth], async (req, res) => {
+    const { user } = req;
     let spot = await Spot.findByPk(req.params.spotId);
 
-    if(!spot){
+    if (!spot) {
         res.status(404);
         return res.json({
             message: "Spot couldn't be found"
         });
     }
 
-    if(user.id === spot.ownerId){
+    if (user.id === spot.ownerId) {
         await spot.destroy();
         res.status(200);
         res.json({
-            message:"Successfully deleted"
+            message: "Successfully deleted"
         });
-    } else{
+    }
+    else {
         res.status(403);
         res.json({
             message: "Forbidden"
         })
     }
-})
+});
+
+
 module.exports = router;

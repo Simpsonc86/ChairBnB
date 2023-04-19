@@ -29,7 +29,10 @@ router.get('/current', [requireAuth], async (req, res) => {
                 include: [
                     {
                         model: SpotImage,
-                        attributes: ["url"]
+                        where:{
+                            preview:true
+                        },
+                        attributes:['url']
                     }
                 ]
             }
@@ -49,12 +52,13 @@ router.get('/current', [requireAuth], async (req, res) => {
 
     bookArr.forEach((booking) => {
         console.log(booking.Spot);
-        // booking.Spot.SpotImages.forEach((img)=>{
-        //     if(img.preview){
-        //         booking.Spot.previewImage = img.url
-        //     }
+        booking.Spot.SpotImages.forEach((img)=>{
+            if(img.url){
+                booking.Spot.previewImage = img.url
+            }
 
-        // })
+            delete booking.Spot.SpotImages;
+        })
     })
 
     res.status(200);
@@ -103,7 +107,8 @@ router.delete('/:bookingId', [requireAuth], async (req, res) => {
 // Edit a booking by booking id
 router.put('/:bookingId', [requireAuth], async (req, res) => {
     const { user } = req;
-    const bookId = req.params.bookingId;
+    const{startDate,endDate}=req.body;
+
     const booking = await Booking.findByPk(req.params.bookingId);
 
     //booking not found
@@ -131,8 +136,8 @@ router.put('/:bookingId', [requireAuth], async (req, res) => {
         res.json({ message: "Past bookings can't be modified" });
     }
 
-    const start = new Date(req.body.startDate).getTime();
-    const end = new Date(req.body.endDate).getTime();
+    const start = new Date(startDate).getTime();
+    const end = new Date(endDate).getTime();
 
     //conflict
     if (end <= start) {
@@ -150,10 +155,10 @@ router.put('/:bookingId', [requireAuth], async (req, res) => {
         where: {
             spotId: booking.spotId,
             startDate: {
-                [Op.lt]: end
+                [Op.lt]: endDate
             },
             endDate: {
-                [Op.gt]: start
+                [Op.gt]: startDate
             },
             // do not find the same booking
             id: {
@@ -171,18 +176,14 @@ router.put('/:bookingId', [requireAuth], async (req, res) => {
                 startDate: "Start date conflicts with an existing booking.",
                 endDate: "End date conflicts with an existing booking."
             }
-
         });
     }
+
     else {
 
-        await Booking.update({ startDate, endDate });
+        await booking.update({startDate, endDate});
     }
-
-
     return res.json(booking)
-
-
 });
 
 module.exports = router;

@@ -12,11 +12,11 @@ const router = express.Router();
 //Booking creation validation
 const validateBookingCreation = [
     check("startDate")
-        .exists({checkFalsy:true})
+        .exists({ checkFalsy: true })
         .isDate()
         .withMessage("Start date is invalid format YYYY/MM/DD"),
     check("endDate")
-        .exists({checkFalsy:true})
+        .exists({ checkFalsy: true })
         .isDate()
         .withMessage("End date is invalid format YYYY/MM/DD"),
     handleValidationErrors
@@ -363,7 +363,7 @@ router.post('/:spotId/images', [requireAuth], async (req, res) => {
             url, preview
         });
         res.status(200);
-        return res.json({'id':addImage.id,'url':addImage.url,'preview':addImage.preview});
+        return res.json({ 'id': addImage.id, 'url': addImage.url, 'preview': addImage.preview });
     } else {
         res.status(403)
         return res.json({ message: "Forbidden" });
@@ -371,24 +371,24 @@ router.post('/:spotId/images', [requireAuth], async (req, res) => {
 });
 
 // Create a booking from a spot based on spot id
-router.post('/:spotId/bookings', [requireAuth, validateBookingCreation], async (req,res)=>{
-    let spotId= req.params.spotId;
-    const {startDate, endDate} = req.body;
-    
+router.post('/:spotId/bookings', [requireAuth, validateBookingCreation], async (req, res) => {
+    // let spotId= req.params.spotId;
+    const { startDate, endDate } = req.body;
+
     // get spot based on url
     const spot = await Spot.findByPk(req.params.spotId);
 
     // spot not found
-    if(!spot){
+    if (!spot) {
         res.status(404);
-        return res.json({message:"Spot couldn't be found"});
+        return res.json({ message: "Spot couldn't be found" });
     }
 
     ///////////////booking conflicts//////////
     // user cannot own spot
-    if(spot.ownerId === req.user.id){
+    if (spot.ownerId === req.user.id) {
         res.status(403);
-        return res.json({message: "Spot must not belong to current user!"});
+        return res.json({ message: "Spot must not belong to current user!" });
     }
     // convert dates to number to compare
     const bookingStart = new Date(startDate).getTime();
@@ -396,45 +396,45 @@ router.post('/:spotId/bookings', [requireAuth, validateBookingCreation], async (
     const currentDate = new Date().getTime();
 
     // booking cannot start in the past
-    if(bookingStart < currentDate){
+    if (bookingStart < currentDate) {
         res.status(400);
-        return res.json({message: "Start date must be in the future"})
+        return res.json({ message: "Start date must be in the future" })
     }
     // end date cannot be after start date
-    if(bookingStart > bookingEnd){
+    if (bookingStart > bookingEnd) {
         res.status(400);
-        return res.json({message:"End date is before start date. Booking invlaid"})
+        return res.json({ message: "End date is before start date. Booking invlaid" })
     }
 
     // check if there is an existing booking
     const existing = await Booking.findOne({
-        where:{
+        where: {
             spotId: req.params.spotId,
-            startDate:{
-                [Op.lt]:endDate
+            startDate: {
+                [Op.lt]: endDate
             },
-            endDate:{
-                [Op.gt]:startDate
+            endDate: {
+                [Op.gt]: startDate
             },
         }
     });
 
     // error handle overlapping start or end dates with existing booking
-    if (existing){
+    if (existing) {
 
         const errors = {}
 
-        if(existing.startDate.getTime() <= bookingStart || existing.endDate.getTime()>= bookingStart){
-            errors.startDate="Start date overlaps another booking"
+        if (existing.startDate.getTime() <= bookingStart || existing.endDate.getTime() >= bookingStart) {
+            errors.startDate = "Start date overlaps another booking"
         }
-        if(existing.startDate.getTime() <= bookingEnd || existing.endDate.getTime() >= bookingEnd){
-            errors.endDate="End date overlaps another booking"
+        if (existing.startDate.getTime() <= bookingEnd || existing.endDate.getTime() >= bookingEnd) {
+            errors.endDate = "End date overlaps another booking"
         }
 
         res.status(400);
         return res.json({
-            message:"Another booking exist",
-            errors:{...errors}
+            message: "Another booking exist",
+            errors: { ...errors }
         });
     }
 
@@ -451,6 +451,74 @@ router.post('/:spotId/bookings', [requireAuth, validateBookingCreation], async (
 
     res.status(200);
     res.json(newBooking);
+});
+
+// Get all bookings for a spot based on spot id
+router.get("/:spotId/bookings", [requireAuth], async (req, res) => {
+
+    const userId = req.user.id;
+    let bookArr = [];
+
+    //find the spot by id given in params 
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    //spot not found
+    if (!spot) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found"
+        });
+    }
+
+    // query for all bookings for the requested spot
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        include: {
+            model: User,
+            attributes: ["id", "firstName", "lastName"]
+        }
+    });
+
+    // turn bookings into POJOs
+    bookings.forEach((book) => {
+        book = book.toJSON()
+    });
+
+    const bookDetails = {}
+
+    bookings.forEach((book) => {
+        //if current user is spot owner show the booking's user details
+        if (userId === spot.ownerId) {
+            bookDetails.User = book.User,
+            bookDetails.id = book.id,
+            bookDetails.spotId = book.spotId,
+            bookDetails.userId = book.User.id,
+            bookDetails.startDate = book.startDate,
+            bookDetails.endDate = book.endDate,
+            bookDetails.createdAt = book.createdAt,
+            bookDetails.updatedAt = book.updatedAt
+        }
+        // if not spot owner then show bookings for spot only
+        else{
+            bookDetails.spotId = book.spotId,
+            bookDetails.startDate = book.startDate,
+            bookDetails.endDate = book.endDate
+        }
+
+        bookArr.push(bookDetails)
+
+
+    });
+
+    res.status(200);
+    return res.json({
+        Bookings: bookArr
+    })
+
+
+
 });
 
 // Get all reviews by a Spot's id
@@ -478,22 +546,6 @@ router.get('/:spotId/reviews', async (req, res) => {
 
     res.json({ "Reviews": reviews })
 
-});
-
-// Create a spot
-router.post('/', [requireAuth, validateSpotCreation], async (req, res) => {
-    const { user } = req;
-    if (user) {
-        const { address, city, state, country, lat, lng, name, description, price } = req.body;
-
-        const newSpot = await Spot.create({
-            ownerId: user.id,
-            address, city, state, country, lat, lng, name, description, price
-        });
-
-        res.status(201);
-        res.json(newSpot);
-    }
 });
 
 // Edit a spot
@@ -555,5 +607,20 @@ router.delete('/:spotId', [requireAuth], async (req, res) => {
     }
 });
 
+// Create a spot
+router.post('/', [requireAuth, validateSpotCreation], async (req, res) => {
+    const { user } = req;
+    if (user) {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+        const newSpot = await Spot.create({
+            ownerId: user.id,
+            address, city, state, country, lat, lng, name, description, price
+        });
+
+        res.status(201);
+        res.json(newSpot);
+    }
+});
 
 module.exports = router;

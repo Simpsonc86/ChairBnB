@@ -351,7 +351,7 @@ router.post('/:spotId/images', [requireAuth], async (req, res) => {
             url, preview
         });
         res.status(200);
-        return res.json(addImage);
+        return res.json({'id':addImage.id,'url':addImage.url,'preview':addImage.preview});
     } else {
         res.status(403)
         return res.json({ message: "Forbidden" });

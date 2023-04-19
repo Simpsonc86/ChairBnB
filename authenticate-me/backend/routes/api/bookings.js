@@ -51,7 +51,7 @@ router.get('/current', [requireAuth], async (req, res) => {
     });
 
     bookArr.forEach((booking) => {
-        console.log(booking.Spot);
+        // console.log(booking.Spot);
         booking.Spot.SpotImages.forEach((img)=>{
             if(img.url){
                 booking.Spot.previewImage = img.url
@@ -65,7 +65,7 @@ router.get('/current', [requireAuth], async (req, res) => {
     res.json({ "Bookings": bookArr })
 });
 
-// Delete authorized user booking by booking id
+// Delete authorized user's booking by booking id
 router.delete('/:bookingId', [requireAuth], async (req, res) => {
     const { user } = req;
 

@@ -58,6 +58,7 @@ router.get('/current', [requireAuth], async (req, res) => {
             }
 
             delete booking.Spot.SpotImages;
+            booking.Spot.price= parseInt(booking.Spot.price)
         })
     })
 

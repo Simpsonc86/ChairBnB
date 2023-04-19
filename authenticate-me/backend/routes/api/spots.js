@@ -427,7 +427,7 @@ router.post('/:spotId/bookings', [requireAuth, validateBookingCreation], async (
         if(existing.startDate.getTime() <= bookingStart || existing.endDate.getTime()>= bookingStart){
             errors.startDate="Start date overlaps another booking"
         }
-        if(existing.startDate.getTime() >= bookingEnd || existing.endDate.getTime() <= bookingEnd){
+        if(existing.startDate.getTime() <= bookingEnd || existing.endDate.getTime() >= bookingEnd){
             errors.endDate="End date overlaps another booking"
         }
 

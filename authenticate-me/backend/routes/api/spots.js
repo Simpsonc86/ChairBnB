@@ -101,7 +101,6 @@ router.get('/current', [requireAuth], async (req, res) => {
     })
 });
 
-
 // Get All Spots
 router.get('/', async (req, res) => {
 
@@ -328,6 +327,35 @@ router.get('/:spotId', async (req, res) => {
     }
 
     res.json(spot)
+});
+
+// Add an image to spot based on spot id
+router.post('/:spotId/images', [requireAuth], async (req, res) => {
+    const { user } = req;
+
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    // spot not found
+    if (!spot) {
+        res.status(404);
+        return res.json({
+            message: "Spot couldn't be found"
+        });
+    }
+    // if user is the owner of spot add image to spot, else throw forbidden error
+    if (user.id === spot.ownerId) {
+        const { url, preview } = req.body;
+
+        const addImage = await SpotImage.create({
+            spotId: spot.id,
+            url, preview
+        });
+        res.status(200);
+        return res.json(addImage);
+    } else {
+        res.status(403)
+        return res.json({ message: "Forbidden" });
+    }
 });
 
 // Get all reviews by a Spot's id

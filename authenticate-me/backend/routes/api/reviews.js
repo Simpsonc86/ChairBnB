@@ -149,7 +149,7 @@ router.delete("/:reviewId", [requireAuth], async (req,res)=>{
         });
     }
 
-    if (user.id === review.ownerId) {
+    if (user.id === review.userId) {
         await review.destroy();
         res.status(200);
         res.json({

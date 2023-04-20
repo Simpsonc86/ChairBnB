@@ -10,10 +10,10 @@ const router = express.Router();
 
 const validateReview = [
     check("review")
-        .exists({checkFalsy:true})
+        .exists({ checkFalsy: true })
         .withMessage("Review text is required"),
     check("stars")
-        .isInt({min:1, max:5})
+        .isInt({ min: 1, max: 5 })
         .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors
 ]
@@ -69,18 +69,58 @@ router.get("/current", [requireAuth], async (req, res) => {
         delete review.Spot.SpotImages;
     });
     //authorized user?
-    if (user.id === review.userId) {
-        res.status(200);
+
+    res.status(200);
+    return res.json({
+        Reviews: reviewArr
+    })
+
+
+});
+
+//Add an Image to a review based on reviewId
+router.post("/:reviewId/images", [requireAuth], async (req, res) => {
+
+    const { user } = req;
+
+    const review = await Review.findByPk(req.params.reviewId);
+
+    // review not found
+    if (!review) {
+        res.status(404);
         return res.json({
-            Reviews: reviewArr
-        })
+            message: "Review couldn't be found"
+        });
     }
-    //throw error for unauthorized user
-    else {
+    // if user is the owner of review add image to review, else throw forbidden error
+    if (user.id === review.userId) {
+        const { url } = req.body;
+
+        const images = await ReviewImage.findAll({
+            where: {
+                reviewId: review.id,
+            }
+        });
+
+        // if 10 or more review photos exist then throw error
+        if (images.length >= 10) {
+            res.status(400)
+            res.json({
+                message: "Maximum number of images for this resource was reached"
+            });
+        }
+
+        let addImage = await ReviewImage.create({
+            reviewId: review.ownerId,
+            url
+        });
+        addImage = addImage.toJSON();
+
+        res.status(200);
+        return res.json({ 'id': addImage.id, 'url': addImage.url, });
+    } else {
         res.status(403)
-        res.json({
-            message: "Forbidden"
-        })
+        return res.json({ message: "Forbidden" });
     }
 
 });
@@ -92,7 +132,7 @@ router.put('/:reviewId', [requireAuth, validateReview], async (req, res) => {
     // find the review
     let oldReview = await Review.findOne({
         where: {
-            id:req.params.reviewId
+            id: req.params.reviewId
         },
         include: [
             {
@@ -137,7 +177,7 @@ router.put('/:reviewId', [requireAuth, validateReview], async (req, res) => {
 });
 
 // Delete a review
-router.delete("/:reviewId", [requireAuth], async (req,res)=>{
+router.delete("/:reviewId", [requireAuth], async (req, res) => {
     const { user } = req;
     let review = await Review.findByPk(req.params.reviewId);
 

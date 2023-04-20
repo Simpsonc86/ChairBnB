@@ -1,11 +1,6 @@
 const express = require('express');
-const { User, Spot, Booking, Review, ReviewImage, SpotImage } = require('../../db/models');
-
+const {Spot, SpotImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
-const { check } = require('express-validator')
-const { handleValidationErrors } = require('../../utils/validation');
-const { Op } = require('sequelize');
-
 const router = express.Router();
 
 // delete spot image by image id

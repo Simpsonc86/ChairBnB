@@ -17,7 +17,7 @@ router.delete("/:imageId", [requireAuth], async (req,res)=>{
     // find the review that the image belongs to
     const review = await Review.findOne({
         where:{
-            userId:image.reviewId
+            id:image.reviewId
         }
     });
 

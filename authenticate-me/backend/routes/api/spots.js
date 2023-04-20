@@ -655,7 +655,7 @@ router.delete('/:spotId', [requireAuth], async (req, res) => {
         res.status(403);
         res.json({
             message: "Forbidden"
-        })
+        });
     }
 });
 

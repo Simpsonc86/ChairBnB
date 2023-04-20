@@ -23,20 +23,20 @@ router.delete("/:imageId", [requireAuth], async (req,res)=>{
 
     //if review owner is the current user then delete image
     // console.log(review.userId);
-    // if (review.userId === req.user.id){
+    if (review.userId === req.user.id){
         await image.destroy();        
         res.status(200);
         return res.json({
             message:"Successfully deleted"
         });
-    // }
-    // // user not review owner
-    // else{
-    //     res.status(403);
-    //     return res.json({
-    //         message:"Forbidden"
-    //     });
-    // }
+    }
+    // user not review owner
+    else{
+        res.status(403);
+        return res.json({
+            message:"Forbidden"
+        });
+    }
 
 
 });

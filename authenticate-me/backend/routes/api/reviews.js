@@ -99,7 +99,7 @@ router.post("/:reviewId/images", [requireAuth], async (req, res) => {
 
         const images = await ReviewImage.findAll({
             where: {
-                reviewId: review.id,
+                reviewId: review.userId,
             }
         });
 

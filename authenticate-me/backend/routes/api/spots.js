@@ -486,9 +486,9 @@ router.get("/:spotId/bookings", [requireAuth], async (req, res) => {
         book = book.toJSON()
     });
 
-    const bookDetails = {}
-
+    
     bookings.forEach((book) => {
+        const bookDetails = {}
         //if current user is spot owner show the booking's user details
         if (userId === spot.ownerId) {
             bookDetails.User = book.User,

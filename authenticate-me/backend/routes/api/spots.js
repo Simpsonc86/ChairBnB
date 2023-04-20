@@ -9,6 +9,17 @@ const { Op } = require('sequelize');
 
 const router = express.Router();
 
+//Review creation validation
+const validateReviewCreation = [
+    check("review")
+        .exists({checkFalsy:true})
+        .withMessage("Review text is required"),
+    check("stars")
+        .isInt({min:1, max:5})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+]
+
 //Booking creation validation
 const validateBookingCreation = [
     check("startDate")
@@ -78,7 +89,7 @@ router.get('/current', [requireAuth], async (req, res) => {
     });
     spotArr.forEach((spot) => {
 
-        //authenticate user
+        //authorize user
         if (user.id === spot.ownerId) {
 
             //calculate avg star rating for each spot
@@ -548,6 +559,47 @@ router.get('/:spotId/reviews', async (req, res) => {
 
 });
 
+// Create a Review for a Spot based on spot id
+router.post('/:spotId/reviews',[requireAuth,validateReviewCreation],async (req,res)=>{
+    const {user} = req;
+    const {review,stars} = req.body;
+    
+    //find spot by id in req params 
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    //spot not found
+    if(!spot){
+        res.status(404);
+        return res.json({
+            message:"Spot couldn't be found"
+        });
+    }
+    // is there an existing review from user?
+    const existing = await Review.findOne({
+        where:{
+            userId: user.id,
+            spotId: req.params.spotId
+        }
+    });
+    
+    //user has already reviewed spot
+    if(existing){
+        res.status(403);
+        return res.json({
+            message: "User already has a reveiw for this spot"
+        });
+    }
+    //create new review
+    const newReview = await Review.create({
+        userId: user.id,
+        spotId:req.params.spotId,
+        review,stars
+    });
+
+    res.status(201);
+    return res.json(newReview);
+})
+
 // Edit a spot
 router.put('/:spotId', [requireAuth, validateSpotCreation], async (req, res) => {
     const { user } = req;
@@ -603,7 +655,7 @@ router.delete('/:spotId', [requireAuth], async (req, res) => {
         res.status(403);
         res.json({
             message: "Forbidden"
-        })
+        });
     }
 });
 
@@ -623,4 +675,4 @@ router.post('/', [requireAuth, validateSpotCreation], async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router, validateReviewCreation;

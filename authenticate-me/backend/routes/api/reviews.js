@@ -86,7 +86,6 @@ router.get("/current", [requireAuth], async (req, res) => {
 });
 
 // Edit a review
-
 router.put('/:reviewId', [requireAuth, validateReview], async (req, res) => {
     const { user } = req;
     const { review, stars } = req.body;

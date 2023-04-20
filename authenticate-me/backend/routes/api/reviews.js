@@ -111,7 +111,7 @@ router.post("/:reviewId/images", [requireAuth], async (req, res) => {
         }
 
         let addImage = await ReviewImage.create({
-            reviewId: review.ownerId,
+            reviewId: review.userId,
             url
         });
         addImage = addImage.toJSON();

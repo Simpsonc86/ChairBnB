@@ -675,4 +675,4 @@ router.post('/', [requireAuth, validateSpotCreation], async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router, validateReviewCreation;

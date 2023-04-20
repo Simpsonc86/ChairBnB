@@ -3,6 +3,7 @@ const express = require('express');
 const { Op } = require('sequelize');
 const { User, Spot, Booking, Review, ReviewImage, SpotImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth')
+const { validateReviewCreation } = require('../api/spots')
 const router = express.Router();
 
 // Get all reviews of the Current User
@@ -71,5 +72,7 @@ router.get("/current", [requireAuth], async (req, res) => {
     }
 
 });
+
+
 
 module.exports = router;

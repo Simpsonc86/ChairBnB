@@ -47,7 +47,7 @@ router.get("/current", [requireAuth], async (req, res) => {
             },
             {
                 model: ReviewImage,
-                attributes: ["id", "url"]
+                attributes: ["Id", "url"]
             }
         ]
     });
@@ -65,6 +65,7 @@ router.get("/current", [requireAuth], async (req, res) => {
             }
         });
         review.Spot.price = parseInt(review.Spot.price)
+        
 
         delete review.Spot.SpotImages;
     });
@@ -72,7 +73,7 @@ router.get("/current", [requireAuth], async (req, res) => {
 
     res.status(200);
     return res.json({
-        Reviews: reviewArr
+        "Reviews": reviewArr
     })
 
 
@@ -110,11 +111,13 @@ router.post("/:reviewId/images", [requireAuth], async (req, res) => {
             });
         }
 
+
         let addImage = await ReviewImage.create({
-            reviewId: review.userId,
+            reviewId: review.id,
             url
         });
         addImage = addImage.toJSON();
+       
 
         res.status(200);
         return res.json({ 'id': addImage.id, 'url': addImage.url, });

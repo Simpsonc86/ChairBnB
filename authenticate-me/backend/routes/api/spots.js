@@ -89,7 +89,7 @@ router.get('/current', [requireAuth], async (req, res) => {
     });
     spotArr.forEach((spot) => {
 
-        //authenticate user
+        //authorize user
         if (user.id === spot.ownerId) {
 
             //calculate avg star rating for each spot

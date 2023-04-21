@@ -41,7 +41,7 @@ router.get("/current", [requireAuth], async (req, res) => {
                 include: [
                     {
                         model: SpotImage,
-                        attributes: ["url"]
+                        attributes: ["url","preview"]
                     },
                 ],
             },
@@ -56,15 +56,19 @@ router.get("/current", [requireAuth], async (req, res) => {
     reviews.forEach(review => {
         reviewArr.push(review.toJSON())
     });
-
+    let prevImg;
     reviewArr.forEach((review) => {
-
+        
         review.Spot.SpotImages.forEach((img) => {
-            if (img.preview) {
-                return review.previewImage = img.url;
+            // console.log(img)
+            if (img.preview===true) {
+                
+                return prevImg = img.url;
             }
         });
-        review.Spot.price = parseInt(review.Spot.price)
+   
+        review.Spot.price = parseInt(review.Spot.price);
+        review.Spot.previewImage = prevImg;
         
 
         delete review.Spot.SpotImages;

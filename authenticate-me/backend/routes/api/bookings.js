@@ -26,23 +26,26 @@ router.get('/current', [requireAuth], async (req, res) => {
                     exclude: ["description", "createdAt", "updatedAt"]
                 },
                 //old code: find spot images by eagerloading
-                include: [
-                    {
-                        model: SpotImage,
-                        where:{
-                            preview:true
-                        },
-                        attributes:['url']
-                    }
-                ]
+                // include: [
+                //     {
+                //         model: SpotImage,
+                //         where:{
+                //             preview:true
+                //         },
+                //         attributes:['url','preview']
+                //     }
+                // ]
             }
         ]
 
     });
-
-    // const previewImg = await SpotImage.findOne({
-    //     where:{}
-    // })
+   
+    const prevImg = await SpotImage.findOne({
+        where:{
+            preview:true
+            },
+            attributes:['url']
+    })
 
     let bookArr = [];
 
@@ -50,35 +53,50 @@ router.get('/current', [requireAuth], async (req, res) => {
         bookArr.push(booking.toJSON())
     });
 
+    if(bookArr.length===0){
+        res.status(404);
+        return res.json({message:"No bookings found for current user"})
+    }
+
     bookArr.forEach((booking) => {
         // console.log(booking.Spot);
-        booking.Spot.SpotImages.forEach((img)=>{
-            if(img.url){
-                booking.Spot.previewImage = img.url
-            }
-
-            delete booking.Spot.SpotImages;
-            booking.Spot.price= parseInt(booking.Spot.price)
-        })
+        // if(booking.Spot.SpotImages){
+            // booking.Spot.SpotImages.forEach((img)=>{
+                // if(img.preview){
+                    // booking.Spot.previewImage = img.url
+                // }
+                // delete booking.Spot.SpotImages;
+            // });           
+        // }else{
+        //     delete booking.Spot.SpotImages;
+        // }
+        booking.Spot.price= parseInt(booking.Spot.price)
+        if(prevImg){
+            booking.Spot.previewImage = prevImg.url
+        }else{
+            booking.Spot.previewImage = "No preview"
+        }
     })
 
     res.status(200);
-    res.json({ "Bookings": bookArr })
+    return res.json({ "Bookings": bookArr })
 });
 
 // Delete authorized user's booking by booking id
 router.delete('/:bookingId', [requireAuth], async (req, res) => {
     const { user } = req;
 
-    //find the booking by Id and spot by booking spotId
+    //find the booking by Id 
     const booking = await Booking.findByPk(req.params.bookingId);
-    const spot = await Spot.findByPk(booking.spotId);
-
+    
     //no booking found
     if (!booking) {
         res.status(404);
         return res.json({ message: "Booking couldn't be found" });
     }
+
+    //find spot by booking spotId
+    const spot = await Spot.findByPk(booking.spotId);
 
     // booking is not owned by user or spot is not owned by user
     if (booking.userId !== user.id && spot.ownerId !== user.id) {

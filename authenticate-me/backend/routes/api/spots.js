@@ -114,6 +114,7 @@ router.get('/current', [requireAuth], async (req, res) => {
             spot.avgRating = parseFloat((starSum / reviewCount).toFixed(1));
 
             spot.SpotImages.forEach((image) => {
+                spot.price= parseInt(spot.price)
                 if (prevImg) {
                     return spot.previewImage = prevImg.url;
                 }else{

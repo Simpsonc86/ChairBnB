@@ -83,6 +83,13 @@ router.get('/current', [requireAuth], async (req, res) => {
             }
         ]
     });
+
+    const prevImg = await SpotImage.findOne({
+        where:{
+            preview:true
+            },
+            attributes:['url']
+    })
     // refactor from get all spots
     spots.forEach((spot) => {
         spotArr.push(spot.toJSON());
@@ -107,8 +114,10 @@ router.get('/current', [requireAuth], async (req, res) => {
             spot.avgRating = parseFloat((starSum / reviewCount).toFixed(1));
 
             spot.SpotImages.forEach((image) => {
-                if (image.preview) {
-                    return spot.previewImage = image.url;
+                if (prevImg) {
+                    return spot.previewImage = prevImg.url;
+                }else{
+                    spot.previewImage = "No preview"
                 }
             });
 
@@ -238,7 +247,7 @@ router.post('/:spotId/bookings', [requireAuth, validateBookingCreation], async (
         res.status(400);
         return res.json({ message: "Start date must be in the future" })
     }
-    // end date cannot be after start date
+    // end date cannot be before start date
     if (bookingStart > bookingEnd) {
         res.status(400);
         return res.json({ message: "End date is before start date. Booking invlaid" })
@@ -262,16 +271,16 @@ router.post('/:spotId/bookings', [requireAuth, validateBookingCreation], async (
 
         const errors = {}
 
-        if (existing.startDate.getTime() <= bookingStart || existing.endDate.getTime() >= bookingStart) {
+        if (existing.startDate.getTime() <= bookingStart ) {
             errors.startDate = "Start date overlaps another booking"
         }
-        if (existing.startDate.getTime() <= bookingEnd || existing.endDate.getTime() >= bookingEnd) {
+        if (existing.endDate.getTime() <= bookingEnd ) {
             errors.endDate = "End date overlaps another booking"
         }
 
         res.status(400);
         return res.json({
-            message: "Another booking exist",
+            message: "Sorry, this spot is already booked for the specified dates",
             errors: { ...errors }
         });
     }

@@ -12,14 +12,17 @@ import configureStore from './store';
 
 import { restoreCSRF, csrfFetch } from './store/csrf';
 
+import * as sessionActions from "./store/session";
+
 // Create a variable to access your store and expose it to the window. 
 const store = configureStore();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
 
   window.csrfFetch = csrfFetch;
   window.store = store;
+  window.sessionActions = sessionActions;
 }
 
 // Define a Root React functional component that returns the App component wrapped in Redux's Provider and React Router DOM's BrowserRouter provider components.

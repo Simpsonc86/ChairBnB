@@ -25,7 +25,7 @@ export const getAllSpotsThunk= () => async (dispatch) =>{
 }
 //reducer: case in the reducer for all spots
 
-const initialState = {spots:null, oneSpot:null}
+const initialState = {spots:{}, oneSpot:{}}
 
 
 const spotReducer = (state = initialState, action) => {
@@ -33,10 +33,10 @@ const spotReducer = (state = initialState, action) => {
     switch(action.type){
         case GET_ALL_SPOTS:{
             //normalize spot data
-            newState = Object.assign({},state.spots)
+            newState = {spots:{}, oneSpot:{}}
             // console.log('-----',action.payload.Spots);
                 action.payload.Spots.forEach(spot => {
-                    newState[spot.id] = spot
+                    newState.spots[spot.id] = spot
                 });
         
             // console.log('newState :',newState);

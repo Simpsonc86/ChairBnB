@@ -10,12 +10,11 @@ function AllSpots({ spot }) {
     const history = useHistory();
     const dispatch = useDispatch();
     // const sessionUser = useSelector(state => state.session.user);
-    const spotsObj = useSelector(state => state.spots);
+    const spotsObj = useSelector(state => state.spots.spots);
 
     const handleClick = () => {
         history.push(`/spots/${spot.id}`);
     }
-
 
     useEffect(() => {
         dispatch(getAllSpotsThunk());
@@ -26,17 +25,19 @@ function AllSpots({ spot }) {
     const allSpots = Object.values(spotsObj);
     // console.log('allSpots in component: ',allSpots);
 
+    if(!allSpots.length)return null
+    
     return (
         <div className='main'>
             <div className='spot-tiles'>
-                {allSpots.map(oneSpot =>
+                {allSpots.map(oneSpot =>(
                     // console.log(oneSpot)
-                    <div className='spot-link' key={`${oneSpot.id}`} >
-                        <NavLink to={`/spots/${oneSpot?.id}`} onClick={handleClick}>
+                    <div className='spot-link' key={`spot-${oneSpot.id}`} >
+                        <NavLink to={`/spots/${oneSpot.id}`} onClick={handleClick}>
                             {oneSpot?.name}
                         </NavLink>
                     </div>
-
+                )
                 )}
             </div>
         </div>

@@ -25,16 +25,22 @@ function AllSpots({ spot }) {
     const allSpots = Object.values(spotsObj);
     // console.log('allSpots in component: ',allSpots);
 
-    if(!allSpots.length)return null
-    
+    if (!allSpots.length) return null
+
+    let noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'
+
     return (
         <div className='main'>
             <div className='spot-tiles'>
-                {allSpots.map(oneSpot =>(
+                {allSpots.map(oneSpot => (
                     // console.log(oneSpot)
-                    <div className='spot-link' key={`spot-${oneSpot.id}`} >
+                    <div className='spot-link' key={oneSpot.id} >
                         <NavLink to={`/spots/${oneSpot.id}`} onClick={handleClick}>
-                            {oneSpot?.name}
+                            {oneSpot.previewImage ? <img src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
+                            <p className='city-state'>{oneSpot.city}, {oneSpot.state}</p>
+                            <p className='rating'>{oneSpot.avgRating ? oneSpot.avgRating : 'No Reviews'}</p>
+                            <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
+                            {/* {console.log('spot details: ',oneSpot)} */}
                         </NavLink>
                     </div>
                 )

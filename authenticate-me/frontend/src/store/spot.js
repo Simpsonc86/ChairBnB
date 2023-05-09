@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 //redux
 //type string
 const GET_ALL_SPOTS = 'spot/getAllSpots';
+const GET_ONE_SPOT = 'spot/getSpot';
 
 //action creator
 const getAllSpots = (spots) =>{
@@ -10,6 +11,13 @@ const getAllSpots = (spots) =>{
     return {
         type: GET_ALL_SPOTS,
         payload: spots
+    }
+}
+
+const getSpot = (spot) =>{
+    return {
+        type: GET_ONE_SPOT,
+        payload: spot
     }
 }
 //thunk action creator
@@ -20,6 +28,16 @@ export const getAllSpotsThunk= () => async (dispatch) =>{
         const data = await res.json();
         // console.log(data);
         dispatch(getAllSpots(data));
+        return data;
+    }
+}
+
+export const getSpotThunk = (id) => async (dispatch) =>{
+    const res = await csrfFetch(`/api/spots/${id}`);
+    if(res.ok){
+        const data = await res.json();
+        // console.log(data);
+        dispatch(getSpot(data));
         return data;
     }
 }
@@ -40,6 +58,13 @@ const spotReducer = (state = initialState, action) => {
                 });
         
             // console.log('newState :',newState);
+            return newState;
+        }
+        case GET_ONE_SPOT:{
+            const spot = action.payload.spot
+            newState = {spots:{}, oneSpot:{...spot}}
+            newState.oneSpot= spot;
+            console.log('newState----',newState);
             return newState;
         }
         default:{

@@ -12,7 +12,7 @@ function AllSpots({ spot }) {
     // const sessionUser = useSelector(state => state.session.user);
     const spotsObj = useSelector(state => state.spots.spots);
 
-    const handleClick = () => {
+    const handleClick = (spot) => {
         history.push(`/spots/${spot.id}`);
     }
 
@@ -38,7 +38,10 @@ function AllSpots({ spot }) {
                         <NavLink to={`/spots/${oneSpot.id}`} onClick={handleClick}>
                             {oneSpot.previewImage ? <img src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
                             <p className='city-state'>{oneSpot.city}, {oneSpot.state}</p>
-                            <p className='rating'>{oneSpot.avgRating ? oneSpot.avgRating : 'No Reviews'}</p>
+                            <p className='rating'>
+                                <i className='fa-solid fa-star'></i>
+                                {oneSpot.avgRating ? oneSpot.avgRating : 'No Reviews'}
+                            </p>
                             <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
                             {/* {console.log('spot details: ',oneSpot)} */}
                         </NavLink>

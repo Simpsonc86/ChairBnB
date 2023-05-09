@@ -32,8 +32,8 @@ export const getAllSpotsThunk= () => async (dispatch) =>{
     }
 }
 
-export const getSpotThunk = (id) => async (dispatch) =>{
-    const res = await csrfFetch(`/api/spots/${id}`);
+export const getSpotThunk = (spotId) => async (dispatch) =>{
+    const res = await csrfFetch(`/api/spots/${spotId}`);
     if(res.ok){
         const data = await res.json();
         // console.log(data);
@@ -63,7 +63,7 @@ const spotReducer = (state = initialState, action) => {
         case GET_ONE_SPOT:{
             const spot = action.payload.spot
             newState = {spots:{}, oneSpot:{...spot}}
-            newState.oneSpot= spot;
+            // newState.oneSpot= spot;
             console.log('newState----',newState);
             return newState;
         }

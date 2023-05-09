@@ -5,19 +5,19 @@ import { getSpotThunk } from "../../store/spot";
 import { useEffect } from "react";
 
 const SingleSpot= ()=>{
-    const id= useParams()
+    const {spotId}= useParams()
     const dispatch = useDispatch();
       
-    const spot = useSelector(state => state.spots.spots[id]);
-    // console.log('spot from store ',spot);
+    const spot = useSelector(state => state.spots.spots[spotId]);
+    console.log('spot from store ',spot);
 
     useEffect(()=>{
-        dispatch(getSpotThunk());
-    },[dispatch]);
+        dispatch(getSpotThunk(spotId));
+    },[dispatch,spotId]);
       
     return(
        <div>
-        <h1>{spot.name}</h1>
+        {/* <h1>{spot.name}</h1> */}
        </div>
     )
 }

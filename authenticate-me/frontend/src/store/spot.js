@@ -51,13 +51,46 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
 }
 
 export const createSpotThunk = (spot) => async (dispatch)=>{
-    const res = await csrfFetch(`/api/spots/`, {
+    const{
+        ownerId, 
+        name,
+        address, 
+        city, 
+        state, 
+        country,
+        lat,
+        lng,
+        description,
+        price,
+        spotImages // this needs to be looped through because it is an array of images
+        } = spot;
+
+    const newSpot = {
+        ownerId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    };
+    // fetch from api
+    const res = await csrfFetch(`/api/spots`, {
         method:'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(spot)
+        body: JSON.stringify(newSpot)
     });
 
-    const newSpot
+    if(res.ok){
+
+        const newSpot = await res.json();
+
+
+        dispatch(createSpot(newSpot))
+    }
 }
 //reducer: case in the reducer for all spots
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { getAllSpotsThunk } from '../../store/spot';
 // import SingleSpot from '../SingleSpot';
 import { useHistory } from 'react-router-dom';
@@ -35,7 +35,7 @@ function AllSpots({ spot }) {
                 {allSpots.map(oneSpot => (
                     // console.log(oneSpot)
                     <div className='spot-link' key={oneSpot.id} >
-                        <NavLink to={`/spots/${oneSpot.id}`} onClick={handleClick}>
+                        <Link to={`/spots/${oneSpot.id}`} onClick={handleClick}>
                             {oneSpot.previewImage ? <img src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
                             <p className='city-state'>{oneSpot.city}, {oneSpot.state}</p>
                             <p className='rating'>
@@ -44,7 +44,7 @@ function AllSpots({ spot }) {
                             </p>
                             <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
                             {/* {console.log('spot details: ',oneSpot)} */}
-                        </NavLink>
+                        </Link>
                     </div>
                 )
                 )}

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getSpotThunk } from "../../store/spot";
 import { useEffect } from "react";
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const SingleSpot = () => {
     const { spotId } = useParams()
     const dispatch = useDispatch();
-    const history = useHistory();
+    // const history = useHistory();
 
     const spot = useSelector(state => {
         console.log('state from the store', state);
@@ -17,7 +17,7 @@ const SingleSpot = () => {
 
     useEffect(() => {
         dispatch(getSpotThunk(spotId));
-    }, [dispatch]);
+    }, [dispatch,spotId]);
 
     if(!spot.Owner)return <div>...On the Way! Have faith!...</div>
 

@@ -51,45 +51,25 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
 }
 
 export const createSpotThunk = (spot) => async (dispatch)=>{
-    const{
-        ownerId, 
-        name,
-        address, 
-        city, 
-        state, 
-        country,
-        lat,
-        lng,
-        description,
-        price,
-        spotImages // this needs to be looped through because it is an array of images
-        } = spot;
-
-    const newSpot = {
-        ownerId,
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price
-    };
+    
     // fetch from api
     const res = await csrfFetch(`/api/spots`, {
         method:'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(newSpot)
+        body: JSON.stringify(spot)
     });
+    console.log('response from fetch',res);
 
     if(res.ok){
+        const createdSpot = await res.json();
+        //iterate through spot images
 
-        const newSpot = await res.json();
-
-
-        dispatch(createSpot(newSpot))
+        console.log('this is the created spot',createdSpot);
+        await dispatch(createSpot(createdSpot))
+        return createdSpot;
+    }else{
+        const createdSpot = await res.json();
+        return createdSpot;
     }
 }
 //reducer: case in the reducer for all spots
@@ -123,6 +103,7 @@ const spotReducer = (state = initialState, action) => {
             const spot = action.payload
             newState = { spots:{},oneSpot:{...spot}}
             console.log('create a spot',newState);
+            return newState;
         }
         default: {
             return state;

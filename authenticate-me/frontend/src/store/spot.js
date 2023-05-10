@@ -50,7 +50,15 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
     }
 }
 
-export const createSpot = (spot)
+export const createSpotThunk = (spot) => async (dispatch)=>{
+    const res = await csrfFetch(`/api/spots/`, {
+        method:'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(spot)
+    });
+
+    const newSpot
+}
 //reducer: case in the reducer for all spots
 
 const initialState = { spots: {}, oneSpot: {} }
@@ -77,6 +85,11 @@ const spotReducer = (state = initialState, action) => {
             // newState.oneSpot= spot;
             console.log('get one spot', newState);
             return newState;
+        }
+        case CREATE_SPOT:{
+            const spot = action.payload
+            newState = { spots:{},oneSpot:{...spot}}
+            console.log('create a spot',newState);
         }
         default: {
             return state;

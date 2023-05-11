@@ -31,8 +31,11 @@ function CreateSpot(){
         return state.session.user
     })
 
+    //useeffects
+    
+
     return(
-        <div>manage spots</div>
+        <div>Create a spot</div>
     )
 }
 

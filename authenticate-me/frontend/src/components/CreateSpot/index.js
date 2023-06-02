@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { createSpotThunk } from "../../store/spot";
 import { getAllSpotsThunk } from "../../store/spot";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useModal } from '../../context/Modal';
+// import { useModal } from '../../context/Modal';
 
 function CreateSpot() {
-    const history = useHistory()
+    // const history = useHistory()
     const dispatch = useDispatch()
 
     //states
@@ -35,7 +35,7 @@ function CreateSpot() {
         if (!country.length) errObj.country = "Country is required"
         if (!state.length) errObj.state = "State is required"
         if (isNaN(price) || Number(price) < 0) errObj.price = "Price is required"
-        if (!previewImage || !previewImage.endsWith('.png') && !previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg')) errObj.previewImage = "Preview image is required"
+        if (!previewImage || (!previewImage.endsWith('.png') && !previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg'))) errObj.previewImage = "Preview image is required"
         if (image1 && !image1.endsWith('.png') && !image1.endsWith('.jpg') && !image1.endsWith('.jpeg')) errObj.image1 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image2 && !image2.endsWith('.png') && !image2.endsWith('.jpg') && !image2.endsWith('.jpeg')) errObj.image2 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"

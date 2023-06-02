@@ -82,7 +82,8 @@ function CreateSpot() {
             <h3>Guest will only get your exact address once they booked a reservation</h3>
             <label>
                 Country
-                {errors.country && <p>{errors.country}</p>}
+                {errors.country && <span>&nbsp;{errors.country}</span>}
+                <br/>
                 <input
                     type="text"
                     value={country}
@@ -94,7 +95,8 @@ function CreateSpot() {
             <br />
             <label>
                 Street Address
-                {errors.address && <p>{errors.address}</p>}
+                {errors.address && <span>&nbsp;{errors.address}</span>}
+                <br/>
                 <input
                     type="text"
                     value={address}
@@ -106,7 +108,8 @@ function CreateSpot() {
             <br />
             <label>
                 City
-                {errors.city && <p>{errors.city}</p>}
+                {errors.city && <span>&nbsp;{errors.city}</span>}
+                <br/>
                 <input
                     type="text"
                     value={city}
@@ -116,8 +119,9 @@ function CreateSpot() {
                 />
             </label>
             <label>
-                State
-                {errors.state && <p>{errors.state}</p>}
+                , State
+                {errors.state && <span>&nbsp;{errors.state}</span>}
+                <br/>
                 <input
                     type="text"
                     value={state}

@@ -1,35 +1,36 @@
 // frontend/src/components/Navigation/index.js
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
+// import CreateSpot from '../CreateSpot'
+import { useHistory } from "react-router-dom";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
+  // const history = useHistory()
 
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <li>
-        <ProfileButton user={sessionUser} />
-      </li>
+      <div>
+        <Link to='/spots/create'>
+          <li>Create a spot</li>
+        </Link>
+        <li>
+          <ProfileButton user={sessionUser} />
+        </li>
+      </div>
     );
   } else {
     sessionLinks = (
       <li>
-        <OpenModalButton
-          buttonText="Log In"
-          modalComponent={<LoginFormModal />}
-        />
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
-      </li>
+      <ProfileButton user={sessionUser} />
+    </li>
     );
   }
 

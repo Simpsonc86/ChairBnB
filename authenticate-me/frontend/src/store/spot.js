@@ -50,26 +50,51 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
     }
 }
 
-export const createSpotThunk = (spot) => async (dispatch)=>{
-    
+export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
+
     // fetch from api
-    const res = await csrfFetch(`/api/spots`, {
-        method:'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(spot)
-    });
-    console.log('response from fetch',res);
+    try {
+        const res = await csrfFetch(`/api/spots`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+        });
+        console.log('response from fetch', res);
 
-    if(res.ok){
-        const createdSpot = await res.json();
-        //iterate through spot images
+        if (res.ok) {
+            const createdSpot = await res.json();
+            //iterate through spot images and use spot id to hit backend enpoint for images
+            // /api/spot/${createdSpot.id}/images
+            // use a for let of loop to iterate thru images
+            let spotImages = [];
+            for (let image of images) {
 
-        console.log('this is the created spot',createdSpot);
-        await dispatch(createSpot(createdSpot))
-        return createdSpot;
-    }else{
-        const createdSpot = await res.json();
-        return createdSpot;
+                image.spotId = createSpot.id
+
+                const imgRes = await csrfFetch(`/api/spot/${createdSpot.id}/images`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(image)
+
+                })
+
+                if (imgRes.ok) {
+                    const createdImg = await res.json();
+                    spotImages.push(createdImg)
+                }
+            }
+
+            createdSpot.SpotImages = spotImages;
+            createdSpot.Owner = owner;
+
+            console.log('this is the created spot', createdSpot);
+            await dispatch(createSpot(createdSpot))
+            return createdSpot;
+
+        }
+    } catch (err) {
+        const errors = await err.json();
+        return errors;
     }
 }
 //reducer: case in the reducer for all spots
@@ -99,10 +124,10 @@ const spotReducer = (state = initialState, action) => {
             console.log('get one spot', newState);
             return newState;
         }
-        case CREATE_SPOT:{
+        case CREATE_SPOT: {
             const spot = action.payload
-            newState = { spots:{},oneSpot:{...spot}}
-            console.log('create a spot',newState);
+            newState = { spots: {}, oneSpot: spot }
+            console.log('create a spot', newState);
             return newState;
         }
         default: {

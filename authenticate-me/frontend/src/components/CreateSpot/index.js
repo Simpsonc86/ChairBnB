@@ -1,41 +1,218 @@
-import { useDispatch,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createSpotThunk } from "../../store/spot";
 import { getAllSpotsThunk } from "../../store/spot";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {useModal} from '../../context/Modal';
+import { useModal } from '../../context/Modal';
 
-function CreateSpot(){
+function CreateSpot() {
     const history = useHistory()
     const dispatch = useDispatch()
 
     //states
-    const [title,setTitle] = useState('');
-    const [address,setAddress] = useState('');
-    const [description,setDescription] = useState('');
-    const [city,setCity] = useState('');
-    const [country,setCountry] = useState('');
-    const [state,setState] = useState('');
-    const [price,setPrice] = useState('');
-    const [previewImage,setPreviewImage] = useState('');
-    const [image1,setImage1] = useState('');
-    const [image2,setImage2] = useState('');
-    const [image3,setImage3] = useState('');
-    const [image4,setImage4] = useState('');
-    const [errors,setErrors] = useState({});
-    const {closeModal} = useModal();
+    const [title, setTitle] = useState('');
+    const [address, setAddress] = useState('');
+    const [description, setDescription] = useState('');
+    const [city, setCity] = useState('');
+    const [country, setCountry] = useState('');
+    const [state, setState] = useState('');
+    const [price, setPrice] = useState('');
+    const [previewImage, setPreviewImage] = useState('');
+    const [image1, setImage1] = useState('');
+    const [image2, setImage2] = useState('');
+    const [image3, setImage3] = useState('');
+    const [image4, setImage4] = useState('');
+    const [errors, setErrors] = useState({});
+    // const {closeModal} = useModal();
 
-    //check if user is logged in
-    const user = useSelector(state =>{
-        console.log(state.session.user);
-        return state.session.user
-    })
+    //if user adds bad data and thunk returns errors set errors object to those errors and display in jsx
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setErrors({});
+        return dispatch(
+            createSpotThunk({
+                title,
+                address,
+                description,
+                city,
+                country,
+                state,
+                price,
+                previewImage,
+                image1,
+                image2,
+                image3,
+                image4,
+            })
+        )
+        return setErrors({
 
-    //useeffects
-    
+        })
+    }
 
-    return(
-        <div>Create a spot</div>
+    //call thunk and save response to variable check the created spot for errors
+    //if errors display them else redirect to spot details
+    // when submitted, reset the errors and validate again
+
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <h1>Create a new Spot</h1>
+            <h2>Where's your place located?</h2>
+            <h3>Guest will only get your exact address once they booked a reservation</h3>
+            <label>
+                Country
+                {errors.country && <p>{errors.country}</p>}
+                <input
+                    type="text"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    placeholder="Country"
+                    required
+                />
+            </label>
+            <br />
+            <label>
+                Street Address
+                {errors.address && <p>{errors.address}</p>}
+                <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Address"
+                    required
+                />
+            </label>
+            <br />
+            <label>
+                City
+                {errors.city && <p>{errors.city}</p>}
+                <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="City"
+                    required
+                />
+            </label>
+            <label>
+                State
+                {errors.state && <p>{errors.state}</p>}
+                <input
+                    type="text"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                    placeholder="State"
+                    required
+                />
+            </label>
+            <hr />
+            <h2>Describe your place to guests</h2>
+            <h3>
+                Mention the best features of your space, any special amentities like  fast wifi or paraking, and what you love about the neighborhood.
+            </h3>
+            <label>
+                <textarea
+                    type="text"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Description"
+                    required
+                />
+                {errors.description && <p>{errors.description}</p>}
+            </label>
+            <hr />
+            <h2>Create a title for your spot</h2>
+            <h3>
+                Catch guests' attention with a spot title that highlights what makes your place special.
+            </h3>
+            <label>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Name of your spot"
+                    required
+                />
+                {errors.title && <p>{errors.title}</p>}
+            </label>
+            <hr />
+            <h2>Set a base price for your spot</h2>
+            <h3>
+                Competitive pricing can help your listing stand out and rank higher in the search results
+            </h3>
+            <label>
+                <input
+                    type="text"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    placeholder="Price per night (USD)"
+                    required
+                />
+                {errors.price && <p>{errors.price}</p>}
+            </label>
+            <hr />
+            <h2>Liven up your spot with photos</h2>
+            <h3>
+                Submit a link to at least one photo to publish your spot.
+            </h3>
+            <label>
+                <input
+                    type="text"
+                    value={previewImage}
+                    onChange={(e) => setPreviewImage(e.target.value)}
+                    placeholder="Preview Image URL"
+                    required
+                />
+                {errors.previewImage && <p>{errors.previewImage}</p>}
+            </label>
+            <br />
+            <label>
+                <input
+                    type="text"
+                    value={image1}
+                    onChange={(e) => setImage1(e.target.value)}
+                    placeholder="Image URL"
+                    required
+                />
+                {errors.image1 && <p>{errors.image1}</p>}
+            </label>
+            <br />
+            <label>
+                <input
+                    type="text"
+                    value={image2}
+                    onChange={(e) => setImage2(e.target.value)}
+                    placeholder="Image URL"
+                    required
+                />
+                {errors.image2 && <p>{errors.image2}</p>}
+            </label>
+            <br />
+            <label>
+                <input
+                    type="text"
+                    value={image3}
+                    onChange={(e) => setImage3(e.target.value)}
+                    placeholder="Image URL"
+                    required
+                />
+                {errors.image3 && <p>{errors.image3}</p>}
+            </label>
+            <br />
+            <label>
+                <input
+                    type="text"
+                    value={image4}
+                    onChange={(e) => setImage4(e.target.value)}
+                    placeholder="Image URL"
+                    required
+                />
+                {errors.image4 && <p>{errors.image4}</p>}
+            </label>
+            <hr />
+            <button type='submit'>Create Spot</button>
+        </form>
     )
 }
 

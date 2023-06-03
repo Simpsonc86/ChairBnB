@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { createSpotThunk } from "../../store/spot";
-import { getAllSpotsThunk } from "../../store/spot";
-// import { useHistory } from "react-router-dom";
+// import { getAllSpotsThunk } from "../../store/spot";
+import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 // import { useModal } from '../../context/Modal';
 
 function CreateSpot() {
-    // const history = useHistory()
+    const history = useHistory()
     const dispatch = useDispatch()
 
     //states
@@ -34,7 +34,7 @@ function CreateSpot() {
         if (!city.length) errObj.city = "City is required"
         if (!country.length) errObj.country = "Country is required"
         if (!state.length) errObj.state = "State is required"
-        if (isNaN(price) || Number(price) < 0) errObj.price = "Price is required"
+        if (isNaN(price) || Number(price) < 1) errObj.price = "Price is required"
         if (!previewImage || (!previewImage.endsWith('.png') && !previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg'))) errObj.previewImage = "Preview image is required"
         if (image1 && !image1.endsWith('.png') && !image1.endsWith('.jpg') && !image1.endsWith('.jpeg')) errObj.image1 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image2 && !image2.endsWith('.png') && !image2.endsWith('.jpg') && !image2.endsWith('.jpeg')) errObj.image2 = "Image URL must end in .png, .jpg, or .jpeg"
@@ -43,32 +43,31 @@ function CreateSpot() {
         setErrors(errObj)
     }, [title, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
 
+    // create an array for images if there are no errors in errObj
+    
+
     //if user adds bad data and thunk returns errors set errors object to those errors and display in jsx
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!errors) {
-            setErrors({});
-            return dispatch(
-                createSpotThunk({
+            //Thunk args = (spot,images,owner)
+            const spot = dispatch(createSpotThunk({
                     title,
                     address,
                     description,
                     city,
                     country,
+                    lat:0,
+                    lng:0,
                     state,
                     price,
-                    previewImage,
-                    image1,
-                    image2,
-                    image3,
-                    image4,
-                })
+                   
+                },)
             )
+            history.push(`/spots/${spot.id}`)
         }
-        return setErrors({
-
-        })
     }
+    
 
     //call thunk and save response to variable check the created spot for errors
     //if errors display them else redirect to spot details

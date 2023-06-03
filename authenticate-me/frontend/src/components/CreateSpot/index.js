@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { createSpotThunk } from "../../store/spot";
-// import { getAllSpotsThunk } from "../../store/spot";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 // import { useModal } from '../../context/Modal';
@@ -8,9 +7,13 @@ import { useState, useEffect } from "react";
 function CreateSpot() {
     const history = useHistory()
     const dispatch = useDispatch()
+    const owner = useSelector(state => {
+        console.log('state from the store', state);
+        return state.session.user
+    });
 
     //states
-    const [title, setTitle] = useState('');
+    const [name, setname] = useState('');
     const [address, setAddress] = useState('');
     const [description, setDescription] = useState('');
     const [city, setCity] = useState('');
@@ -28,7 +31,7 @@ function CreateSpot() {
     // validations for controlled inputs
     useEffect(() => {
         const errObj = {};
-        if (!title.length) errObj.title = "Name is required"
+        if (!name.length) errObj.name = "Title is required"
         if (!address.length) errObj.address = "Address is required"
         if (!description.length || description.length < 30) errObj.description = "Description needs a minimum of 30 characters"
         if (!city.length) errObj.city = "City is required"
@@ -41,33 +44,45 @@ function CreateSpot() {
         if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
         setErrors(errObj)
-    }, [title, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
+    }, [name, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
 
-    // create an array for images if there are no errors in errObj
-    
+
 
     //if user adds bad data and thunk returns errors set errors object to those errors and display in jsx
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!errors) {
+        let spot ={}
+        if (!Object.values(errors).length) {
+            // create an array for images for thunk arg if there are no errors in errObj
+            let imgArr = [];
+
+            imgArr.push({ url: previewImage, preview: true })
+            if (image1) imgArr.push({ url: image1, preview: false })
+            if (image2) imgArr.push({ url: image2, preview: false })
+            if (image3) imgArr.push({ url: image3, preview: false })
+            if (image4) imgArr.push({ url: image4, preview: false })
+
             //Thunk args = (spot,images,owner)
-            const spot = dispatch(createSpotThunk({
-                    title,
-                    address,
-                    description,
-                    city,
-                    country,
-                    lat:0,
-                    lng:0,
-                    state,
-                    price,
-                   
-                },)
+            const createdSpot = await dispatch(createSpotThunk({
+                name,
+                address,
+                description,
+                city,
+                country,
+                lat: 0,
+                lng: 0,
+                state,
+                price,
+            },imgArr,owner)
             )
-            history.push(`/spots/${spot.id}`)
+            console.log('This is the created spot', createdSpot);
+            console.log('This is the spot owner', owner);
+            
         }
+        
+        history.push(`/spots/${spot.id}`)
     }
-    
+
 
     //call thunk and save response to variable check the created spot for errors
     //if errors display them else redirect to spot details
@@ -82,7 +97,7 @@ function CreateSpot() {
             <label>
                 Country
                 {errors.country && <span>&nbsp;{errors.country}</span>}
-                <br/>
+                <br />
                 <input
                     type="text"
                     value={country}
@@ -95,7 +110,7 @@ function CreateSpot() {
             <label>
                 Street Address
                 {errors.address && <span>&nbsp;{errors.address}</span>}
-                <br/>
+                <br />
                 <input
                     type="text"
                     value={address}
@@ -108,7 +123,7 @@ function CreateSpot() {
             <label>
                 City
                 {errors.city && <span>&nbsp;{errors.city}</span>}
-                <br/>
+                <br />
                 <input
                     type="text"
                     value={city}
@@ -120,7 +135,7 @@ function CreateSpot() {
             <label>
                 , State
                 {errors.state && <span>&nbsp;{errors.state}</span>}
-                <br/>
+                <br />
                 <input
                     type="text"
                     value={state}
@@ -152,12 +167,12 @@ function CreateSpot() {
             <label>
                 <input
                     type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={name}
+                    onChange={(e) => setname(e.target.value)}
                     placeholder="Name of your spot"
                 // required
                 />
-                {errors.title && <p>{errors.title}</p>}
+                {errors.name && <p>{errors.name}</p>}
             </label>
             <hr />
             <h2>Set a base price for your spot</h2>

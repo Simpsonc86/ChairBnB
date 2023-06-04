@@ -2,6 +2,68 @@ h1{
     color:black
 }
 
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.create-link{
+    color: teal;
+}
+
 .hidden{
     display:none
+}
+
+.nav{
+    max-width: 1000px;
+    /* border:3px solid red; */
+    
+}
+
+/* body{
+    max-width: 1000px;
+} */
+
+.nav-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid lightgrey
+}
+
+.profile-menu{
+    display:flex;
+    justify-content: space-evenly;
+    margin:20px;
+    /* border:3px solid red; */
+}
+.menu-btn{
+    display: flex;
+    justify-content: space-around;
+    margin-left:10px;    
+    /* height: 100%; */
+    width:100%; 
+    /* margin */
+    /* border-radius: 50%; */
+    /* size:200%; */
+    /* border:3px solid red; */
+}
+
+.ProfileButton{
+    display: flex;
+    border-radius: 50%;
+    gap:10px;
+}
+
+.profile-dropdown{
+    position:absolute;
+    top:35px;
+    right:160px;
+    background-color: white;
+    padding:10px 20px;
+    margin: 20px;
+    border:2px solid black;
+    box-shadow: 10px;
 }

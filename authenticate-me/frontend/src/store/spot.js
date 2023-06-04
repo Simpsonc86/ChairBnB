@@ -121,7 +121,7 @@ const spotReducer = (state = initialState, action) => {
             const spot = action.payload
             newState = { allSpots: {}, singleSpot: { ...spot } }
             newState.singleSpot[spot.id] = spot
-            // newState.oneSpot= spot;
+            
             console.log('get one spot', newState);
             return newState;
         }

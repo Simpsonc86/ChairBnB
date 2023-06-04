@@ -63,6 +63,7 @@ function ProfileButton({ user }) {
                 modalComponent={<SignupFormModal />}
               />
             </div>
+            <br/>
             <div>
               <OpenModalButton
                 buttonText="Log In"

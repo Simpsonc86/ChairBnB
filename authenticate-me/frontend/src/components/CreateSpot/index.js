@@ -48,10 +48,9 @@ function CreateSpot() {
 
 
 
-    //if user adds bad data and thunk returns errors set errors object to those errors and display in jsx
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let spot ={}
+        // let spot ={}
         if (!Object.values(errors).length) {
             // create an array for images for thunk arg if there are no errors in errObj
             let imgArr = [];
@@ -73,17 +72,19 @@ function CreateSpot() {
                 lng: 0,
                 state,
                 price,
-            },imgArr,owner)
-            )
+            },imgArr,owner))
+
             console.log('This is the created spot', createdSpot);
-            console.log('This is the spot owner', owner);
+
+            // console.log('This is the spot owner', owner);
             
+            history.push(`/spots/${createdSpot.id}`)
         }
         
-        history.push(`/spots/${spot.id}`)
     }
-
-
+    //if user adds bad data and thunk returns errors set errors object to those errors and display in jsx
+    
+    
     //call thunk and save response to variable check the created spot for errors
     //if errors display them else redirect to spot details
     // when submitted, reset the errors and validate again

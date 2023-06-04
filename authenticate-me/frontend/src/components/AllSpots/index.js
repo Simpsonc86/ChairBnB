@@ -10,7 +10,7 @@ function AllSpots({ spot }) {
     const history = useHistory();
     const dispatch = useDispatch();
     // const sessionUser = useSelector(state => state.session.user);
-    const spotsObj = useSelector(state => state.spots.spots);
+    const spotsObj = useSelector(state => state.spots.allSpots);
 
     const handleClick = (spot) => {
         history.push(`/spots/${spot.id}`);

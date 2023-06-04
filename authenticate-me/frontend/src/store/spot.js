@@ -99,7 +99,7 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
 }
 //reducer: case in the reducer for all spots
 
-const initialState = { spots: {}, oneSpot: {} }
+const initialState = { allSpots: {}, singleSpot: {} }
 
 
 const spotReducer = (state = initialState, action) => {
@@ -108,10 +108,10 @@ const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS: {
             //normalize spot data
-            newState = { spots: {}, oneSpot: {} }
+            newState = { allSpots: {}, singleSpot: {} }
             // console.log('allspots',action.payload.Spots);
             action.payload.Spots.forEach(spot => {
-                newState.spots[spot.id] = spot
+                newState.allSpots[spot.id] = spot
             });
 
             // console.log('newState :',newState);
@@ -119,14 +119,16 @@ const spotReducer = (state = initialState, action) => {
         }
         case GET_ONE_SPOT: {
             const spot = action.payload
-            newState = { spots: {}, oneSpot: { ...spot } }
+            newState = { allSpots: {}, singleSpot: { ...spot } }
+            newState.singleSpot[spot.id] = spot
             // newState.oneSpot= spot;
             console.log('get one spot', newState);
             return newState;
         }
         case CREATE_SPOT: {
             const spot = action.payload
-            newState = { spots: {}, oneSpot: spot }
+            newState = { allSpots: {}, singleSpot: {...spot} }
+            newState.singleSpot[spot.id]=spot
             console.log('create a spot', newState);
             return newState;
         }

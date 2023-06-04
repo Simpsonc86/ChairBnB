@@ -11,7 +11,7 @@ const SingleSpot = () => {
 
     const spot = useSelector(state => {
         console.log('state from the store', state);
-        return state.spots.oneSpot
+        return state.spots.singleSpot
     });
     // console.log('spot from store ', spot);
 

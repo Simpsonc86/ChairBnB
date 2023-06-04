@@ -44,7 +44,7 @@ function CreateSpot() {
         if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
         setErrors(errObj)
-    }, [name, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
+    }, [dispatch,name, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
 
 
 

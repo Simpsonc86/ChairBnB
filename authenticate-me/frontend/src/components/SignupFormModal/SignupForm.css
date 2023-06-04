@@ -1,9 +1,9 @@
-h1{
+/* h1{
     display: flex;
     justify-content: center;
     color:black;
     font-weight: bold;    
-}
+} */
 
 .signup-box{
     display: flex;
@@ -28,9 +28,11 @@ input{
 }
 .signup-btn{
     padding:20px 0px;
-    box-shadow: 2px 3px;
+    background-color: red;
+    color:white;
+    box-shadow: 10px 10px 2px black;
 }
 
-errors{
+.errors{
     color:red
 }

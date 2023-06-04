@@ -1,9 +1,9 @@
-h1{
+/* h1{
     display: flex;
     justify-content: center;
     color:black;
     font-weight: bold;    
-}
+} */
 
 .login-box{
     display: flex;
@@ -27,7 +27,14 @@ input{
 
 }
 .login-btn{
-    padding:20px 0px
+    padding:20px 0px;
+    background-color: red;
+    color:white;
+    box-shadow: 10px 10px 2px black;
+}
+
+.disabled-btn{
+    padding:20px 0px;
 }
 
 .errors{

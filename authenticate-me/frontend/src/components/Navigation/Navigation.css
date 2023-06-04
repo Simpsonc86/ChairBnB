@@ -1,13 +1,7 @@
-h1{
-    color:black
-}
-
-*{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
 .create-link{
     color: teal;
+    padding:0 10px
 }
 
 .hidden{
@@ -29,7 +23,7 @@ h1{
     justify-content:space-between;
     align-items: center;
     padding-top: 20px;
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
     border-bottom: 2px solid lightgrey
 }
 
@@ -37,15 +31,17 @@ h1{
     display:flex;
     justify-content: space-evenly;
     margin:20px;
+    margin-right:20px;
     /* border:3px solid red; */
 }
 .menu-btn{
     display: flex;
-    justify-content: space-around;
-    margin-left:10px;    
+    justify-content: space-between;
+    padding:5px 10px;
+    border-radius: 10px;
     /* height: 100%; */
-    width:100%; 
-    /* margin */
+    /* width:100%;  */
+    
     /* border-radius: 50%; */
     /* size:200%; */
     /* border:3px solid red; */
@@ -59,11 +55,22 @@ h1{
 
 .profile-dropdown{
     position:absolute;
-    top:35px;
-    right:160px;
+    top:12%;
+    right:10%;
     background-color: white;
     padding:10px 20px;
     margin: 20px;
     border:2px solid black;
+    border-radius: 5px;
     box-shadow: 10px;
+}
+.home-link{
+    height: 100px;
+    width: 100px;
+}
+.logo{
+    display: flex;
+    padding: 0;
+    border-radius: 50%;
+    border:2mm ridge black;
 }

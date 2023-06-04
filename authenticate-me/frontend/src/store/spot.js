@@ -1,3 +1,4 @@
+import { response } from "../../../backend/app";
 import { csrfFetch } from "./csrf";
 
 //redux
@@ -5,8 +6,9 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = 'spot/getAllSpots';
 const GET_ONE_SPOT = 'spot/getSpot';
 const CREATE_SPOT = 'spot/createSpot'
+const DELETE_SPOT = 'spot/deleteSpot'
 
-//action creator
+//action creators
 const getAllSpots = (spots) => {
     // console.log(' all spots: ',spots);
     return {
@@ -28,6 +30,15 @@ const createSpot = (spot) => {
         payload: spot
     }
 }
+
+const deleteSpot = (spot) =>{
+    return{
+        type: DELETE_SPOT,
+        payload: spot
+    }
+}
+
+
 //thunk action creator
 export const getAllSpotsThunk = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');
@@ -97,6 +108,22 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
         return errors;
     }
 }
+
+export const deleteSpotThunk = (spotId) => async (dispatch)=>{
+    try{
+        const res = await csrfFetch(`/api/spot/${spotId}`, {
+            method:'DELETE'
+        })
+        if (res.ok){
+            const spot = res.json()
+            await dispatch(deleteSpot(spotId))
+            return spot
+        }
+
+    }catch{
+
+    }
+}
 //reducer: case in the reducer for all spots
 
 const initialState = { allSpots: {}, singleSpot: {} }
@@ -130,6 +157,12 @@ const spotReducer = (state = initialState, action) => {
             newState = { allSpots: {}, singleSpot: {...spot} }
             newState.singleSpot[spot.id]=spot
             console.log('create a spot', newState);
+            return newState;
+        }
+        case DELETE_SPOT:{
+            const spot = action.payload
+            newState = {allSpots:{}, singleSpot:{...spot}}
+            delete newState.allSpots[spot]
             return newState;
         }
         default: {

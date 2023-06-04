@@ -3,11 +3,10 @@ body{
     display: flex;
     justify-content: center;
     background-color: aliceblue;
-}
-
-
-
-*{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color:rgb(19, 36, 46)
 }
+
+
+
+

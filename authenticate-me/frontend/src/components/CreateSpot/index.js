@@ -2,6 +2,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { createSpotThunk } from "../../store/spot";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
+import './CreateSpot.css'
 // import { useModal } from '../../context/Modal';
 
 function CreateSpot() {
@@ -97,7 +98,7 @@ function CreateSpot() {
             <h3>Guest will only get your exact address once they booked a reservation</h3>
             <label>
                 Country
-                {errors.country && <span>&nbsp;{errors.country}</span>}
+                {errors.country && <span className="errors">&nbsp;{errors.country}</span>}
                 <br />
                 <input
                     type="text"
@@ -110,7 +111,7 @@ function CreateSpot() {
             <br />
             <label>
                 Street Address
-                {errors.address && <span>&nbsp;{errors.address}</span>}
+                {errors.address && <span className="errors">&nbsp;{errors.address}</span>}
                 <br />
                 <input
                     type="text"
@@ -123,7 +124,7 @@ function CreateSpot() {
             <br />
             <label>
                 City
-                {errors.city && <span>&nbsp;{errors.city}</span>}
+                {errors.city && <span className="errors">&nbsp;{errors.city}</span>}
                 <br />
                 <input
                     type="text"
@@ -135,7 +136,7 @@ function CreateSpot() {
             </label>
             <label>
                 , State
-                {errors.state && <span>&nbsp;{errors.state}</span>}
+                {errors.state && <span className="errors">&nbsp;{errors.state}</span>}
                 <br />
                 <input
                     type="text"
@@ -158,7 +159,7 @@ function CreateSpot() {
                     placeholder="Description"
                 // required
                 />
-                {errors.description && <p>{errors.description}</p>}
+                {errors.description && <p className="errors">{errors.description}</p>}
             </label>
             <hr />
             <h2>Create a title for your spot</h2>
@@ -173,7 +174,7 @@ function CreateSpot() {
                     placeholder="Name of your spot"
                 // required
                 />
-                {errors.name && <p>{errors.name}</p>}
+                {errors.name && <p className="errors">{errors.name}</p>}
             </label>
             <hr />
             <h2>Set a base price for your spot</h2>
@@ -188,7 +189,7 @@ function CreateSpot() {
                     placeholder="Price per night (USD)"
                 // required
                 />
-                {errors.price && <p>{errors.price}</p>}
+                {errors.price && <p className="errors">{errors.price}</p>}
             </label>
             <hr />
             <h2>Liven up your spot with photos</h2>
@@ -203,7 +204,7 @@ function CreateSpot() {
                     placeholder="Preview Image URL"
                 // required
                 />
-                {errors.previewImage && <p>{errors.previewImage}</p>}
+                {errors.previewImage && <p className="errors">{errors.previewImage}</p>}
             </label>
             <br />
             <label>
@@ -214,7 +215,7 @@ function CreateSpot() {
                     placeholder="Image URL"
                 // required
                 />
-                {errors.image1 && <p>{errors.image1}</p>}
+                {errors.image1 && <p className="errors">{errors.image1}</p>}
             </label>
             <br />
             <label>
@@ -225,7 +226,7 @@ function CreateSpot() {
                     placeholder="Image URL"
                 // required
                 />
-                {errors.image2 && <p>{errors.image2}</p>}
+                {errors.image2 && <p className="errors" >{errors.image2}</p>}
             </label>
             <br />
             <label>
@@ -236,7 +237,7 @@ function CreateSpot() {
                     placeholder="Image URL"
                 // required
                 />
-                {errors.image3 && <p>{errors.image3}</p>}
+                {errors.image3 && <p className="errors">{errors.image3}</p>}
             </label>
             <br />
             <label>
@@ -247,7 +248,7 @@ function CreateSpot() {
                     placeholder="Image URL"
                 // required
                 />
-                {errors.image4 && <p>{errors.image4}</p>}
+                {errors.image4 && <p className="errors">{errors.image4}</p>}
             </label>
             <hr />
             <button type='submit' disabled={!!Object.values(errors).length}>Create Spot</button>

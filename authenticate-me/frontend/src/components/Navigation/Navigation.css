@@ -1,3 +1,6 @@
+*{
+  
+}
 
 .create-link{
     color: teal;
@@ -30,8 +33,8 @@
 .profile-menu{
     display:flex;
     justify-content: space-evenly;
-    margin:20px;
-    margin-right:20px;
+    margin:20px 0;
+    /* margin-right:20px; */
     /* border:3px solid red; */
 }
 .menu-btn{

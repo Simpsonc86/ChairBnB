@@ -4,7 +4,7 @@ import { NavLink, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import CreateSpot from '../CreateSpot'
+// import CreateSpot from '../CreateSpot'
 // import { useHistory } from "react-router-dom";
 
 function Navigation({ isLoaded }) {

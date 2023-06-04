@@ -1,3 +1,36 @@
 h1{
-    color:black
+    display: flex;
+    justify-content: center;
+    color:black;
+    font-weight: bold;    
+}
+
+.signup-box{
+    display: flex;
+    flex-direction: column;
+    padding:0px 50px 50px;
+    border-radius: 50px;
+    min-width: 400px;
+    /* border:3px solid red; */
+}
+input{
+    width: 400px;
+}
+
+.signup{
+    display: flex;
+    flex-direction: column;
+    /* border:3px solid red; */
+    justify-content: center;
+    gap:10px
+    /* border-radius: 50px; */
+
+}
+.signup-btn{
+    padding:20px 0px;
+    box-shadow: 2px 3px;
+}
+
+errors{
+    color:red
 }

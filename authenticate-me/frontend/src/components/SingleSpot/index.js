@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getSpotThunk } from "../../store/spot";
 import { useEffect } from "react";
+import './SingleSpot.css'
 
 const SingleSpot = () => {
     const { spotId } = useParams()
@@ -23,28 +24,43 @@ const SingleSpot = () => {
 
     return (
         <div className="spot-details-main">
-            <div className=''>
+            <div className='spot-details-box'>
 
-                <div>
+                <div className="spot-heading">
                     <h1>{spot.name}</h1>
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
                 </div>
-                <div>
-                    {/* <img src={spot.SpotImages[0].url} alt='preview'/> */}
+                <div className="images-box">
+                    <div>
+                        {/* <img className='preview-img' src={spot.SpotImages[0].url} alt='preview' /> */}
+                    </div>
+                    <div>
+                        {/* pictures grid here */}
+                    </div>
                 </div>
-                <div>
-                    {/* pictures grid here */}
-                </div>
-                <div>
-                    <h2>
-                        Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
-                    </h2>
-                    <p>{spot.description}</p>
-                </div>
-                <div>
-                    <span>${spot.price} night</span>
-                    <span>  <i className='fa-solid fa-star'></i> {spot.avgStarRating}</span>
-                    <span> {spot.numReviews} {spot.numReviews < 2 ? 'review' : 'reviews'}</span>
+                <div className="spot-details-info">
+                    <div>
+                        <h2>
+                            Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
+                        </h2>
+                        <p>{spot.description}</p>
+                    </div>
+                    <div className="price-reviews-box">
+                        <div className='price-reviews'>
+                            <span>${spot.price} night</span>
+                            <div className="c">
+                                <span>  
+                                    <i className='fa-solid fa-star'></i> 
+                                    {spot.avgStarRating}
+                                    &nbsp;&#x2022;&nbsp;
+                                </span>
+                                <span> 
+                                    {spot.numReviews} {spot.numReviews < 2 ? 'review' : 'reviews'}
+                                </span>
+                            </div>
+                        </div>
+                        <button className="reserve-btn">Reserve</button>
+                    </div>
                 </div>
             </div>
         </div>

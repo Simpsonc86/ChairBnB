@@ -7,6 +7,10 @@ body{
     color:rgb(19, 36, 46)
 }
 
+#root{
+    display: flex;
+    flex-direction: column;
+}
 
 
 

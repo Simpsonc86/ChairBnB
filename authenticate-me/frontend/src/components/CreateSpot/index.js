@@ -52,7 +52,7 @@ function CreateSpot() {
         if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
         setErrors(errObj)
             
-        if (!!Object.values(errors).length) {
+        if (!Object.values(errors).length) {
             // create an array for images for thunk arg if there are no errors in errObj
             let imgArr = [];
 
@@ -80,15 +80,7 @@ function CreateSpot() {
 
             // console.log('This is the spot owner', owner);
 
-        }else{
-
-            if(errors){
-                setErrors(errors)
-                return 
-            }
-            else{
-                history.push(`/spots/${spot.id}`)
-            }
+            history.push(`/spots/${spot.id}`)            
         }
 
     }

@@ -1,6 +1,6 @@
 // frontend/src/components/Navigation/index.js
 import React from "react";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
@@ -14,32 +14,34 @@ function Navigation({ isLoaded }) {
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <div>
-        <Link to='/spots/create'>
-          <li>Create a spot</li>
+      <div className="profile-menu">
+        <Link className='create-link' to='/spots/new'>
+          <div>Create a New Spot</div>
         </Link>
-        <li>
+        <div className="profile-btn">
           <ProfileButton user={sessionUser} />
-        </li>
+        </div>
       </div>
     );
   } else {
     sessionLinks = (
-      <li>
-      <ProfileButton user={sessionUser} />
-    </li>
+      <div className='profile-btn'>
+        <ProfileButton user={sessionUser} />
+      </div>
     );
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">
-          Home
-        </NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+    <nav>
+      <div className="nav-bar">
+        <div className='home-link' >
+          <NavLink exact to="/">
+          <img className='logo'src='/images/Solomon-AwvvrlRBK6c271lr.avif' alt='chair'/>
+          </NavLink>
+        </div>
+        {isLoaded && sessionLinks}
+      </div>
+    </nav>
   );
 }
 

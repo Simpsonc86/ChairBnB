@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getSpotThunk } from "../../store/spot";
 import { useEffect } from "react";
+import './SingleSpot.css'
 
 const SingleSpot = () => {
     const { spotId } = useParams()
@@ -11,38 +12,59 @@ const SingleSpot = () => {
 
     const spot = useSelector(state => {
         console.log('state from the store', state);
-        return state.spots.oneSpot
+        return state.spots.singleSpot
     });
     // console.log('spot from store ', spot);
 
     useEffect(() => {
         dispatch(getSpotThunk(spotId));
-    }, [dispatch,spotId]);
+    }, [dispatch, spotId]);
 
-    if(!spot.Owner)return <div>...On the Way! Have faith!...</div>
+    if (!spot.Owner) return <div>...On the Way! Have faith!...</div>
 
     return (
-        <div>
-            <div>
-                <h1>{spot.name}</h1>
-                <h3>{spot.city}, {spot.state}, {spot.country}</h3>
-            </div>
-            <div>
-                {/* <img src={spot.SpotImages[0].url} alt='preview'/> */}
-            </div>
-            <div>
-                {/* pictures grid here */}
-            </div>
-            <div>
-                <h2>
-                    Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
-                </h2>
-                <p>{spot.description}</p>
-            </div>
-            <div>
-                <span>${spot.price} night</span>
-                <span>  <i className='fa-solid fa-star'></i> {spot.avgStarRating}</span>
-                <span> {spot.numReviews} {spot.numReviews<2?'review':'reviews'}</span>
+        <div className="spot-details-main">
+            <div className='spot-details-box'>
+
+                <div className="spot-heading">
+                    <h1>{spot.name}</h1>
+                    <h3>{spot.city}, {spot.state}, {spot.country}</h3>
+                </div>
+                <div className="images-box">
+                    <div>
+                        {/* <img className='preview-img' src={spot.SpotImages[0].url} alt='preview' /> */}
+                    </div>
+                    <div>
+                        {/* pictures grid here */}
+                    </div>
+                </div>
+                <div className="spot-details-info">
+                    <div>
+                        <h2>
+                            Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
+                        </h2>
+                        <p>{spot.description}</p>
+                    </div>
+                    <div className="price-reviews-box">
+                        <div className='price-reviews'>
+                            <span>${spot.price} night</span>
+                            <div className="c">
+                                <span>  
+                                    <i className='fa-solid fa-star'></i> 
+                                    {spot.avgStarRating}
+                                    {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span>:''}
+                                   
+                                </span>
+                                <span>           
+                                    {spot.numReviews===0 ?'New': spot.numReviews}                        
+                                    {spot.numReviews === 1  ? ' review' : ''}
+                                    {spot.numReviews >1 ? ' reviews' : ''}
+                                </span>
+                            </div>
+                        </div>
+                        <button className="reserve-btn">Reserve</button>
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -45,7 +45,7 @@ function CreateSpot() {
         if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
         setErrors(errObj)
-    }, [dispatch, name, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
+    }, [ name, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
 
 
 
@@ -83,6 +83,61 @@ function CreateSpot() {
         }
 
     }
+    
+    const STATES = [
+        { name: 'Not in the USA', abbreviation: 'NA'},
+        { name: 'Alabama', abbreviation: 'AL' },
+        { name: 'Alaska', abbreviation: 'AK' },
+        { name: 'Arizona', abbreviation: 'AZ' },
+        { name: 'Arkansas', abbreviation: 'AR' },
+        { name: 'California', abbreviation: 'CA' },
+        { name: 'Colorado', abbreviation: 'CO' },
+        { name: 'Connecticut', abbreviation: 'CT' },
+        { name: 'Delaware', abbreviation: 'DE' },
+        { name: 'Florida', abbreviation: 'FL' },
+        { name: 'Georgia', abbreviation: 'GA' },
+        { name: 'Hawaii', abbreviation: 'HI' },
+        { name: 'Idaho', abbreviation: 'ID' },
+        { name: 'Illinois', abbreviation: 'IL' },
+        { name: 'Indiana', abbreviation: 'IN' },
+        { name: 'Iowa', abbreviation: 'IA' },
+        { name: 'Kansas', abbreviation: 'KS' },
+        { name: 'Kentucky', abbreviation: 'KY' },
+        { name: 'Louisiana', abbreviation: 'LA' },
+        { name: 'Maine', abbreviation: 'ME' },
+        { name: 'Maryland', abbreviation: 'MD' },
+        { name: 'Massachusetts', abbreviation: 'MA' },
+        { name: 'Michigan', abbreviation: 'MI' },
+        { name: 'Minnesota', abbreviation: 'MN' },
+        { name: 'Mississippi', abbreviation: 'MS' },
+        { name: 'Missouri', abbreviation: 'MO' },
+        { name: 'Montana', abbreviation: 'MT' },
+        { name: 'Nebraska', abbreviation: 'NE' },
+        { name: 'Nevada', abbreviation: 'NV' },
+        { name: 'New Hampshire', abbreviation: 'NH' },
+        { name: 'New Jersey', abbreviation: 'NJ' },
+        { name: 'New Mexico', abbreviation: 'NM' },
+        { name: 'New York', abbreviation: 'NY' },
+        { name: 'North Carolina', abbreviation: 'NC' },
+        { name: 'North Dakota', abbreviation: 'ND' },
+        { name: 'Ohio', abbreviation: 'OH' },
+        { name: 'Oklahoma', abbreviation: 'OK' },
+        { name: 'Oregon', abbreviation: 'OR' },
+        { name: 'Pennsylvania', abbreviation: 'PA' },
+        { name: 'Rhode Island', abbreviation: 'RI' },
+        { name: 'South Carolina', abbreviation: 'SC' },
+        { name: 'South Dakota', abbreviation: 'SD' },
+        { name: 'Tennessee', abbreviation: 'TN' },
+        { name: 'Texas', abbreviation: 'TX' },
+        { name: 'Utah', abbreviation: 'UT' },
+        { name: 'Vermont', abbreviation: 'VT' },
+        { name: 'Virginia', abbreviation: 'VA' },
+        { name: 'Washington', abbreviation: 'WA' },
+        { name: 'West Virginia', abbreviation: 'WV' },
+        { name: 'Wisconsin', abbreviation: 'WI' },
+        { name: 'Wyoming', abbreviation: 'WY' },
+
+    ];
     //if user adds bad data and thunk returns errors set errors object to those errors and display in jsx
 
 
@@ -136,19 +191,25 @@ function CreateSpot() {
                         // required
                         />
                     </label>
-                    <span className="comma">,</span>    
+                    <span className="comma">,</span>
                     &nbsp;
                     <label className="state-label">
                         State
                         {errors.state && <span className="errors">&nbsp;{errors.state}</span>}
                         <br />
-                        <input
+                        <select
                             type="text"
                             value={state}
                             onChange={(e) => setState(e.target.value)}
                             placeholder="State"
                         // required
-                        />
+                        >
+                            <option value="">Select a state from the dropdown</option>
+                            {STATES.map((state)=>(
+                                <option key={state.name} value={state.abbreviation}>{state.name}</option>
+                            ))}
+                        </select>
+                        {console.log('this is the selected state from the dropdown',state)}
                     </label>
 
                 </div>

@@ -25,6 +25,31 @@ function LoginFormModal() {
       });
   };
 
+  const loginDemoUser = (e) =>{
+    e.preventDefault();
+    setErrors({});
+    return dispatch(sessionActions.login({ credential:'Demo-lition', password:'password' }))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
+  }
+  const loginDemoUser2 = (e) =>{
+    e.preventDefault();
+    setErrors({});
+    return dispatch(sessionActions.login({ credential:'FakeUser1', password:'password2' }))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
+  }
+
   return (
     <div className="login-box">
       <h1>Log In</h1>
@@ -57,6 +82,10 @@ function LoginFormModal() {
           <button className='login-btn'type="submit" disabled={(password.length<6||credential.length<4)}>Log In</button>
         </div>
       </form>
+      <br/>
+      <button className='login-btn' onClick={loginDemoUser}>Demo user</button>
+      <br/>
+      <button className='login-btn' onClick={loginDemoUser2}>Demo user 2</button>
     </div>
   );
 }

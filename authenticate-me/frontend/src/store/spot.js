@@ -112,7 +112,7 @@ export const getAllUserSpotsThunk = () => async (dispatch) => {
 
     if (res.ok) {
         const data = await res.json();
-        // console.log('this is the returned data from the thunk',data);
+        console.log('this is the returned data from the thunk',data);
         dispatch(getAllUserSpots(data));
         return data;
     }
@@ -159,7 +159,7 @@ const spotReducer = (state = initialState, action) => {
                 newState.allSpots[spot.id] = spot
             });
             
-            // console.log('newState :',newState);
+            // console.log('newState from:',newState);
             return newState;
         }
         default: {

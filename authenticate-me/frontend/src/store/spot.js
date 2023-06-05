@@ -154,12 +154,12 @@ const spotReducer = (state = initialState, action) => {
         }
         case GET_ALL_USERS_SPOTS:{
             newState = {...state, allSpots: {}, singleSpot: {} }
-            console.log('allspots',action.payload.Spots);
+            console.log('allspots from user',action.payload.Spots);
             action.payload.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             });
             
-            // console.log('newState from:',newState);
+            console.log('newState from:',newState);
             return newState;
         }
         default: {

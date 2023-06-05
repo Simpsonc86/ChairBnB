@@ -12,10 +12,12 @@ function AllSpots({ spot }) {
     const dispatch = useDispatch();
     // const sessionUser = useSelector(state => state.session.user);
     const spotsObj = useSelector(state => state.spots.allSpots);
+    // console.log('This is all spots',spotsObj);
 
     const handleClick = (spot) => {
         history.push(`/spots/${spot.id}`);
     }
+
 
     useEffect(() => {
         dispatch(getAllSpotsThunk());
@@ -28,7 +30,7 @@ function AllSpots({ spot }) {
 
     if (!allSpots.length) return null
 
-    let noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'
+    const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'
 
     return (
         <div className='main-div'>
@@ -36,20 +38,20 @@ function AllSpots({ spot }) {
                 <div className='spot-tiles'>
                     {allSpots.map(oneSpot => (
                         // console.log(oneSpot)
-                        <div className='spot-link' key={oneSpot.id} >
-                            <Link to={`/spots/${oneSpot.id}`} onClick={handleClick}>
-                                {oneSpot.previewImage ? <img src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
-                                <div className='spot-tile-desc-top'>
+                        <Link to={`/spots/${oneSpot.id}`} key={oneSpot.id} onClick={handleClick} className='spot-link' >
+
+                            {oneSpot.previewImage ? <img src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
+                            <div className='spot-tile-desc-top'>
                                 <span className='city-state'>{oneSpot.city}, {oneSpot.state}</span>
                                 <span className='rating'>
                                     <i className='fa-solid fa-star'></i>
                                     {oneSpot.avgRating ? oneSpot.avgRating : 'New'}
                                 </span>
-                                </div>
-                                <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
-                                {/* {console.log('spot details: ',oneSpot)} */}
-                            </Link>
-                        </div>
+                            </div>
+                            <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
+                            {/* {console.log('spot details: ',oneSpot)} */}
+
+                        </Link>
                     )
                     )}
                 </div>

@@ -1,13 +1,13 @@
-/* h1{
+.signup-title{
     display: flex;
     justify-content: center;
-    color:black;
     font-weight: bold;    
-} */
+}
 
 .signup-box{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding:0px 50px 50px;
     border-radius: 50px;
     min-width: 400px;
@@ -30,7 +30,7 @@ input{
     padding:20px 0px;
     background-color: red;
     color:white;
-    box-shadow: 10px 10px 2px black;
+    box-shadow: 5px 5px 4px black;
 }
 
 .errors{

@@ -30,15 +30,14 @@
     box-shadow: 0 0 3px 1px;
     border-radius: 10px;
     min-width: 200px;
-   
+    border:transparent;
+    border-color: transparent;
     max-width: 200px;
-   
+    color:black;   
     justify-content: center;
-
     padding:10px;
-
-
 }
+
 img{
     padding-top: 10px;
     max-width: 100%;

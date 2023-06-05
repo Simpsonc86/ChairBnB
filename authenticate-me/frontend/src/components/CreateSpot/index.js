@@ -27,10 +27,16 @@ function CreateSpot() {
     const [image3, setImage3] = useState('');
     const [image4, setImage4] = useState('');
     const [errors, setErrors] = useState({});
-    // const { closeModal } = useModal();
 
     // validations for controlled inputs
-    useEffect(() => {
+    // useEffect(() => {
+        
+    // }, [ name, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let spot={};
+
         const errObj = {};
         if (!name.length) errObj.name = "Title is required"
         if (!address.length) errObj.address = "Address is required"
@@ -45,14 +51,8 @@ function CreateSpot() {
         if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
         setErrors(errObj)
-    }, [ name, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
-
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // let spot ={}
-        if (!Object.values(errors).length) {
+            
+        if (!!Object.values(errors).length) {
             // create an array for images for thunk arg if there are no errors in errObj
             let imgArr = [];
 
@@ -76,10 +76,19 @@ function CreateSpot() {
             }, imgArr, owner))
 
             console.log('This is the created spot', createdSpot);
+            spot = {...createdSpot}
 
             // console.log('This is the spot owner', owner);
 
-            history.push(`/spots/${createdSpot.id}`)
+        }else{
+
+            if(errors){
+                setErrors(errors)
+                return 
+            }
+            else{
+                history.push(`/spots/${spot.id}`)
+            }
         }
 
     }
@@ -223,7 +232,7 @@ function CreateSpot() {
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Description"
+                        placeholder="Please write at least 30 characters"
                     // required
                     />
                     {errors.description && <p className="errors">{errors.description}</p>}

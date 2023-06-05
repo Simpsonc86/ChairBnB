@@ -5,7 +5,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = 'spot/getAllSpots';
 const GET_ONE_SPOT = 'spot/getSpot';
 const CREATE_SPOT = 'spot/createSpot'
-const MANAGE_SPOTS = 'spot/manageSpots'
+const GET_ALL_USERS_SPOTS = 'spot/manageSpots'
 
 //action creator
 const getAllSpots = (spots) => {
@@ -30,14 +30,14 @@ const createSpot = (spot) => {
     }
 }
 
-const manageSpots = (spots) =>{
+const getAllUserSpots = (spots) =>{
     return{
-        type:MANAGE_SPOTS,
+        type:GET_ALL_USERS_SPOTS,
         payload: spots
     }
 }
 
-//thunk action creator
+////////////////thunk action creators
 export const getAllSpotsThunk = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');
 
@@ -48,7 +48,7 @@ export const getAllSpotsThunk = () => async (dispatch) => {
         return data;
     }
 }
-
+///////////get one spot
 export const getSpotThunk = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`);
     if (res.ok) {
@@ -58,7 +58,7 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
         return data;
     }
 }
-
+///create a spot
 export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
 
     // fetch from api
@@ -106,6 +106,17 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
         return errors;
     }
 }
+/// curent user spots
+export const getAllUserSpotsThunk = () => async (dispatch) => {
+    const res = await csrfFetch('/api/current');
+
+    if (res.ok) {
+        const data = await res.json();
+        // console.log('this is the returned data from the thunk',data);
+        dispatch(getAllUserSpots(data));
+        return data;
+    }
+}
 //reducer: case in the reducer for all spots
 
 const initialState = { allSpots: {}, singleSpot: {} }
@@ -117,8 +128,8 @@ const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS: {
             //normalize spot data
-            newState = { allSpots: {}, singleSpot: {} }
-            // console.log('allspots',action.payload.Spots);
+            newState = {...state, allSpots: {}, singleSpot: {} }
+            console.log('allspots',action.payload.Spots);
             action.payload.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             });
@@ -128,7 +139,7 @@ const spotReducer = (state = initialState, action) => {
         }
         case GET_ONE_SPOT: {
             const spot = action.payload
-            newState = { allSpots: {}, singleSpot: { ...spot } }
+            newState = {...state, allSpots: {}, singleSpot: { ...spot } }
             newState.singleSpot[spot.id] = spot
             
             console.log('get one spot', newState);
@@ -136,9 +147,19 @@ const spotReducer = (state = initialState, action) => {
         }
         case CREATE_SPOT: {
             const spot = action.payload
-            newState = { allSpots: {}, singleSpot: {...spot} }
+            newState = {...state, allSpots: {}, singleSpot: {...spot} }
             newState.singleSpot[spot.id]=spot
             console.log('create a spot', newState);
+            return newState;
+        }
+        case GET_ALL_USERS_SPOTS:{
+            newState = {...state, allSpots: {}, singleSpot: {} }
+            console.log('allspots',action.payload.Spots);
+            action.payload.Spots.forEach(spot => {
+                newState.allSpots[spot.id] = spot
+            });
+            
+            // console.log('newState :',newState);
             return newState;
         }
         default: {

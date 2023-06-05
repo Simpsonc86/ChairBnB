@@ -1,3 +1,4 @@
+
 .create-link{
     color: teal;
     padding:0 10px
@@ -39,11 +40,6 @@
     justify-content: space-between;
     padding:5px 10px;
     border-radius: 10px;
-    /* height: 100%; */
-    /* width:100%;  */
-    
-    /* border-radius: 50%; */
-    /* size:200%; */
     /* border:3px solid red; */
 }
 
@@ -53,13 +49,12 @@
     gap:10px;
 }
 
-.profile-dropdown{
+.profile-dropdown{    
     position:absolute;
-    top:12%;
-    right:10%;
     background-color: white;
+    right:15%;
     padding:10px 20px;
-    margin: 20px;
+    /* margin-right: 200px; */
     border:2px solid black;
     border-radius: 5px;
     box-shadow: 10px;

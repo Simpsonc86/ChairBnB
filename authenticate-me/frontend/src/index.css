@@ -4,12 +4,19 @@ body{
     justify-content: center;
     background-color: aliceblue;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color:rgb(19, 36, 46)
+    color:rgb(19, 36, 46);
+    width: 1000px;
 }
 
 #root{
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
+}
+
+html{
+    display: flex;
+    justify-content: center;
 }
 
 

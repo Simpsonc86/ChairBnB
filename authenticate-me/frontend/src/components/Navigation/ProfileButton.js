@@ -48,7 +48,7 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <div>Welcome back {user.username}</div>
+            <div>Hello, {user.username}</div>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>

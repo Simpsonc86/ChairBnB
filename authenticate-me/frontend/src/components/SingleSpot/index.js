@@ -52,10 +52,13 @@ const SingleSpot = () => {
                                 <span>  
                                     <i className='fa-solid fa-star'></i> 
                                     {spot.avgStarRating}
-                                    &nbsp;&#x2022;&nbsp;
+                                    {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span>:''}
+                                   
                                 </span>
-                                <span> 
-                                    {spot.numReviews} {spot.numReviews < 2 ? 'review' : 'reviews'}
+                                <span>           
+                                    {spot.numReviews===0 ?'New': spot.numReviews}                        
+                                    {spot.numReviews === 1  ? ' review' : ''}
+                                    {spot.numReviews >1 ? ' reviews' : ''}
                                 </span>
                             </div>
                         </div>

@@ -5,6 +5,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = 'spot/getAllSpots';
 const GET_ONE_SPOT = 'spot/getSpot';
 const CREATE_SPOT = 'spot/createSpot'
+const MANAGE_SPOTS = 'spot/manageSpots'
 
 //action creator
 const getAllSpots = (spots) => {
@@ -28,6 +29,14 @@ const createSpot = (spot) => {
         payload: spot
     }
 }
+
+const manageSpots = (spots) =>{
+    return{
+        type:MANAGE_SPOTS,
+        payload: spots
+    }
+}
+
 //thunk action creator
 export const getAllSpotsThunk = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');

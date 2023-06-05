@@ -8,3 +8,12 @@
  * 
  * useeffect to dispatch thunk on mount
  */
+
+// import { useDispatch,useSelector } from "react-redux";
+import './ManageSpots.css'
+
+function ManagesSpots(){
+    return
+}
+
+export default ManagesSpots;

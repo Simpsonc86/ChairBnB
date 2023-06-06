@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { createSpotThunk } from "../../store/spot";
 import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import './CreateSpot.css'
 // import { useModal } from '../../context/Modal';
 
@@ -9,7 +9,7 @@ function CreateSpot() {
     const history = useHistory()
     const dispatch = useDispatch()
     const owner = useSelector(state => {
-        console.log('state from the store', state);
+        // console.log('state from the store', state);
         return state.session.user
     });
 
@@ -75,8 +75,9 @@ function CreateSpot() {
             
 
             // console.log('This is the spot owner', owner);
+            console.log(!Object.values(errors).length);
 
-            if(!Object.values(errors).length) history.push(`/spots/${createdSpot.id}`)            
+            if(createdSpot)history.push(`/spots/${createdSpot.id}`)            
         }else setErrors(errObj)
 
     }
@@ -222,7 +223,7 @@ function CreateSpot() {
                         placeholder="Please write at least 30 characters"
                     // required
                     />
-                    {errors.description && !description.length>0 &&<p className="errors">{errors.description}</p>}
+                    {errors.description && description.length<29 &&<p className="errors">{errors.description}</p>}
                 </label>
                 <hr />
                 <h2>Create a title for your spot</h2>

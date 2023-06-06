@@ -5,7 +5,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = 'spot/getAllSpots';
 const GET_ONE_SPOT = 'spot/getSpot';
 const CREATE_SPOT = 'spot/createSpot'
-const GET_ALL_USERS_SPOTS = 'spot/manageSpots'
+// const GET_ALL_USERS_SPOTS = 'spot/manageSpots'
 
 //action creator
 const getAllSpots = (spots) => {
@@ -30,14 +30,16 @@ const createSpot = (spot) => {
     }
 }
 
-const getAllUserSpots = (spots) =>{
-    return{
-        type:GET_ALL_USERS_SPOTS,
-        payload: spots
-    }
-}
+// const getAllUserSpots = (spots) =>{
+//     return{
+//         type:GET_ALL_USERS_SPOTS,
+//         payload: spots
+//     }
+// }
 
 ////////////////thunk action creators
+
+//get all spots 
 export const getAllSpotsThunk = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');
 
@@ -48,7 +50,7 @@ export const getAllSpotsThunk = () => async (dispatch) => {
         return data;
     }
 }
-///////////get one spot
+//get one spot
 export const getSpotThunk = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`);
     if (res.ok) {
@@ -113,16 +115,16 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
     }
 }
 /// curent user spots
-export const getAllUserSpotsThunk = () => async (dispatch) => {
-    const res = await csrfFetch('/api/current');
+// export const getAllUserSpotsThunk = () => async (dispatch) => {
+//     const res = await csrfFetch('/api/current');
 
-    if (res.ok) {
-        const data = await res.json();
-        console.log('this is the returned data from the thunk',data);
-        dispatch(getAllUserSpots(data));
-        return data;
-    }
-}
+//     if (res.ok) {
+//         const data = await res.json();
+//         console.log('this is the returned data from the thunk',data);
+//         dispatch(getAllUserSpots(data));
+//         return data;
+//     }
+// }
 //reducer: case in the reducer for all spots
 
 const initialState = { allSpots: {}, singleSpot: {} }
@@ -157,16 +159,16 @@ const spotReducer = (state = initialState, action) => {
             console.log('create a spot', newState);
             return newState;
         }
-        case GET_ALL_USERS_SPOTS:{
-            newState = {...state, allSpots: {}, singleSpot: {} }
-            console.log('allspots from user',action.payload.Spots);
-            action.payload.Spots.forEach(spot => {
-                newState.allSpots[spot.id] = spot
-            });
+        // case GET_ALL_USERS_SPOTS:{
+        //     newState = {...state, allSpots: {}, singleSpot: {} }
+        //     console.log('allspots from user',action.payload.Spots);
+        //     action.payload.Spots.forEach(spot => {
+        //         newState.allSpots[spot.id] = spot
+        //     });
             
-            console.log('newState from:',newState);
-            return newState;
-        }
+        //     console.log('newState from:',newState);
+        //     return newState;
+        // }
         default: {
             return state;
         }

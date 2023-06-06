@@ -19,8 +19,8 @@
 .spot-tiles{
     display:flex;
     flex-wrap:wrap;
-    justify-content: space-evenly;
-    gap:25px;
+    justify-content:flex-start;
+    gap: 10px;;
     /* flex-basis:66.7%; */
     /* border:5px solid red; */
 }
@@ -29,7 +29,7 @@
     /* display: flex; */
     box-shadow: 0 0 3px 1px;
     border-radius: 10px;
-    min-width: 200px;
+    min-width: 222px;
     border:transparent;
     border-color: transparent;
     max-width: 200px;
@@ -42,6 +42,15 @@ img{
     padding-top: 10px;
     max-width: 100%;
     max-height: 75%;
+  
+}
+.preview-img{
+    padding-top: 10px;
+    max-width: 100%;
+    max-height: 75%;
+    width: fit-content;
+    height: 200px;
+    object-fit: cover;
 }
 
 .spot-tile-desc-top{

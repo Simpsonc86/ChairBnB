@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import './AllSpots.css'
 
 
-function AllSpots({ spot }) {
+function AllSpots() {
     const history = useHistory();
     const dispatch = useDispatch();
     // const sessionUser = useSelector(state => state.session.user);
@@ -36,11 +36,11 @@ function AllSpots({ spot }) {
         <div className='main-div'>
             <div className='main-spots'>
                 <div className='spot-tiles'>
-                    {allSpots.map(oneSpot => (
+                    {allSpots.reverse().map(oneSpot => (
                         // console.log(oneSpot)
                         <Link to={`/spots/${oneSpot.id}`} key={oneSpot.id} onClick={handleClick} className='spot-link' >
 
-                            {oneSpot.previewImage ? <img src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
+                            {oneSpot.previewImage ? <img className='preview-img'src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
                             <div className='spot-tile-desc-top'>
                                 <span className='city-state'>{oneSpot.city}, {oneSpot.state}</span>
                                 <span className='rating'>

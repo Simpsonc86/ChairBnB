@@ -75,33 +75,39 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
             //iterate through spot images and use spot id to hit backend enpoint for images
             // /api/spot/${createdSpot.id}/images
             // use a for let of loop to iterate thru images
+            console.log('this is the created spot from the thunk number 1', createdSpot);
+            console.log('this is the created spot id', createdSpot.id);
             let spotImages = [];
             for (let image of images) {
-
-                image.spotId = createSpot.id
-
-                const imgRes = await csrfFetch(`/api/spot/${createdSpot.id}/images`, {
+                
+                image.spotId = createdSpot.id
+                
+                console.log('this is the created spot id inside loop', createdSpot.id);
+                console.log('this is the current image from loop', image);
+                const imgRes = await csrfFetch(`/api/spots/${createdSpot.id}/images`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(image)
 
                 })
-
+                
                 if (imgRes.ok) {
-                    const createdImg = await res.json();
+                    const createdImg = await imgRes.json();
                     spotImages.push(createdImg)
                 }
             }
-
+            
             createdSpot.SpotImages = spotImages;
             createdSpot.Owner = owner;
-
-            console.log('this is the created spot', createdSpot);
+            
+            console.log('this is the created spot from the thunk number 2', createdSpot);
             await dispatch(createSpot(createdSpot))
+            console.log('this is the created spot from the thunk number 3', createdSpot);
             return createdSpot;
 
         }
     } catch (err) {
+        console.log('this is the err from the catch',err);
         const errors = await err.json();
         return errors;
     }

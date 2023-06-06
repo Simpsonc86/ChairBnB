@@ -36,7 +36,7 @@ function AllSpots({ spot }) {
         <div className='main-div'>
             <div className='main-spots'>
                 <div className='spot-tiles'>
-                    {allSpots.map(oneSpot => (
+                    {allSpots.reverse().map(oneSpot => (
                         // console.log(oneSpot)
                         <Link to={`/spots/${oneSpot.id}`} key={oneSpot.id} onClick={handleClick} className='spot-link' >
 

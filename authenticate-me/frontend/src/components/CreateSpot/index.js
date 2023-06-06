@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { createSpotThunk } from "../../store/spot";
 import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import './CreateSpot.css'
 // import { useModal } from '../../context/Modal';
 
@@ -9,7 +9,7 @@ function CreateSpot() {
     const history = useHistory()
     const dispatch = useDispatch()
     const owner = useSelector(state => {
-        console.log('state from the store', state);
+        // console.log('state from the store', state);
         return state.session.user
     });
 

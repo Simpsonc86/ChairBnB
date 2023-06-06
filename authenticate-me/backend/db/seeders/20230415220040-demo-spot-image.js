@@ -11,55 +11,91 @@ module.exports = {
     await queryInterface.bulkInsert(options,[
       {
         spotId: 1,
-        url:'testurl.com/images/spot-image1.jpg',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
         preview:true,
 
       },
       {
         spotId: 1,
-        url:'testurl.com/images/spot-image2.jpg',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
         preview:false,
 
       },
       {
         spotId: 1,
-        url:'testurl.com/images/spotspot-image3.jpg',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
+        preview:false,
+
+      },
+      {
+        spotId: 1,
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
+        preview:false,
+
+      },
+      {
+        spotId: 1,
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
         preview:false,
 
       },
       {
         spotId: 2,
-        url:'testurl.com/images/spot2/spot-image1.jpg',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212569813112/image-asset.png',
         preview:true,
 
       },
       {
         spotId: 2,
-        url:'testurl.com/images/spot2/spot-image2.jpg',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212569813112/image-asset.png',
         preview:false,
 
       },
       {
         spotId: 2,
-        url:'testurl.com/images/spot2/spot-image3.jpg',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212569813112/image-asset.png',
+        preview:false,
+
+      },
+      {
+        spotId: 2,
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212569813112/image-asset.png',
+        preview:false,
+
+      },
+      {
+        spotId: 2,
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212569813112/image-asset.png',
         preview:false,
 
       },
       {
         spotId: 3,
-        url:'testurl.com/images/spot3/spot-image1.jpg',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
         preview:true,
 
       },
       {
         spotId: 3,
-        url:'testurl.com/images/spot3/spot-image2.jpg',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
         preview:false,
 
       },
       {
-        spotId: 2,
-        url:'testurl.com/images/spot3/spot-image3.jpg',
+        spotId: 3,
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
+        preview:false,
+
+      },
+      {
+        spotId: 3,
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
+        preview:false,
+
+      },
+      {
+        spotId: 3,
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
         preview:false,
 
       },

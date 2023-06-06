@@ -13,7 +13,9 @@
 import './ManageSpots.css'
 
 function ManageSpots(){
-    return
+    return(
+        <h1>Manage Spots</h1>
+    )
 }
 
 export default ManageSpots;

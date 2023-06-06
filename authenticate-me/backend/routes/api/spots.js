@@ -192,6 +192,9 @@ router.get('/:spotId', async (req, res) => {
 // Add an image to spot based on spot id
 router.post('/:spotId/images', [requireAuth], async (req, res) => {
     const { user } = req;
+    console.log('hitting the backend------------------');
+    console.log('hitting the backend------------------spotId',req.params.spotId);
+    console.log('hitting the backend------------------user',user);
 
     const spot = await Spot.findByPk(req.params.spotId);
 
@@ -205,6 +208,7 @@ router.post('/:spotId/images', [requireAuth], async (req, res) => {
     // if user is the owner of spot add image to spot, else throw forbidden error
     if (user.id === spot.ownerId) {
         const { url, preview } = req.body;
+        console.log('This is the url------',url,'this the preview------',preview);
 
         const addImage = await SpotImage.create({
             spotId: spot.id,

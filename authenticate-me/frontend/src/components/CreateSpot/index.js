@@ -27,10 +27,12 @@ function CreateSpot() {
     const [image3, setImage3] = useState('');
     const [image4, setImage4] = useState('');
     const [errors, setErrors] = useState({});
-    // const { closeModal } = useModal();
 
     // validations for controlled inputs
-    useEffect(() => {
+ 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+                
         const errObj = {};
         if (!name.length) errObj.name = "Title is required"
         if (!address.length) errObj.address = "Address is required"
@@ -44,15 +46,8 @@ function CreateSpot() {
         if (image2 && !image2.endsWith('.png') && !image2.endsWith('.jpg') && !image2.endsWith('.jpeg')) errObj.image2 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
-        setErrors(errObj)
-    }, [ name, address, description, city, country, state, price, previewImage, image1, image2, image3, image4])
-
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // let spot ={}
-        if (!Object.values(errors).length) {
+                    
+        if (!Object.values(errObj).length) {
             // create an array for images for thunk arg if there are no errors in errObj
             let imgArr = [];
 
@@ -62,6 +57,7 @@ function CreateSpot() {
             if (image3) imgArr.push({ url: image3, preview: false })
             if (image4) imgArr.push({ url: image4, preview: false })
 
+            console.log('this is the img Arr ', imgArr);
             //Thunk args = (spot,images,owner)
             const createdSpot = await dispatch(createSpotThunk({
                 name,
@@ -75,12 +71,13 @@ function CreateSpot() {
                 price,
             }, imgArr, owner))
 
-            console.log('This is the created spot', createdSpot);
+            console.log('This is the created spot from the component',  createdSpot);
+            
 
             // console.log('This is the spot owner', owner);
 
-            history.push(`/spots/${createdSpot.id}`)
-        }
+            if(!Object.values(errors).length) history.push(`/spots/${createdSpot.id}`)            
+        }else setErrors(errObj)
 
     }
     
@@ -136,7 +133,6 @@ function CreateSpot() {
         { name: 'West Virginia', abbreviation: 'WV' },
         { name: 'Wisconsin', abbreviation: 'WI' },
         { name: 'Wyoming', abbreviation: 'WY' },
-
     ];
     //if user adds bad data and thunk returns errors set errors object to those errors and display in jsx
 
@@ -154,7 +150,7 @@ function CreateSpot() {
                 <h3>Guest will only get your exact address once they booked a reservation</h3>
                 <label>
                     Country
-                    {errors.country && <span className="errors">&nbsp;{errors.country}</span>}
+                    {errors.country && !country.length>0 && <span className="errors">&nbsp;{errors.country}</span>}
                     <br />
                     <input
                         type="text"
@@ -167,7 +163,7 @@ function CreateSpot() {
                 <br />
                 <label>
                     Street Address
-                    {errors.address && <span className="errors">&nbsp;{errors.address}</span>}
+                    {errors.address && !address.length>0 &&<span className="errors">&nbsp;{errors.address}</span>}
                     <br />
                     <input
                         type="text"
@@ -181,7 +177,7 @@ function CreateSpot() {
                 <div className="city-state-form-div">
                     <label className="city-label">
                         City
-                        {errors.city && <span className="errors">&nbsp;{errors.city}</span>}
+                        {errors.city && !city.length>0 &&<span className="errors">&nbsp;{errors.city}</span>}
                         <br />
                         <input
                             type="text"
@@ -195,7 +191,7 @@ function CreateSpot() {
                     &nbsp;
                     <label className="state-label">
                         State
-                        {errors.state && <span className="errors">&nbsp;{errors.state}</span>}
+                        {errors.state && !state.length>0 &&<span className="errors">&nbsp;{errors.state}</span>}
                         <br />
                         <select
                             type="text"
@@ -223,10 +219,10 @@ function CreateSpot() {
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Description"
+                        placeholder="Please write at least 30 characters"
                     // required
                     />
-                    {errors.description && <p className="errors">{errors.description}</p>}
+                    {errors.description && !description.length>0 &&<p className="errors">{errors.description}</p>}
                 </label>
                 <hr />
                 <h2>Create a title for your spot</h2>
@@ -241,7 +237,7 @@ function CreateSpot() {
                         placeholder="Name of your spot"
                     // required
                     />
-                    {errors.name && <p className="errors">{errors.name}</p>}
+                    {errors.name && !name.length>0 &&<p className="errors">{errors.name}</p>}
                 </label>
                 <hr />
                 <h2>Set a base price for your spot</h2>
@@ -256,7 +252,7 @@ function CreateSpot() {
                         placeholder="Price per night (USD)"
                     // required
                     />
-                    {errors.price && <p className="errors">{errors.price}</p>}
+                    {errors.price && !price.length>0 &&<p className="errors">{errors.price}</p>}
                 </label>
                 <hr />
                 <h2>Liven up your spot with photos</h2>
@@ -271,7 +267,7 @@ function CreateSpot() {
                         placeholder="Preview Image URL"
                     // required
                     />
-                    {errors.previewImage && <p className="errors">{errors.previewImage}</p>}
+                    {errors.previewImage && !previewImage.length>0 &&<p className="errors">{errors.previewImage}</p>}
                 </label>
                 <br />
                 <label>
@@ -282,7 +278,7 @@ function CreateSpot() {
                         placeholder="Image URL"
                     // required
                     />
-                    {errors.image1 && <p className="errors">{errors.image1}</p>}
+                    {errors.image1 && !image1.length>0 &&<p className="errors">{errors.image1}</p>}
                 </label>
                 <br />
                 <label>
@@ -293,7 +289,7 @@ function CreateSpot() {
                         placeholder="Image URL"
                     // required
                     />
-                    {errors.image2 && <p className="errors" >{errors.image2}</p>}
+                    {errors.image2 && !image2.length>0 &&<p className="errors" >{errors.image2}</p>}
                 </label>
                 <br />
                 <label>
@@ -304,7 +300,7 @@ function CreateSpot() {
                         placeholder="Image URL"
                     // required
                     />
-                    {errors.image3 && <p className="errors">{errors.image3}</p>}
+                    {errors.image3 && !image3.length>0 &&<p className="errors">{errors.image3}</p>}
                 </label>
                 <br />
                 <label>
@@ -315,10 +311,10 @@ function CreateSpot() {
                         placeholder="Image URL"
                     // required
                     />
-                    {errors.image4 && <p className="errors">{errors.image4}</p>}
+                    {errors.image4 && !image4.length>0 &&<p className="errors">{errors.image4}</p>}
                 </label>
                 <hr />
-                <button type='submit' disabled={!!Object.values(errors).length}>Create Spot</button>
+                <button type='submit' >Create Spot</button>
             </form>
         </div>
 
@@ -326,3 +322,5 @@ function CreateSpot() {
 }
 
 export default CreateSpot;
+
+//disabled={!!Object.values(errors).length}

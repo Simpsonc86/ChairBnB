@@ -7,7 +7,7 @@ import Navigation from "./components/Navigation";
 import AllSpots from './components/AllSpots'
 import SingleSpot from './components/SingleSpot'
 import CreateSpot from "./components/CreateSpot";
-import ManagesSpots from "./components/ManageSpots";
+import ManageSpots from "./components/ManageSpots";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function App() {
           <SingleSpot/>
         </Route>
         <Route exact path='/current'>
-          <ManagesSpots/>
+          <ManageSpots/>
         </Route>
         <Route exact path='/'>
           <AllSpots/>

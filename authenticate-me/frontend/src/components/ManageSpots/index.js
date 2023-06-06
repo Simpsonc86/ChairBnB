@@ -12,8 +12,8 @@
 // import { useDispatch,useSelector } from "react-redux";
 import './ManageSpots.css'
 
-function ManagesSpots(){
+function ManageSpots(){
     return
 }
 
-export default ManagesSpots;
+export default ManageSpots;

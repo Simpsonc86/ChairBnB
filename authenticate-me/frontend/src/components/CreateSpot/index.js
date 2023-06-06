@@ -75,8 +75,9 @@ function CreateSpot() {
             
 
             // console.log('This is the spot owner', owner);
+            console.log(!Object.values(errors).length);
 
-            if(!Object.values(errors).length) history.push(`/spots/${createdSpot.id}`)            
+            if(createdSpot)history.push(`/spots/${createdSpot.id}`)            
         }else setErrors(errObj)
 
     }
@@ -222,7 +223,7 @@ function CreateSpot() {
                         placeholder="Please write at least 30 characters"
                     // required
                     />
-                    {errors.description && !description.length>0 &&<p className="errors">{errors.description}</p>}
+                    {errors.description && description.length<29 &&<p className="errors">{errors.description}</p>}
                 </label>
                 <hr />
                 <h2>Create a title for your spot</h2>

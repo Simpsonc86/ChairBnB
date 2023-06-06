@@ -11,8 +11,15 @@
 
 // import { useDispatch,useSelector } from "react-redux";
 import './ManageSpots.css'
+import { useHistory } from 'react-router-dom';
 
 function ManageSpots(){
+const history = useHistory()
+
+const handleClick = (spot)=>{
+    history.push(`/`)
+}
+
     return(
         <h1>Manage Spots</h1>
     )

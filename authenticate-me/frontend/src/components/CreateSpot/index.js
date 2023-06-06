@@ -32,8 +32,7 @@ function CreateSpot() {
  
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        
+                
         const errObj = {};
         if (!name.length) errObj.name = "Title is required"
         if (!address.length) errObj.address = "Address is required"
@@ -47,9 +46,7 @@ function CreateSpot() {
         if (image2 && !image2.endsWith('.png') && !image2.endsWith('.jpg') && !image2.endsWith('.jpeg')) errObj.image2 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"
         if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
-        
-
-            
+                    
         if (!Object.values(errObj).length) {
             // create an array for images for thunk arg if there are no errors in errObj
             let imgArr = [];
@@ -136,7 +133,6 @@ function CreateSpot() {
         { name: 'West Virginia', abbreviation: 'WV' },
         { name: 'Wisconsin', abbreviation: 'WI' },
         { name: 'Wyoming', abbreviation: 'WY' },
-
     ];
     //if user adds bad data and thunk returns errors set errors object to those errors and display in jsx
 

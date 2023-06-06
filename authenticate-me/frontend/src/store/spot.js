@@ -75,15 +75,15 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
             //iterate through spot images and use spot id to hit backend enpoint for images
             // /api/spot/${createdSpot.id}/images
             // use a for let of loop to iterate thru images
-            console.log('this is the created spot from the thunk number 1', createdSpot);
-            console.log('this is the created spot id', createdSpot.id);
+            // console.log('this is the created spot from the thunk number 1', createdSpot);
+            // console.log('this is the created spot id', createdSpot.id);
             let spotImages = [];
             for (let image of images) {
                 
                 image.spotId = createdSpot.id
                 
-                console.log('this is the created spot id inside loop', createdSpot.id);
-                console.log('this is the current image from loop', image);
+                // console.log('this is the created spot id inside loop', createdSpot.id);
+                // console.log('this is the current image from loop', image);
                 const imgRes = await csrfFetch(`/api/spots/${createdSpot.id}/images`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -100,14 +100,14 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
             createdSpot.SpotImages = spotImages;
             createdSpot.Owner = owner;
             
-            console.log('this is the created spot from the thunk number 2', createdSpot);
+            // console.log('this is the created spot from the thunk number 2', createdSpot);
             await dispatch(createSpot(createdSpot))
-            console.log('this is the created spot from the thunk number 3', createdSpot);
+            // console.log('this is the created spot from the thunk number 3', createdSpot);
             return createdSpot;
 
         }
     } catch (err) {
-        console.log('this is the err from the catch',err);
+        // console.log('this is the err from the catch',err);
         const errors = await err.json();
         return errors;
     }
@@ -126,7 +126,6 @@ export const getAllUserSpotsThunk = () => async (dispatch) => {
 //reducer: case in the reducer for all spots
 
 const initialState = { allSpots: {}, singleSpot: {} }
-
 
 const spotReducer = (state = initialState, action) => {
     let newState;

@@ -52,3 +52,18 @@
     display: flex;
     justify-content: space-between;
 }
+
+.manage-spot-btn-span{
+    display: flex;
+    justify-content: space-between;
+}
+
+.update-btn,.delete-btn{
+    width: 100px;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+}
+.update-btn,.delete-btn:hover{
+   cursor: pointer;
+}

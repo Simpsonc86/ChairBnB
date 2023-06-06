@@ -61,10 +61,10 @@ const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Avai
                             </div>
                             <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
                             {/* {console.log('spot details: ',oneSpot)} */}
-                            <span className='manage-spot-buttons'>
-                                <button onClick={handleClickUpdate}>Update</button>
-                                &nbsp;&nbsp;
-                                <button onClick={handleClickDelete}>Delete</button>
+                            <span className='manage-spot-btn-span'>
+                                <button className= 'update-btn' onClick={handleClickUpdate}>Update</button>
+                                
+                                <button className= 'delete-btn' onClick={handleClickDelete}>Delete</button>
                             </span>
 
                         </div>

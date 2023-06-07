@@ -3,7 +3,7 @@ import React from "react";
 // import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import "./DeleteForm.css";
+import "./DeleteFormModal.css";
 import { deleteSpotThunk, getAllSpotsThunk } from "../../store/spot";
 import { useHistory } from "react-router-dom";
 // import { useEffect } from "react";

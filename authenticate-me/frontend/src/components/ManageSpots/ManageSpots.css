@@ -40,11 +40,11 @@
 }
 
 .manage-spot-img{
-    padding-top: 10px;
-    max-width: 200px;
+
+    max-width: 220px;
     max-height: 75%;
-    width:fit-content;
-    height: 200px;
+    width:220px;
+    height: 220px;
     object-fit: cover;
     border-radius: 5px;
 }

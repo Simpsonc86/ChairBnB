@@ -31,11 +31,17 @@ const SingleSpot = () => {
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
                 </div>
                 <div className="images-box">
-                    <div >
-                        {/* <img className='preview-img' src={spot.SpotImages[0].url} alt='preview' /> */}
+                    <div className="images-div">
+                        <img className='spot-preview-img' src={spot.SpotImages[0].url} alt='preview' />
                     </div>
-                    <div>
+                    <div className="non-preview-spot-images">
                         {/* pictures grid here */}
+                        {spot.SpotImages[1] && <img className='spot-grid-img' src={spot.SpotImages[1].url} alt='spotImg1' />}
+                        {spot.SpotImages[2] && <img className='spot-grid-img' src={spot.SpotImages[2].url} alt='spotImg2' />}
+                        {spot.SpotImages[3] && <img className='spot-grid-img' src={spot.SpotImages[3].url} alt='spotImg3' />}
+                        {spot.SpotImages[4] && <img className='spot-grid-img' src={spot.SpotImages[4].url} alt='spotImg4' />}
+
+
                     </div>
                 </div>
                 <div className="spot-details-info">

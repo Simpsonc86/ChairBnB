@@ -47,3 +47,32 @@ h2{
     color:white;
     box-shadow: 5px 3px ;
 }
+.images-box{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.images-div{
+    max-width: 50%;
+    max-height: 500px;
+}
+
+.spot-preview-img{
+    height:max-content;
+    width:max-content;
+    /* object-position: 0 -200px; */
+    object-fit: cover;
+}
+.non-preview-spot-images{
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
+    width: 480px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.spot-grid-img{
+    width: 220px;
+}

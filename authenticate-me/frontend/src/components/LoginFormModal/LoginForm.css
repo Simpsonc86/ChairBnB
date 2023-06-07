@@ -35,6 +35,7 @@ input{
 
 .disabled-btn{
     padding:20px 0px;
+    background-color: aliceblue;
 }
 
 .errors{

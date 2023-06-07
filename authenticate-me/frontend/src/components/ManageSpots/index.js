@@ -14,7 +14,9 @@ import { useEffect } from 'react';
 import './ManageSpots.css'
 // import { useHistory } from 'react-router-dom';
 import { getAllSpotsThunk } from '../../store/spot';
-import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+// import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteFormModal from "../DeleteFormModal";
+import OpenModalButton from "../OpenModalButton";
 
 function ManageSpots(){
 const dispatch = useDispatch();
@@ -34,12 +36,12 @@ const userSpots = Object.values(spots).filter(ownedSpots=>{
         dispatch(getAllSpotsThunk());
     }, [dispatch]);
 
-const handleClickDelete= (spot)=>{
-    <OpenModalMenuItem></OpenModalMenuItem>
-}
-const handleClickUpdate = (spot)=>{
-    <OpenModalMenuItem></OpenModalMenuItem>
-}
+// const handleClickDelete= (spot)=>{
+    
+// }
+// const handleClickUpdate = (spot)=>{
+//     <OpenModalButton modalComponent={''}/>
+// }
 
 const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'
     return(
@@ -62,9 +64,10 @@ const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Avai
                             <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
                             {/* {console.log('spot details: ',oneSpot)} */}
                             <span className='manage-spot-btn-span'>
-                                <button className= 'update-btn' onClick={handleClickUpdate}>Update</button>
-                                
-                                <button className= 'delete-btn' onClick={handleClickDelete}>Delete</button>
+                                {/* <button className= 'update-btn' onClick={handleClickUpdate}>Update</button> */}
+                                <OpenModalButton className= 'update-btn' buttonText='Update' modalComponent={<DeleteFormModal/>}/>
+                                <OpenModalButton className= 'delete-btn' buttonText='Delete' modalComponent={<DeleteFormModal/>}/>
+                                {/* <button className= 'delete-btn' onClick={handleClickDelete}>Delete</button> */}
                             </span>
 
                         </div>

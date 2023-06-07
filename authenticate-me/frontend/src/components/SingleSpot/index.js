@@ -33,15 +33,18 @@ const SingleSpot = () => {
                 <div className="images-box">
                     <div className="images-div">
                         <img className='spot-preview-img' src={spot.SpotImages[0].url} alt='preview' />
-                    </div>
-                    <div className="non-preview-spot-images">
-                        {/* pictures grid here */}
-                        {spot.SpotImages[1] && <img className='spot-grid-img' src={spot.SpotImages[1].url} alt='spotImg1' />}
-                        {spot.SpotImages[2] && <img className='spot-grid-img' src={spot.SpotImages[2].url} alt='spotImg2' />}
-                        {spot.SpotImages[3] && <img className='spot-grid-img' src={spot.SpotImages[3].url} alt='spotImg3' />}
-                        {spot.SpotImages[4] && <img className='spot-grid-img' src={spot.SpotImages[4].url} alt='spotImg4' />}
 
-
+                        <div className="non-preview-spot-images">
+                            <div className="first">
+                                {spot.SpotImages[1] && <img className='spot-grid-img' src={spot.SpotImages[1].url} alt='spotImg1' />}
+                                {spot.SpotImages[2] && <img className='spot-grid-img' src={spot.SpotImages[2].url} alt='spotImg2' />}
+                            </div>
+                            <div className="second">
+                                {/* pictures grid here */}
+                                {spot.SpotImages[3] && <img className='spot-grid-img' src={spot.SpotImages[3].url} alt='spotImg3' />}
+                                {spot.SpotImages[4] && <img className='spot-grid-img' src={spot.SpotImages[4].url} alt='spotImg4' />}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="spot-details-info">
@@ -55,16 +58,16 @@ const SingleSpot = () => {
                         <div className='price-reviews'>
                             <span>${spot.price} night</span>
                             <div className="c">
-                                <span>  
-                                    <i className='fa-solid fa-star'></i> 
+                                <span>
+                                    <i className='fa-solid fa-star'></i>
                                     {spot.avgStarRating}
-                                    {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span>:''}
-                                   
+                                    {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span> : ''}
+
                                 </span>
-                                <span>           
-                                    {spot.numReviews===0 ?'New': spot.numReviews}                        
-                                    {spot.numReviews === 1  ? ' review' : ''}
-                                    {spot.numReviews >1 ? ' reviews' : ''}
+                                <span>
+                                    {spot.numReviews === 0 ? 'New' : spot.numReviews}
+                                    {spot.numReviews === 1 ? ' review' : ''}
+                                    {spot.numReviews > 1 ? ' reviews' : ''}
                                 </span>
                             </div>
                         </div>

@@ -146,7 +146,7 @@ export const deleteSpotThunk = (spotId) => async (dispatch) =>{
 
 export const updateSpotThunk = (spot, owner) => async (dispatch) => {
 
-    // console.log('here is the spot id', spot);
+    // console.log('here is the spot ', spot);
     // fetch from api
     try {
         const res = await csrfFetch(`/api/spots/${spot.id}`, {

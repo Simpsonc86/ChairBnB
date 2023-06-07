@@ -3,11 +3,12 @@ import { updateSpotThunk } from "../../store/spot";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import './UpdateFormModal.css'
-// import { useModal } from '../../context/Modal';
+import { useModal } from '../../context/Modal';
 
 function UpdateFormModal({spot}) {
     const history = useHistory()
     const dispatch = useDispatch()
+    const {closeModal}= useModal();
     const owner = useSelector(state => {
         // console.log('state from the store', state);
         return state.session.user
@@ -59,7 +60,11 @@ function UpdateFormModal({spot}) {
             // console.log('This is the spot owner', owner);
             console.log(!Object.values(errors).length);
 
-            if(updatedSpot)history.push(`/spots/${updatedSpot.id}`)            
+            if(updatedSpot){
+                closeModal()
+                history.push(`/spots/${updatedSpot.id}`)
+                
+            }            
         }else setErrors(errObj)
 
     }

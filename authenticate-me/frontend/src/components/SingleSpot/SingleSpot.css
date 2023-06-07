@@ -11,10 +11,6 @@ h2{
     display:flex;
     justify-content: left;
 }
-.preview-img{
-    width:480px;
-    height:320px;
-}
 
 .spot-details-box{
     display:flex;

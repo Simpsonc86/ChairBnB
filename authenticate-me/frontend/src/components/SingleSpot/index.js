@@ -31,7 +31,7 @@ const SingleSpot = () => {
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
                 </div>
                 <div className="images-box">
-                    <div>
+                    <div >
                         {/* <img className='preview-img' src={spot.SpotImages[0].url} alt='preview' /> */}
                     </div>
                     <div>

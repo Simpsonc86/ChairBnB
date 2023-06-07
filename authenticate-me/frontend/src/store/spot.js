@@ -5,6 +5,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = 'spot/getAllSpots';
 const GET_ONE_SPOT = 'spot/getSpot';
 const CREATE_SPOT = 'spot/createSpot'
+const DELETE_SPOT = 'spot/deleteSpot'
 // const GET_ALL_USERS_SPOTS = 'spot/manageSpots'
 
 //action creator
@@ -30,6 +31,14 @@ const createSpot = (spot) => {
     }
 }
 
+const deleteSpot = (spot,spotId)=>{
+    return {
+        type:DELETE_SPOT,
+        payload: spot,
+        spotId
+    }
+}
+
 // const getAllUserSpots = (spots) =>{
 //     return{
 //         type:GET_ALL_USERS_SPOTS,
@@ -39,7 +48,7 @@ const createSpot = (spot) => {
 
 ////////////////thunk action creators
 
-//get all spots 
+//get all spots thunk
 export const getAllSpotsThunk = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots');
 
@@ -50,7 +59,7 @@ export const getAllSpotsThunk = () => async (dispatch) => {
         return data;
     }
 }
-//get one spot
+//get one spot thunk
 export const getSpotThunk = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`);
     if (res.ok) {
@@ -60,7 +69,7 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
         return data;
     }
 }
-///create a spot
+///create a spot thunk
 export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
 
     // fetch from api
@@ -114,6 +123,21 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
         return errors;
     }
 }
+//delete spot thunk
+
+export const deleteSpotThunk = (spotId) => async (dispatch) =>{
+    const res = await csrfFetch(`/api/spots/${spotId}`,{
+        method:'DELETE',
+        header:{ 'Content-Type': 'application/json' },
+    })
+    if (res.ok){
+        let deletedSpot = await res.json()
+        dispatch(deleteSpot(deletedSpot,spotId))
+    }
+}
+
+
+
 /// curent user spots
 // export const getAllUserSpotsThunk = () => async (dispatch) => {
 //     const res = await csrfFetch('/api/current');
@@ -159,6 +183,14 @@ const spotReducer = (state = initialState, action) => {
             console.log('create a spot', newState);
             return newState;
         }
+
+        case DELETE_SPOT:{
+            const spot = action.payload
+            newState = {...state, allSpots:{}, singleSpot:{...spot}}
+            console.log('delete a spot', newState.singleSpot)
+            delete newState[action.spotId]
+            return newState;
+        }
         // case GET_ALL_USERS_SPOTS:{
         //     newState = {...state, allSpots: {}, singleSpot: {} }
         //     console.log('allspots from user',action.payload.Spots);
@@ -169,6 +201,7 @@ const spotReducer = (state = initialState, action) => {
         //     console.log('newState from:',newState);
         //     return newState;
         // }
+        
         default: {
             return state;
         }

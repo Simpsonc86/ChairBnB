@@ -12,13 +12,13 @@
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from 'react';
 import './ManageSpots.css'
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { getAllSpotsThunk } from '../../store/spot';
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 
 function ManageSpots(){
 const dispatch = useDispatch();
-const history = useHistory();
+// const history = useHistory();
 const spots = useSelector(state => state.spots.allSpots);
 // console.log('This is all spots',spotsObj);
 const owner= useSelector(state=> state.session.user)

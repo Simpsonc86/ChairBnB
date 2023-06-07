@@ -1,26 +1,27 @@
 // frontend/src/components/DeleteFormModal/index.js
 import React from "react";
 // import * as sessionActions from "../../store/session";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./DeleteForm.css";
-import { deleteSpotThunk } from "../../store/spot";
+import { deleteSpotThunk, getAllSpotsThunk } from "../../store/spot";
+import { useHistory } from "react-router-dom";
 // import { useEffect } from "react";
 
-function DeleteFormModal() {
+function DeleteFormModal({spotId}) {
   const dispatch = useDispatch();
-  const {closeModal}= useModal()
-  const spot = useSelector(state=>{
-    console.log('spot from the store',state.spots); 
-    return state.spots.singleSpot
-})
-
+  const history = useHistory();
+  const {closeModal}= useModal();
   
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // setErrors({});
-    dispatch(deleteSpotThunk(spot, spot.id))
+    await dispatch(deleteSpotThunk(spotId))
+    await dispatch(getAllSpotsThunk())
+    closeModal();
+    await history.push(`/current`)
+    
   };
 
   return(

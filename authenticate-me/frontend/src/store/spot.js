@@ -31,11 +31,11 @@ const createSpot = (spot) => {
     }
 }
 
-const deleteSpot = (spot,spotId)=>{
+const deleteSpot = (spotId)=>{
     return {
         type:DELETE_SPOT,
-        payload: spot,
-        spotId
+        payload: spotId
+       
     }
 }
 
@@ -186,9 +186,9 @@ const spotReducer = (state = initialState, action) => {
 
         case DELETE_SPOT:{
             const spot = action.payload
-            newState = {...state, allSpots:{}, singleSpot:{...spot}}
+            newState = {...state, allSpots:{}, singleSpot:{}}
             console.log('delete a spot', newState.singleSpot)
-            delete newState[action.spotId]
+            delete newState[spot]
             return newState;
         }
         // case GET_ALL_USERS_SPOTS:{

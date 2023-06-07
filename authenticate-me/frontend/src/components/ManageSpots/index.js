@@ -33,7 +33,7 @@ const userSpots = Object.values(spots).filter(ownedSpots=>{
 
     useEffect(() => {
         dispatch(getAllSpotsThunk());
-    }, [dispatch]);
+    }, [dispatch,spots.length]);
 
     // useEffect(()=>{
     //     dispatch(getSpotThunk())
@@ -68,8 +68,8 @@ const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Avai
                             {/* {console.log('spot details: ',oneSpot)} */}
                             <span className='manage-spot-btn-span'>
                                 {/* <button className= 'update-btn' onClick={handleClickUpdate}>Update</button> */}
-                                <OpenModalButton className= 'update-btn' buttonText='Update' modalComponent={<DeleteFormModal/>}/>
-                                <OpenModalButton className= 'delete-btn' buttonText='Delete' modalComponent={<DeleteFormModal/>}/>
+                                <OpenModalButton className= 'update-btn' buttonText='Update' modalComponent={<DeleteFormModal spotId={oneSpot.id}/>}/>
+                                <OpenModalButton className= 'delete-btn' buttonText='Delete' modalComponent={<DeleteFormModal spotId={oneSpot.id}/>}/>
                                 {/* <button className= 'delete-btn' onClick={handleClickDelete}>Delete</button> */}
                             </span>
 

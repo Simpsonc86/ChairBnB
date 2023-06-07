@@ -1,0 +1,48 @@
+.errors{
+    color:red;
+    margin:5px 0
+}
+
+.city-state-form-div{
+    display: flex;
+    width:500px;
+    /* justify-content:space-evenly; */
+
+}
+.form-div{
+    display: flex;
+    justify-content: center;
+}
+form{  
+    max-width: 580px;
+    padding:0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: calc(100vh - 250px);
+
+}
+
+input{
+    width:98%
+}
+textarea{
+    width: 98%;
+}
+.Navigation{
+    width:1000px;
+}
+.comma{
+    display: flex;
+    flex-direction: column-reverse;
+    /* align-items:end; */
+    /* width:50px; */
+    padding:0 0px 0 10px
+}
+
+.city-label,.state-label{
+    width: 250px;
+}
+
+h1,h2,h3,p{
+    margin:20px 0
+}

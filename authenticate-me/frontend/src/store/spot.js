@@ -6,6 +6,7 @@ const GET_ALL_SPOTS = 'spot/getAllSpots';
 const GET_ONE_SPOT = 'spot/getSpot';
 const CREATE_SPOT = 'spot/createSpot'
 const DELETE_SPOT = 'spot/deleteSpot'
+const UPDATE_SPOT = 'spot/updateSpot'
 // const GET_ALL_USERS_SPOTS = 'spot/manageSpots'
 
 //action creator
@@ -36,6 +37,13 @@ const deleteSpot = (spotId)=>{
         type:DELETE_SPOT,
         payload: spotId
        
+    }
+}
+
+const updateSpot = (spotId)=>{
+    return{
+        type:UPDATE_SPOT,
+        payload:spotId
     }
 }
 
@@ -136,6 +144,33 @@ export const deleteSpotThunk = (spotId) => async (dispatch) =>{
     }
 }
 
+export const updateSpotThunk = (spot, owner) => async (dispatch) => {
+
+    // console.log('here is the spot ', spot);
+    // fetch from api
+    try {
+        const res = await csrfFetch(`/api/spots/${spot.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+        });
+        console.log('response from fetch', res);
+
+        if (res.ok) {
+            const updatedSpot = await res.json();
+                    
+            // console.log('this is the updated spot from the thunk number 2', updatedSpot);
+            await dispatch(updateSpot(updatedSpot))
+            // console.log('this is the updated spot from the thunk number 3', updatedSpot);
+            return updatedSpot;
+
+        }
+    } catch (err) {
+        // console.log('this is the err from the catch',err);
+        const errors = await err.json();
+        return errors;
+    }
+}
 
 
 /// curent user spots
@@ -190,6 +225,12 @@ const spotReducer = (state = initialState, action) => {
             console.log('delete a spot', newState.singleSpot)
             delete newState[spot]
             return newState;
+        }
+        case UPDATE_SPOT:{
+            const spot = action.payload
+            newState = {...state,allSpots:{},singleSpot:{...spot}}
+            console.log('updated spot is: ',newState.singleSpot);
+            return newState
         }
         // case GET_ALL_USERS_SPOTS:{
         //     newState = {...state, allSpots: {}, singleSpot: {} }

@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./DeleteForm.css";
 import { deleteSpotThunk } from "../../store/spot";
+// import { useEffect } from "react";
 
 function DeleteFormModal() {
   const dispatch = useDispatch();
   const {closeModal}= useModal()
   const spot = useSelector(state=>{
-    console.log('spot from the store',state.spot); 
+    console.log('spot from the store',state.spots); 
     return state.spots.singleSpot
 })
+
   
 
   const handleSubmit = (e) => {

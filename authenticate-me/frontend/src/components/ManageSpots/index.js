@@ -25,7 +25,6 @@ const spots = useSelector(state => state.spots.allSpots);
 // console.log('This is all spots',spotsObj);
 const owner= useSelector(state=> state.session.user)
 
-
 const userSpots = Object.values(spots).filter(ownedSpots=>{
     // console.log('owned spots id------>', ownedSpots.ownerId)
     return ownedSpots.ownerId ===owner.id;
@@ -35,6 +34,10 @@ const userSpots = Object.values(spots).filter(ownedSpots=>{
     useEffect(() => {
         dispatch(getAllSpotsThunk());
     }, [dispatch]);
+
+    // useEffect(()=>{
+    //     dispatch(getSpotThunk())
+    // },[dispatch])
 
 // const handleClickDelete= (spot)=>{
     

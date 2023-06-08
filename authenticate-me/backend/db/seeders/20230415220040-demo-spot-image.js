@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         spotId: 1,
-        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
         preview:false,
 
       },
@@ -47,19 +47,19 @@ module.exports = {
       },
       {
         spotId: 2,
-        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212569813112/image-asset.png',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
         preview:false,
 
       },
       {
         spotId: 2,
-        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212569813112/image-asset.png',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
         preview:false,
 
       },
       {
         spotId: 2,
-        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212569813112/image-asset.png',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
         preview:false,
 
       },
@@ -83,7 +83,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
         preview:false,
 
       },
@@ -95,7 +95,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
         preview:false,
 
       },

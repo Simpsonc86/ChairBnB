@@ -38,7 +38,7 @@ const SingleSpot = () => {
                     <div className="previmage-div">
                         <img className='spot-preview-img' src={spot.SpotImages[0].url} alt='preview' />
                     </div>
-                    <div className="non-preview-spot-images">
+                    <div className="non-preview-spot-images-div">
                         <div className="top-row-images">
                             {spot.SpotImages[1] && <img className='spot-grid-img' src={spot.SpotImages[1].url} alt='spotImg1' />}
                             {spot.SpotImages[2] && <img className='spot-grid-img' src={spot.SpotImages[2].url} alt='spotImg2' />}

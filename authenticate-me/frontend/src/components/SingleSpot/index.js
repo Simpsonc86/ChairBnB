@@ -20,6 +20,11 @@ const SingleSpot = () => {
         dispatch(getSpotThunk(spotId));
     }, [dispatch, spotId]);
 
+    const reserveBtnClick = (e) =>{
+        e.preventDefault();
+        alert('Feature Coming Soon!')
+    }
+
     if (!spot.Owner) return <div>...On the Way! Have faith!...</div>
 
     return (
@@ -68,7 +73,7 @@ const SingleSpot = () => {
                                 </span>
                             </div>
                         </div>
-                        <button className="reserve-btn">Reserve</button>
+                        <button className="reserve-btn" onClick={reserveBtnClick}>Reserve</button>
                     </div>
                 </div>
             </div>

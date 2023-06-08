@@ -71,7 +71,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
         preview:true,
 
       },
@@ -95,7 +95,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212930527232/IMG_6550.png',
+        url:'https://cdn.discordapp.com/attachments/1085969145276923935/1115477212175544371/transitional-living-room.png',
         preview:false,
 
       },

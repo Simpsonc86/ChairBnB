@@ -25,25 +25,23 @@ const SingleSpot = () => {
     return (
         <div className="spot-details-main">
             <div className='spot-details-box'>
-
                 <div className="spot-heading">
                     <h1>{spot.name}</h1>
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
                 </div>
                 <div className="images-box">
-                    <div className="images-div">
+                    <div className="previmage-div">
                         <img className='spot-preview-img' src={spot.SpotImages[0].url} alt='preview' />
-
-                        <div className="non-preview-spot-images">
-                            <div className="first">
-                                {spot.SpotImages[1] && <img className='spot-grid-img' src={spot.SpotImages[1].url} alt='spotImg1' />}
-                                {spot.SpotImages[2] && <img className='spot-grid-img' src={spot.SpotImages[2].url} alt='spotImg2' />}
-                            </div>
-                            <div className="second">
-                                {/* pictures grid here */}
-                                {spot.SpotImages[3] && <img className='spot-grid-img' src={spot.SpotImages[3].url} alt='spotImg3' />}
-                                {spot.SpotImages[4] && <img className='spot-grid-img' src={spot.SpotImages[4].url} alt='spotImg4' />}
-                            </div>
+                    </div>
+                    <div className="non-preview-spot-images">
+                        <div className="top-row-images">
+                            {spot.SpotImages[1] && <img className='spot-grid-img' src={spot.SpotImages[1].url} alt='spotImg1' />}
+                            {spot.SpotImages[2] && <img className='spot-grid-img' src={spot.SpotImages[2].url} alt='spotImg2' />}
+                        </div>
+                        <div className="bottom-row-images">
+                            {/* pictures grid here */}
+                            {spot.SpotImages[3] && <img className='spot-grid-img' src={spot.SpotImages[3].url} alt='spotImg3' />}
+                            {spot.SpotImages[4] && <img className='spot-grid-img' src={spot.SpotImages[4].url} alt='spotImg4' />}
                         </div>
                     </div>
                 </div>
@@ -62,7 +60,6 @@ const SingleSpot = () => {
                                     <i className='fa-solid fa-star'></i>
                                     {spot.avgStarRating}
                                     {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span> : ''}
-
                                 </span>
                                 <span>
                                     {spot.numReviews === 0 ? 'New' : spot.numReviews}

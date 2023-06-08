@@ -132,7 +132,7 @@ function UpdateFormModal({spot}) {
 
     return (
         <div className="form-div">
-            <form onSubmit={handleSubmit}>
+            <form className='update-form-modal'onSubmit={handleSubmit}>
                 <h1>Update Your Spot</h1>
                 <h2>Where's your place located?</h2>
                 <h3>Guest will only get your exact address once they booked a reservation</h3>

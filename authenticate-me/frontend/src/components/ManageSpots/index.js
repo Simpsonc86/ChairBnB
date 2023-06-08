@@ -12,7 +12,7 @@
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from 'react';
 import './ManageSpots.css'
-// import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getAllSpotsThunk } from '../../store/spot';
 // import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteFormModal from "../DeleteFormModal";
@@ -51,6 +51,11 @@ const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Avai
     return(
         <div className='manage-main-div'>
             <h1>Manage Spots</h1>
+                {userSpots.length===0?
+                <div className="manage-create-spot">
+                    <Link className='.create-link' to={`/spots/new`}>Create a New Spot</Link>
+                </div>                    
+                    :<></>}
             <div className='manage-main-spots'>
                 <div className='manage-spot-tiles'>
                     {userSpots.reverse().map(oneSpot => (

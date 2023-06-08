@@ -68,3 +68,8 @@
 .update-btn,.delete-btn:hover{
    cursor: pointer;
 }
+
+.manage-create-spot{
+    display: flex;
+    justify-content: flex-start;
+}

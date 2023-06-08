@@ -57,12 +57,12 @@ h1,h3,h2{
 .previmage-div{
     display: flex;
     width: 50%;
-  /* height: fit-content; */
+  height: fit-content;
 }
 
 .spot-preview-img{
-    /* width:100%; */
-    /* height:auto; */
+    width:100%;
+    height:auto;
     object-fit: cover;
     overflow: hidden;
     padding:5px;

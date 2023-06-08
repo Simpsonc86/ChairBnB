@@ -17,6 +17,12 @@ module.exports = {
           stars:5,
         },
         {
+          userId:4,
+          spotId:1,
+          review:'Nice spot, but I\'ve seen better.',
+          stars:4,
+        },
+        {
           userId:2,
           spotId:2,
           review:'I seen a ghost in the atrium!',
@@ -25,7 +31,19 @@ module.exports = {
         {
           userId:2,
           spotId:3,
-          review:'I got married! The price was ridiculous however',
+          review:'I got married! The price was too ridiculous however',
+          stars:2,
+        },
+        {
+          userId:3,
+          spotId:3,
+          review:'I would highly recommend this place if you are not afraid of heights.',
+          stars:5,
+        },
+        {
+          userId:4,
+          spotId:3,
+          review:'The place was beautiful, but it was hard to breate!',
           stars:4,
         },
       ]

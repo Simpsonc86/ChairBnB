@@ -73,8 +73,8 @@ const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Avai
                             <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
                             {/* {console.log('spot details: ',oneSpot)} */}
                             <span className='manage-spot-btn-span'>
-                                {/* <button className= 'update-btn' onClick={handleClickUpdate}>Update</button> */}
-                                <OpenModalButton className= 'update-btn' buttonText='Update' modalComponent={<UpdateFormModal spot={oneSpot}/>}/>
+                                <button className= 'update-btn' onClick={()=><UpdateFormModal spot={oneSpot}/>}>Update</button>
+                                {/* <OpenModalButton className= 'update-btn'modalComponent{<UpdateFormModal spot={oneSpot}/>}/> */}
                                 <OpenModalButton className= 'delete-btn' buttonText='Delete' modalComponent={<DeleteFormModal spotId={oneSpot.id}/>}/>
                                 {/* <button className= 'delete-btn' onClick={handleClickDelete}>Delete</button> */}
                             </span>

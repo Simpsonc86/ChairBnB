@@ -5,6 +5,7 @@ import { getSpotThunk } from "../../store/spot";
 import { getAllSpotReviewsThunk } from "../../store/reviews";
 import { useEffect } from "react";
 import './SingleSpot.css'
+import OpenModalButton from "../OpenModalButton";
 
 const SingleSpot = () => {
     const { spotId } = useParams()
@@ -94,8 +95,13 @@ const SingleSpot = () => {
                     {spot.numReviews === 1 ? ' review' : ''}
                     {spot.numReviews > 1 ? ' reviews' : ''}
                 </span>
-
+                <br/>
+                <br/>
                 
+                <div className="post-review-btn">
+                <OpenModalButton buttonText='Post Your Review'/>
+
+                </div>
 
                 {console.log('OBJECT VALUES', Object.values(reviews))}
                 {reviews ? Object.values(reviews).map((review) => {
@@ -104,10 +110,10 @@ const SingleSpot = () => {
                         <p>{review.User.firstName}{review.User.lastName}</p>
                         <p>{review.createdAt}</p>
                         <p >{review.review}</p>
-                        <button ></button>
+                        {/* {if(review.User.id===)} */}
+                        <button>Delete</button>
                         </div>
-                }
-                ) : null}
+                }) : null}
             </div>
         </div>
     )

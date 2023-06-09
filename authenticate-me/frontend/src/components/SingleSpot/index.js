@@ -12,13 +12,14 @@ const SingleSpot = () => {
     const dispatch = useDispatch();
     // const history = useHistory();
 
+    const user = useSelector(state=>state.session.user)
     const spot = useSelector(state => {
         // console.log('state from the store', state);
         return state.spots.singleSpot
     });
     // console.log('spot from store ', spot);
     const reviews = useSelector(state => state.reviews.spot)
-    console.log('reviews from spot ', reviews);
+    // console.log('reviews from spot ', reviews);
 
 
     useEffect(() => {
@@ -103,15 +104,15 @@ const SingleSpot = () => {
 
                 </div>
 
-                {console.log('OBJECT VALUES', Object.values(reviews))}
+               
                 {reviews ? Object.values(reviews).map((review) => {
-                    console.log('this is the review inside the map', review);
+                    // console.log('this is the review inside the map', review);
                     return <div key={review.id} className="review-data">
                         <p>{review.User.firstName}{review.User.lastName}</p>
                         <p>{review.createdAt}</p>
                         <p >{review.review}</p>
-                        {/* {if(review.User.id===)} */}
-                        <button>Delete</button>
+                        {review.User.id===user.id?<button>Delete</button>:null}
+                        {/* <button>Delete</button> */}
                         </div>
                 }) : null}
             </div>

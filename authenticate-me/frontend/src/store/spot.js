@@ -190,7 +190,7 @@ const initialState = { allSpots: {}, singleSpot: {} }
 
 const spotReducer = (state = initialState, action) => {
     let newState;
-    console.log('action from spotReducer', action);
+    // console.log('action from spotReducer', action);
     switch (action.type) {
         case GET_ALL_SPOTS: {
             //normalize spot data

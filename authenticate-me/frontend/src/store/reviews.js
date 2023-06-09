@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 // type strings
 const GET_ALL_SPOT_REVIEWS = '/reviews/spotReviews';
-const GET_ALL_USER_REVIEWS = '/reviews/userReviews';
+// const GET_ALL_USER_REVIEWS = '/reviews/userReviews';
 const CREATE_REVIEW = 'reviews/createReview'
 
 
@@ -13,15 +13,15 @@ const getAllSpotReviews = (spot) => {
         payload: spot
     }
 }
-const getAllUserReviews = (user) => {
-    return {
-        type: GET_ALL_USER_REVIEWS,
-        payload: user
-    }
-}
+// const getAllUserReviews = (user) => {
+//     return {
+//         type: GET_ALL_USER_REVIEWS,
+//         payload: user
+//     }
+// }
 const createReview = (review) => {
     return {
-        type: GET_ALL_USER_REVIEWS,
+        type: CREATE_REVIEW,
         payload: review
     }
 }
@@ -32,20 +32,20 @@ export const getAllSpotReviewsThunk = (spotId) => async (dispatch) => {
 
     if(res.ok){
         const data = await res.json();
-        console.log('reviews from the thunk ', data);
+        // console.log('reviews from the thunk ', data);
         dispatch(getAllSpotReviews(data))
     }
 }
 
-export const getAllUserReviewsThunk = () =>async (dispatch)=>{
-    const res = await csrfFetch(`/api/reviews/current`)
+// export const getAllUserReviewsThunk = () =>async (dispatch)=>{
+//     const res = await csrfFetch(`/api/reviews/current`)
 
-    if(res.ok){
-        const data = await res.json();
-        console.log('reviews from the thunk ', data);
-        dispatch(getAllUserReviews(data))
-    }
-}
+//     if(res.ok){
+//         const data = await res.json();
+//         // console.log('reviews from the thunk ', data);
+//         dispatch(getAllUserReviews(data))
+//     }
+// }
 
 export const createReviewThunk = (review) => async (dispatch) => {
 
@@ -83,7 +83,7 @@ const reviewReducer = (state = initialState, action) =>{
         case GET_ALL_SPOT_REVIEWS:{
 
             const spot = action.payload;
-            console.log('this is ...spot', {...spot});
+            // console.log('this is ...spot', {...spot});
             newState={user:{...state.user},spot:{}}
             if(spot.Reviews){
                 spot.Reviews.forEach(review => {
@@ -94,20 +94,20 @@ const reviewReducer = (state = initialState, action) =>{
             }
             return newState;
         }
-        case GET_ALL_USER_REVIEWS:{
+        // case GET_ALL_USER_REVIEWS:{
 
-            const user = action.payload;
-            console.log('this is ...user', {...user});
-            newState={user:{},spot:{...state.spot}}
-            if(user.Reviews){
-                user.Reviews.forEach(review => {
-                    newState.user[review.id] = review;                                
-                });
-            }else{
-                newState = {...user}
-            }
-            return newState;
-        }
+        //     const user = action.payload;
+        //     console.log('this is ...user', {...user});
+        //     newState={user:{},spot:{...state.spot}}
+        //     if(user.Reviews){
+        //         user.Reviews.forEach(review => {
+        //             newState.user[review.id] = review;                                
+        //         });
+        //     }else{
+        //         newState = {...user}
+        //     }
+        //     return newState;
+        // }
         case CREATE_REVIEW: {
             const review = action.payload
             newState = {user:{...state.user}, spot: {...state.spot} }

@@ -194,7 +194,7 @@ const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS: {
             //normalize spot data
-            newState = {...state, allSpots: {}, singleSpot: {} }
+            newState = {...state, allSpots: {}}
             console.log('allspots',action.payload.Spots);
             action.payload.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
@@ -205,7 +205,7 @@ const spotReducer = (state = initialState, action) => {
         }
         case GET_ONE_SPOT: {
             const spot = action.payload
-            newState = {...state, allSpots: {}, singleSpot: { ...spot } }
+            newState = {...state, singleSpot: {...spot} }
             newState.singleSpot[spot.id] = spot
             
             console.log('get one spot', newState);
@@ -213,7 +213,7 @@ const spotReducer = (state = initialState, action) => {
         }
         case CREATE_SPOT: {
             const spot = action.payload
-            newState = {...state, allSpots: {}, singleSpot: {...spot} }
+            newState = {...state, singleSpot: {} }
             newState.singleSpot[spot.id]=spot
             console.log('create a spot', newState);
             return newState;
@@ -221,14 +221,14 @@ const spotReducer = (state = initialState, action) => {
 
         case DELETE_SPOT:{
             const spot = action.payload
-            newState = {...state, allSpots:{}, singleSpot:{}}
+            newState = {...state, singleSpot:{...spot}}
             console.log('delete a spot', newState.singleSpot)
             delete newState[spot]
             return newState;
         }
         case UPDATE_SPOT:{
             const spot = action.payload
-            newState = {...state,allSpots:{},singleSpot:{...spot}}
+            newState = {...state,singleSpot:{...spot}}
             console.log('updated spot is: ',newState.singleSpot);
             return newState
         }

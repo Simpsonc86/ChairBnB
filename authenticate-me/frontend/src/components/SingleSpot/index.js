@@ -5,7 +5,8 @@ import { getSpotThunk } from "../../store/spot";
 import { getAllSpotReviewsThunk } from "../../store/reviews";
 import { useEffect } from "react";
 import './SingleSpot.css'
-// import OpenModalButton from "../OpenModalButton";
+import CreateReviewModal from "../CreateReviewModal";
+import OpenModalButton from "../OpenModalButton";
 
 const SingleSpot = () => {
     const { spotId } = useParams()
@@ -30,6 +31,19 @@ const SingleSpot = () => {
     const reserveBtnClick = (e) => {
         e.preventDefault();
         alert('Feature Coming Soon!')
+    }
+    const postReview =()=>{
+        if(user){
+            if(user.id!==spot.Owner.id){
+                const userRev = Object.values(reviews).filter(review=>review.userId===user.id)
+                console.log('user has a review', userRev);
+                if(userRev.length === 0){
+
+                    return <OpenModalButton buttonText='Post Your Review' modalComponent={CreateReviewModal}/>
+                }
+                else return null
+            }           
+        }
     }
 
     if (!spot.Owner) return <div>...On the Way! Have faith!...</div>
@@ -80,7 +94,8 @@ const SingleSpot = () => {
                                 </span>
                             </div>
                         </div>
-                        <button className="reserve-btn" onClick={reserveBtnClick}>Reserve</button>
+                                        
+                    <button className="reserve-btn" onClick={reserveBtnClick}>Reserve</button>
                     </div>
                 </div>
             </div>
@@ -100,12 +115,9 @@ const SingleSpot = () => {
                 <br/>
                 
                 <div className="post-review-btn">
-                {/* <OpenModalButton buttonText='Post Your Review' modalComponent={}/> */}
-
-                </div>
-
-               
-                {reviews ? Object.values(reviews).map((review) => {
+                {postReview()}
+                </div>               
+                {reviews ? Object.values(reviews).reverse().map((review) => {
                     // console.log('this is the review inside the map', review);
                     return <div key={review.id} className="review-data">
                         <p>{review.User.firstName}{review.User.lastName}</p>

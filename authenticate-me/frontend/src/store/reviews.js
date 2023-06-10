@@ -19,10 +19,11 @@ const getAllSpotReviews = (spot) => {
 //         payload: user
 //     }
 // }
-const createReview = (review) => {
+const createReview = (review, spotId) => {
     return {
         type: CREATE_REVIEW,
         payload: review,
+        spotId
         
     }
 }
@@ -48,11 +49,11 @@ export const getAllSpotReviewsThunk = (spotId) => async (dispatch) => {
 //     }
 // }
 
-export const createReviewThunk = (review) => async (dispatch) => {
+export const createReviewThunk = (review,spotId) => async (dispatch) => {
 
     // fetch from api
     try {
-        const res = await csrfFetch(`/api/reviews/${review.spotId}/reviews`, {
+        const res = await csrfFetch(`/api/reviews/${spotId}/reviews`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(review)

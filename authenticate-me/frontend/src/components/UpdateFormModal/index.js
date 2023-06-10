@@ -22,7 +22,7 @@ function UpdateFormModal() {
         // console.log('state from the store', state);
         return state.session.user
     });
-    const spot = useSelector(state=>state.singleSpot);
+    // const spot = useSelector(state=>state.singleSpot);
 
     //states
     const [name, setName] = useState('');

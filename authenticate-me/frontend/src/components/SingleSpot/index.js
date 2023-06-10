@@ -39,7 +39,7 @@ const SingleSpot = () => {
                 console.log('user has a review', userRev);
                 if(userRev.length === 0){
 
-                    return <OpenModalButton buttonText='Post Your Review' modalComponent={CreateReviewModal}/>
+                    return <OpenModalButton buttonText='Post Your Review' modalComponent={<CreateReviewModal spotId={spotId}/>}/>
                 }
                 else return null
             }           

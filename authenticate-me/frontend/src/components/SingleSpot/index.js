@@ -2,25 +2,32 @@ import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getSpotThunk } from "../../store/spot";
+import { getAllSpotReviewsThunk } from "../../store/reviews";
 import { useEffect } from "react";
 import './SingleSpot.css'
+// import OpenModalButton from "../OpenModalButton";
 
 const SingleSpot = () => {
     const { spotId } = useParams()
     const dispatch = useDispatch();
     // const history = useHistory();
 
+    const user = useSelector(state=>state.session.user)
     const spot = useSelector(state => {
-        console.log('state from the store', state);
+        // console.log('state from the store', state);
         return state.spots.singleSpot
     });
     // console.log('spot from store ', spot);
+    const reviews = useSelector(state => state.reviews.spot)
+    // console.log('reviews from spot ', reviews);
+
 
     useEffect(() => {
         dispatch(getSpotThunk(spotId));
+        dispatch(getAllSpotReviewsThunk(spotId))
     }, [dispatch, spotId]);
 
-    const reserveBtnClick = (e) =>{
+    const reserveBtnClick = (e) => {
         e.preventDefault();
         alert('Feature Coming Soon!')
     }
@@ -76,6 +83,38 @@ const SingleSpot = () => {
                         <button className="reserve-btn" onClick={reserveBtnClick}>Reserve</button>
                     </div>
                 </div>
+            </div>
+            <hr/>
+            <div className="reviews-section-div">
+                <span>
+                    <i className='fa-solid fa-star'></i>
+                    {spot.avgStarRating}
+                    {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span> : ''}
+                </span>
+                <span>
+                    {spot.numReviews === 0 ? 'New' : spot.numReviews}
+                    {spot.numReviews === 1 ? ' review' : ''}
+                    {spot.numReviews > 1 ? ' reviews' : ''}
+                </span>
+                <br/>
+                <br/>
+                
+                <div className="post-review-btn">
+                {/* <OpenModalButton buttonText='Post Your Review' modalComponent={}/> */}
+
+                </div>
+
+               
+                {reviews ? Object.values(reviews).map((review) => {
+                    // console.log('this is the review inside the map', review);
+                    return <div key={review.id} className="review-data">
+                        <p>{review.User.firstName}{review.User.lastName}</p>
+                        <p>{review.createdAt}</p>
+                        <p >{review.review}</p>
+                        {review.User.id===user.id?<button>Delete</button>:null}
+                        {/* <button>Delete</button> */}
+                        </div>
+                }) : null}
             </div>
         </div>
     )

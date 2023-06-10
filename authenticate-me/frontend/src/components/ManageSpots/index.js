@@ -12,16 +12,17 @@
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from 'react';
 import './ManageSpots.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { getAllSpotsThunk } from '../../store/spot';
-// import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+
 import DeleteFormModal from "../DeleteFormModal";
 import OpenModalButton from "../OpenModalButton";
-import UpdateFormModal from "../UpdateFormModal"
+
+
 
 function ManageSpots(){
 const dispatch = useDispatch();
-// const history = useHistory();
+const history = useHistory();
 const spots = useSelector(state => state.spots.allSpots);
 // console.log('This is all spots',spotsObj);
 const owner= useSelector(state=> state.session.user)
@@ -31,21 +32,13 @@ const userSpots = Object.values(spots).filter(ownedSpots=>{
     return ownedSpots.ownerId ===owner.id;
 })
     console.log('This is all the owner`s spots',userSpots);
-
+  
     useEffect(() => {
-        dispatch(getAllSpotsThunk());
+        dispatch(getAllSpotsThunk(spots.length));
+  
     }, [dispatch,spots.length]);
 
-    // useEffect(()=>{
-    //     dispatch(getSpotThunk())
-    // },[dispatch])
 
-// const handleClickDelete= (spot)=>{
-    
-// }
-// const handleClickUpdate = (spot)=>{
-//     <OpenModalButton modalComponent={''}/>
-// }
 
 const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'
     return(
@@ -55,11 +48,11 @@ const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Avai
                 <div className="manage-create-spot">
                     <Link className='.create-link' to={`/spots/new`}>Create a New Spot</Link>
                 </div>                    
-                    :<></>}
+                    :null}
             <div className='manage-main-spots'>
                 <div className='manage-spot-tiles'>
                     {userSpots.reverse().map(oneSpot => (
-                        // console.log(oneSpot)
+                        // console.log(oneSpot),
                         <div key={oneSpot.id} className='manage-spot-div' >
 
                             {oneSpot.previewImage ? <img className='manage-spot-img' src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
@@ -73,8 +66,9 @@ const noImg = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Avai
                             <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
                             {/* {console.log('spot details: ',oneSpot)} */}
                             <span className='manage-spot-btn-span'>
-                                {/* <button className= 'update-btn' onClick={handleClickUpdate}>Update</button> */}
-                                <OpenModalButton className= 'update-btn' buttonText='Update' modalComponent={<UpdateFormModal spot={oneSpot}/>}/>
+                                
+                                <button onClick={()=>history.push(`/update-spot/${oneSpot.id}`)}>Update</button>
+                                {/* <OpenModalButton className= 'update-btn'modalComponent{<UpdateFormModal spot={oneSpot}/>}/> */}
                                 <OpenModalButton className= 'delete-btn' buttonText='Delete' modalComponent={<DeleteFormModal spotId={oneSpot.id}/>}/>
                                 {/* <button className= 'delete-btn' onClick={handleClickDelete}>Delete</button> */}
                             </span>

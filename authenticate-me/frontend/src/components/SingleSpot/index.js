@@ -5,7 +5,7 @@ import { getSpotThunk } from "../../store/spot";
 import { getAllSpotReviewsThunk } from "../../store/reviews";
 import { useEffect } from "react";
 import './SingleSpot.css'
-import OpenModalButton from "../OpenModalButton";
+// import OpenModalButton from "../OpenModalButton";
 
 const SingleSpot = () => {
     const { spotId } = useParams()
@@ -100,7 +100,7 @@ const SingleSpot = () => {
                 <br/>
                 
                 <div className="post-review-btn">
-                <OpenModalButton buttonText='Post Your Review'/>
+                {/* <OpenModalButton buttonText='Post Your Review' modalComponent={}/> */}
 
                 </div>
 

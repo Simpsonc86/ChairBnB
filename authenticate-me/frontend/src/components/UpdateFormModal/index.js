@@ -1,28 +1,61 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpotThunk } from "../../store/spot";
-import { useHistory } from "react-router-dom";
+import { getSpotThunk,updateSpotThunk} from "../../store/spot";
+import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
 import './UpdateFormModal.css'
 import { useModal } from '../../context/Modal';
+import { useEffect } from "react";
 
-function UpdateFormModal({spot}) {
+
+function UpdateFormModal() {
     const history = useHistory()
     const dispatch = useDispatch()
     const {closeModal}= useModal();
+    const {spotId} = useParams()
+
+    console.log(typeof spotId);
+    const spotNum = Number(spotId)
+    console.log('spot num', spotNum);
+
+
     const owner = useSelector(state => {
         // console.log('state from the store', state);
         return state.session.user
     });
+    const spot = useSelector(state=>state.singleSpot);
 
     //states
-    const [name, setname] = useState(spot.name);
-    const [address, setAddress] = useState(spot.address);
-    const [description, setDescription] = useState(spot.description);
-    const [city, setCity] = useState(spot.city);
-    const [country, setCountry] = useState(spot.country);
-    const [state, setState] = useState(spot.state);
-    const [price, setPrice] = useState(spot.price);
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [description, setDescription] = useState('');
+    const [city, setCity] = useState('');
+    const [country, setCountry] = useState('');
+    const [state, setState] = useState('');
+    const [price, setPrice] = useState('');
     const [errors, setErrors] = useState({});
+
+    /////////
+    /**
+     *
+     * use effect
+     * get spot thunk
+     * use id from use params
+     * .then(data=>clg(data))
+     * populate state setters
+     * on mount
+     */
+    useEffect(()=>{
+        dispatch(getSpotThunk(spotNum)).then(data=>{
+            setName(data.name)
+            setAddress(data.address)
+            setDescription(data.description)
+            setCity(data.city)
+            setCountry(data.country)
+            setState(data.state)
+            setPrice(data.price)
+        })
+        // console.log('this is the data from the get spot thunk------',data);
+    },[dispatch,spotNum])
 
     // validations for controlled inputs
  
@@ -42,7 +75,7 @@ function UpdateFormModal({spot}) {
           
             //Thunk args = (spot,owner)
             const updatedSpot = await dispatch(updateSpotThunk({
-                id:spot.id,
+                id:spotNum,
                 name,
                 address,
                 description,
@@ -221,7 +254,7 @@ function UpdateFormModal({spot}) {
                     <input
                         type="text"
                         value={name}
-                        onChange={(e) => setname(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                         placeholder="Name of your spot"
                     // required
                     />

@@ -22,7 +22,8 @@ const getAllSpotReviews = (spot) => {
 const createReview = (review) => {
     return {
         type: CREATE_REVIEW,
-        payload: review
+        payload: review,
+        
     }
 }
 

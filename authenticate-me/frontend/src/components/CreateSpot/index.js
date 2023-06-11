@@ -146,7 +146,7 @@ function CreateSpot() {
     return (
         <div className="form-div">
             <form onSubmit={handleSubmit}>
-                <h1>Create a new Spot</h1>
+                <h1>Create a New Spot</h1>
                 <h2>Where's your place located?</h2>
                 <h3>Guest will only get your exact address once they booked a reservation</h3>
                 <label>
@@ -154,6 +154,7 @@ function CreateSpot() {
                     {errors.country && !country.length>0 && <span className="errors">&nbsp;{errors.country}</span>}
                     <br />
                     <input
+                        className="create-form-input"
                         type="text"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
@@ -195,6 +196,7 @@ function CreateSpot() {
                         {errors.state && !state.length>0 &&<span className="errors">&nbsp;{errors.state}</span>}
                         <br />
                         <select
+                            className="state-select"
                             type="text"
                             value={state}
                             onChange={(e) => setState(e.target.value)}

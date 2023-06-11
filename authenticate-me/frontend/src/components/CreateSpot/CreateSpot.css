@@ -5,7 +5,8 @@
 
 .city-state-form-div{
     display: flex;
-    width:500px;
+    /* width:100%; */
+    /* max-width: 500px; */
 }
 
 .form-div{
@@ -15,11 +16,12 @@
 
 form{  
     max-width: 500px;
+    width: 100%;
     padding:0;
 }
 
 input{
-    width:100%
+    width:98%
 }
 
 textarea{
@@ -36,7 +38,7 @@ textarea{
 }
 
 .city-label,.state-label{
-    width: 250px;
+    max-width: 50%;
 }
 
 h1,h2,h3,p{

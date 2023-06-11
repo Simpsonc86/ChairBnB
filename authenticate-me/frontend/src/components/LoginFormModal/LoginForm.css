@@ -13,9 +13,9 @@
     min-width: 400px;
     /* border:3px solid red; */
 }
-input{
+/* input{
     width: 400px;
-}
+} */
 
 .login{
     display: flex;
@@ -40,4 +40,8 @@ input{
 
 .errors{
     color:red
+}
+.demo-link{
+    display: flex;
+    justify-content: center;
 }

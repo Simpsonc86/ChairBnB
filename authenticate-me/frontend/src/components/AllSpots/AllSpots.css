@@ -19,7 +19,7 @@
 .spot-tiles {
     display:flex;
     flex-wrap:wrap;
-    justify-content:center;
+    justify-content:flex-start;
     gap: 10px;;
     /* flex-basis:66.7%; */
     /* border:5px solid red; */

@@ -4,8 +4,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./DeleteFormModal.css";
-import { deleteSpotThunk, getAllSpotsThunk } from "../../store/spot";
+import { deleteSpotThunk } from "../../store/spot";
 import { useHistory } from "react-router-dom";
+import { getAllSpotReviewsThunk } from "../../store/reviews";
 // import { useEffect } from "react";
 
 function DeleteFormModal({spotId}) {
@@ -18,7 +19,7 @@ function DeleteFormModal({spotId}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(deleteSpotThunk(spotId))
-    await dispatch(getAllSpotsThunk())
+    await dispatch(getAllSpotReviewsThunk(spotId))
     closeModal();
     await history.push(`/current`)
     

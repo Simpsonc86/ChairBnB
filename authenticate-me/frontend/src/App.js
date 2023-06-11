@@ -8,6 +8,7 @@ import AllSpots from './components/AllSpots'
 import SingleSpot from './components/SingleSpot'
 import CreateSpot from "./components/CreateSpot";
 import ManageSpots from "./components/ManageSpots";
+import UpdateFormModal from "./components/UpdateFormModal";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ function App() {
         </Route>
         <Route exact path='/current'>
           <ManageSpots/>
+        </Route>
+        <Route exact path='/update-spot/:spotId'>
+          <UpdateFormModal/>
         </Route>
         <Route exact path='/'>
           <AllSpots/>

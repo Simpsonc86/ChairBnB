@@ -26,7 +26,7 @@ function CreateReviewModal ({spotId}){
             console.log('rating from user',rating);
             const newReview =  await dispatch(createReviewThunk({review,stars:rating},Number(spotId)));
             
-            console.log('this is the created review', newReview);
+            // console.log('this is the created review', newReview);
             
             if(newReview){
                 await dispatch(getSpotThunk(spotId))
@@ -60,7 +60,7 @@ function CreateReviewModal ({spotId}){
                                     onMouseEnter={()=> setRating(numStars)}
                                     onClick={()=> setRating(rating)}
                                     >
-                                        {console.log('this is the star rating',rating)}
+                                        {/* {console.log('this is the star rating',rating)} */}
                                         <i className='fa-solid fa-star clickable'></i>
                                 </span>
                             )

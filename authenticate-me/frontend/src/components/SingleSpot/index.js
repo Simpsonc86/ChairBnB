@@ -98,7 +98,7 @@ const SingleSpot = () => {
                     </div>
                     <div className="price-reviews-box">
                         <div className='price-reviews'>
-                            <span>${spot.price} night</span>
+                            <span>${spot.price} Night</span>
                             <div className="c">
                                 <span>
                                     <i className='fa-solid fa-star'></i>
@@ -130,8 +130,7 @@ const SingleSpot = () => {
                     {spot.numReviews > 1 ? ' reviews' : ''}
                 </span>
                 <br/>
-                <br/>
-                
+                <br/>                
                 <div className="post-review-btn">
                 {postReview()}
                 </div>               
@@ -147,13 +146,15 @@ const SingleSpot = () => {
                         <p>{review.User.firstName} {review.User.lastName}</p>
                         <p>{dateChanger(month)} {year}</p>
                         <p >{review.review}</p>
-                        {review.User.id===user.id?
+                        
+                        {user&&review.userId===user.id?
                         <OpenModalButton buttonText={'Delete'} modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id}/>}></OpenModalButton>
                         :null}
                         </div>)
                 }) : null}
             </div>
         </div>
+        // <div>Hello</div>
     )
 }
 

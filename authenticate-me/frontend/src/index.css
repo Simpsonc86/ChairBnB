@@ -5,7 +5,8 @@ body{
     background-color: aliceblue;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color:rgb(19, 36, 46);
-    width: 1000px;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 #root{
@@ -14,10 +15,11 @@ body{
     flex-direction: column;
 }
 
-html{
+/* html{
     display: flex;
     justify-content: center;
-}
+    max-width: 100%;
+} */
 
 
 

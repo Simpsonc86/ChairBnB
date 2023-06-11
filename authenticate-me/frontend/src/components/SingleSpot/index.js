@@ -24,7 +24,7 @@ const SingleSpot = () => {
     // console.log('reviews from spot ', reviews);
 
     let revArr = Object.values(reviews)
-    useEffect((revArr) => {
+    useEffect(() => {
        
         dispatch(getSpotThunk(spotId))
         .then(dispatch(getAllSpotReviewsThunk(spotId)))
@@ -91,7 +91,7 @@ const SingleSpot = () => {
                     </div>
                 </div>
                 <div className="spot-details-info">
-                    <div>
+                    <div className="spot-description-div">
                         <h2>
                             Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
                         </h2>
@@ -137,7 +137,7 @@ const SingleSpot = () => {
                 </div>               
                 {Object.values(reviews).length===0 && <p>Be the first to post a review</p>}
                 {reviews ? Object.values(reviews).reverse().map((review) => {
-                    console.log('this is the review inside the map', review);
+                    // console.log('this is the review inside the map', review);
                     
                     const month = review.createdAt.slice(0,7)
                     const year = review.createdAt.slice(0,4)

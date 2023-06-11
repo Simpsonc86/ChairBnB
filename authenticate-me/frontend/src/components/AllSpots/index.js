@@ -38,7 +38,8 @@ function AllSpots() {
                 <div className='spot-tiles'>
                     {allSpots.reverse().map(oneSpot => (
                         // console.log(oneSpot)
-                        <Link to={`/spots/${oneSpot.id}`} key={oneSpot.id} onClick={handleClick} className='spot-link' >
+                        <Link to={`/spots/${oneSpot.id}`} key={oneSpot.id} onClick={handleClick} className='spot-link hover-text' >
+                            <span className='tooltip-text'>{oneSpot.name}</span>
 
                             {oneSpot.previewImage ? <img className='preview-img'src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
                             <div className='spot-tile-desc-top'>

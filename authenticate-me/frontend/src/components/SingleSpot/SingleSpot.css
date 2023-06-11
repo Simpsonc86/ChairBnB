@@ -5,6 +5,7 @@
 h1,h3,h2{
     display: flex;
     justify-content: left;
+    margin:0;
 }
 
 .spot-details-box{
@@ -111,3 +112,8 @@ h1,h3,h2{
 
 }
 
+.spot-description-div{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+}

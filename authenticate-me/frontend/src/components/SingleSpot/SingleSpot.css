@@ -1,18 +1,40 @@
 .spot-details-main{
-    width:1000px;
+    display: flex;
+    justify-content: center;
+    
+    
+    width:100%;
+    /* border:3px solid red; */
 }
 
+.spot-details-box{
+    display:flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    width: 100%;
+    max-width:1000px;
+    margin:0;
+    flex-direction: column;
+    /* border:3px solid red; */
+}
+
+.spot-details-div{
+    display: flex;
+    /* width: 50%; */
+    /* margin:0; */
+    /* justify-content: center; */
+    flex-direction: column;
+}
 h1,h3,h2{
     display: flex;
     justify-content: left;
     margin:0;
 }
-
-.spot-details-box{
-    display:flex;
-    max-width:1000px;
-    flex-direction: column;
+.spot-heading{
+    /* display: flex; */
+    /* justify-content: center; */
 }
+
 
 .spot-details-info{
     display:flex;

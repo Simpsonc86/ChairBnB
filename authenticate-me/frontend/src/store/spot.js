@@ -230,7 +230,7 @@ const spotReducer = (state = initialState, action) => {
             const spot = action.payload
             newState = {...state,singleSpot:{...spot}}
             console.log('updated spot is: ',newState.singleSpot);
-            return newState
+            return newState;
         }
         // case GET_ALL_USERS_SPOTS:{
         //     newState = {...state, allSpots: {}, singleSpot: {} }

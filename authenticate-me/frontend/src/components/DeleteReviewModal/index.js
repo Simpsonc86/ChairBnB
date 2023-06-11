@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { deleteReviewThunk, getAllSpotReviewsThunk } from "../../store/reviews";
 import { getSpotThunk } from "../../store/spot";
+import { useEffect } from "react";
 
 function DeleteReviewModal({ reviewId, spotId }) {
     const dispatch = useDispatch()
@@ -10,12 +11,10 @@ function DeleteReviewModal({ reviewId, spotId }) {
     const { closeModal } = useModal()
 
     // console.log('review id from prop',reviewId);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         await dispatch(deleteReviewThunk(reviewId))
-            .then(dispatch(getSpotThunk(spotId)))
-            .then(dispatch(getAllSpotReviewsThunk(spotId)))
+        .then( dispatch(getAllSpotReviewsThunk(spotId)))
             .then(closeModal())
             .then(history.push(`/spots/${spotId}`))
     }

@@ -23,12 +23,13 @@ const SingleSpot = () => {
     const reviews = useSelector(state => state.reviews.spot)
     // console.log('reviews from spot ', reviews);
 
-
-    useEffect(() => {
-        
-        dispatch(getSpotThunk(spotId));
-        dispatch(getAllSpotReviewsThunk(spotId))
-    }, [dispatch, spotId]);
+    let revArr = Object.values(reviews)
+    useEffect((revArr) => {
+       
+        dispatch(getSpotThunk(spotId))
+        .then(dispatch(getAllSpotReviewsThunk(spotId)))
+               
+    }, [dispatch, spotId, revArr.length]);
 
     const reserveBtnClick = (e) => {
         e.preventDefault();

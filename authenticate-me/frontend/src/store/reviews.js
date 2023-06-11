@@ -59,7 +59,7 @@ export const getAllSpotReviewsThunk = (spotId) => async (dispatch) => {
 
 export const createReviewThunk = (review,spotId) => async (dispatch) => {
 
-    console.log('INSIDE THE CREATE REVIEW THUNK');
+    console.log('INSIDE THE CREATE REVIEW THUNK-------------');
     // fetch from api
     try {
         const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
@@ -131,6 +131,7 @@ const reviewReducer = (state = initialState, action) =>{
         // }
         case CREATE_REVIEW: {
             const review = action.payload
+            console.log('this is the previous state');
             newState = {user:{...state.user}, spot: {...state.spot} }
             newState.spot[review.id]=review
             console.log('create a review from reducer', newState);

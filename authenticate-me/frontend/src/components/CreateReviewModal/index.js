@@ -5,9 +5,11 @@ import { useModal } from "../../context/Modal";
 import { getSpotThunk } from "../../store/spot"
 import { useEffect } from "react";
 import './CreateReviewModal.css'
+import { useHistory } from "react-router-dom";
 
 function CreateReviewModal ({spotId}){
     const dispatch = useDispatch();
+    const history = useHistory();
     const {closeModal}= useModal();
     const [review,setReview] = useState('');
     const [rating,setRating] = useState(0);
@@ -36,6 +38,8 @@ function CreateReviewModal ({spotId}){
             if(newReview){
                 await dispatch(getSpotThunk(spotId)).then(()=>closeModal());
             }else setErrors(errObj);
+
+            history.push(`/spots/${spotId}`)
           
     }
 

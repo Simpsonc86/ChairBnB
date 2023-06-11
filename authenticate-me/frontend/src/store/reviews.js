@@ -140,8 +140,10 @@ const reviewReducer = (state = initialState, action) =>{
         case DELETE_REVIEW:{
             // const review = action.payload;
             newState = {user:{...state.user},spot:{...state.spot}}
-            console.log('review to be deleted',action.reviewId);
+            // console.log('review to be deleted',action.reviewId);
+            // console.log('new to be deleted',newState);
             delete newState[action.reviewId]
+            // console.log('new to be deleted',newState);
             return newState;
         }
         default:

@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { createReviewThunk } from "../../store/reviews";
+import { createReviewThunk, getAllSpotReviewsThunk } from "../../store/reviews";
 import {useState} from 'react'
 import { useModal } from "../../context/Modal";
 import { getSpotThunk } from "../../store/spot"
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import './CreateReviewModal.css'
 import { useHistory } from "react-router-dom";
 
@@ -18,13 +18,6 @@ function CreateReviewModal ({spotId}){
     // console.log('spot id from prop:',typeof spotId,spotId);
     const STARS = [1,2,3,4,5]
 
-    // useEffect(()=>{
-    //     const errObj={}
-    //     if(review.length<10) errObj.review = "Please write at least 10 characters";
-    //     setErrors(errObj);
-    // },[review])
-
-
     const handleSubmit= async (e)=>{
 
         const errObj={}
@@ -36,7 +29,9 @@ function CreateReviewModal ({spotId}){
             console.log('this is the created review', newReview);
             
             if(newReview){
-                await dispatch(getSpotThunk(spotId)).then(()=>closeModal());
+                await dispatch(getSpotThunk(spotId))
+                .then(dispatch(getAllSpotReviewsThunk(spotId)))
+                .then(()=>closeModal());
             }else setErrors(errObj);
 
             history.push(`/spots/${spotId}`)
@@ -63,8 +58,9 @@ function CreateReviewModal ({spotId}){
                             return (
                                 <span className='star-row' id={numStars>rating?'filled':'empty'}
                                     onMouseEnter={()=> setRating(numStars)}
-                                    onClick={()=> setRating(rating)}>
-                                        {/* {console.log('this is the star rating',rating)} */}
+                                    onClick={()=> setRating(rating)}
+                                    >
+                                        {console.log('this is the star rating',rating)}
                                         <i className='fa-solid fa-star clickable'></i>
                                 </span>
                             )

@@ -25,6 +25,7 @@ const SingleSpot = () => {
 
 
     useEffect(() => {
+        
         dispatch(getSpotThunk(spotId));
         dispatch(getAllSpotReviewsThunk(spotId))
     }, [dispatch, spotId]);
@@ -136,20 +137,20 @@ const SingleSpot = () => {
                 </div>               
                 {Object.values(reviews).length===0 && <p>Be the first to post a review</p>}
                 {reviews ? Object.values(reviews).reverse().map((review) => {
-                    // console.log('this is the review inside the map', review);
-
+                    console.log('this is the review inside the map', review);
+                    
                     const month = review.createdAt.slice(0,7)
                     const year = review.createdAt.slice(0,4)
 
                     // console.log('date from the review',year);
-                    return <div key={review.id} className="review-data">
+                    return (review.User&&<div key={review.id} className="review-data">
                         <p>{review.User.firstName} {review.User.lastName}</p>
                         <p>{dateChanger(month)} {year}</p>
                         <p >{review.review}</p>
                         {review.User.id===user.id?
                         <OpenModalButton buttonText={'Delete'} modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id}/>}></OpenModalButton>
                         :null}
-                        </div>
+                        </div>)
                 }) : null}
             </div>
         </div>

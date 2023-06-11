@@ -206,7 +206,7 @@ const spotReducer = (state = initialState, action) => {
         case GET_ONE_SPOT: {
             const spot = action.payload
             newState = {...state, singleSpot: {...spot} }
-            newState.singleSpot[spot.id] = spot
+            // newState.singleSpot[spot.id] = spot
             
             console.log('get one spot', newState);
             return newState;

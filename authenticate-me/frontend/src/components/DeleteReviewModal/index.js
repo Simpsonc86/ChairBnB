@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { deleteReviewThunk, getAllSpotReviewsThunk } from "../../store/reviews";
+import { getSpotThunk } from "../../store/spot";
 
 function DeleteReviewModal({ reviewId, spotId }) {
     const dispatch = useDispatch()
@@ -13,7 +14,8 @@ function DeleteReviewModal({ reviewId, spotId }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await dispatch(deleteReviewThunk(reviewId))
-        await dispatch(getAllSpotReviewsThunk(spotId))
+            .then(dispatch(getSpotThunk(spotId)))
+            .then(dispatch(getAllSpotReviewsThunk(spotId)))
             .then(closeModal())
             .then(history.push(`/spots/${spotId}`))
     }

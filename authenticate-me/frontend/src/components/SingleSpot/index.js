@@ -117,14 +117,16 @@ const SingleSpot = () => {
                 <div className="post-review-btn">
                 {postReview()}
                 </div>               
+                {Object.values(reviews).length===0 && <p>Be the first to post a review</p>}
                 {reviews ? Object.values(reviews).reverse().map((review) => {
                     // console.log('this is the review inside the map', review);
                     return <div key={review.id} className="review-data">
-                        <p>{review.User.firstName}{review.User.lastName}</p>
+                        <p>{review.User.firstName} {review.User.lastName}</p>
                         <p>{review.createdAt}</p>
                         <p >{review.review}</p>
-                        {review.User.id===user.id?<button>Delete</button>:null}
-                        {/* <button>Delete</button> */}
+                        {review.User.id===user.id?
+                        <button>Delete</button>
+                        :null}
                         </div>
                 }) : null}
             </div>

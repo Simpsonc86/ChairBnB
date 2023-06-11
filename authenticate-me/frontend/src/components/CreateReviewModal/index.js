@@ -2,42 +2,81 @@ import { useDispatch } from "react-redux";
 import { createReviewThunk } from "../../store/reviews";
 import {useState} from 'react'
 import { useModal } from "../../context/Modal";
-import { getSpotThunk } from "../../store/spot";
+import { getSpotThunk } from "../../store/spot"
+import { useEffect } from "react";
+import './CreateReviewModal.css'
 
 function CreateReviewModal ({spotId}){
     const dispatch = useDispatch();
     const {closeModal}= useModal();
     const [review,setReview] = useState('');
     const [rating,setRating] = useState(0);
+    const [errors, setErrors] = useState({})
+
+    // console.log('spot id from prop:',typeof spotId,spotId);
+    const STARS = [1,2,3,4,5]
+
+    // useEffect(()=>{
+    //     const errObj={}
+    //     if(review.length<10) errObj.review = "Please write at least 10 characters";
+    //     setErrors(errObj);
+    // },[review])
 
 
     const handleSubmit= async (e)=>{
-        e.preventDefault();
-        dispatch(createReviewThunk({review,rating},spotId));
-        dispatch(getSpotThunk(spotId));
-        closeModal();
-    }
 
-    const onChange = (stars) =>{
-        setRating(parseInt(stars))
+        const errObj={}
+            if(review.length<10) errObj.review = "Please write at least 10 characters";
+            e.preventDefault();
+            console.log('rating from user',rating);
+            const newReview =  await dispatch(createReviewThunk({review,stars:rating},Number(spotId)));
+            
+            console.log('this is the created review', newReview);
+            
+            if(newReview){
+                await dispatch(getSpotThunk(spotId)).then(()=>closeModal());
+            }else setErrors(errObj);
+          
     }
 
 
     return(
         <div className="create-review-box">
-            <h1>How was your stay?</h1>
+            <h2 className="review-modal-title">How was your stay?</h2>
             <form className="review-form" onSubmit={handleSubmit}>
                 <textarea 
                     className="review-description" 
                     type='text'
-                    placeholder="Leave your review here."
+                    placeholder="Leave your review here..."
                     value={review}
                     onChange={e=>setReview(e.target.value)}
                     ></textarea>
+                    {errors && <p>{errors.message}</p>}
+                    <br/>
                     <div className="review-rating">
                         <div className="review-stars">
-
+                         {STARS.map(numStars=>{
+                            return (
+                                <span className='star-row' id={numStars>rating?'filled':'empty'}
+                                    onMouseEnter={()=> setRating(numStars)}
+                                    onClick={()=> setRating(rating)}>
+                                        {/* {console.log('this is the star rating',rating)} */}
+                                        <i className='fa-solid fa-star clickable'></i>
+                                </span>
+                            )
+                         })}
+                         &nbsp;
+                               
+                        <span className="star-label">Stars</span>
                         </div>
+                        
+
+                    </div>
+                    <br/>
+                
+                    <div className="submit-review-btn">
+                    <button id='submit-review' disabled={review.length<10}>Submit Your Review</button>
+
                     </div>
 
 

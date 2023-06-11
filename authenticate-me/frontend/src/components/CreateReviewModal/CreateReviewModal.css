@@ -1,0 +1,39 @@
+.create-review-box{
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+}
+
+
+
+.review-description{
+    display: flex;
+    justify-content: center;
+    width: 98.5%;
+}
+
+.review-stars{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#filled{
+    color: rgb(19, 19, 19);
+}
+
+#empty{
+    color: red;
+}
+
+.review-modal-title,.star-row, .star-label, .submit-review-btn{
+    display: flex;
+    justify-content: center;
+}
+
+#submit-review{
+    height:50px;
+    
+    width: 200px;
+}
+

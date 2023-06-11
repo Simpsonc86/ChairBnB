@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOT_REVIEWS = '/reviews/spotReviews';
 // const GET_ALL_USER_REVIEWS = '/reviews/userReviews';
 const CREATE_REVIEW = 'reviews/createReview'
+const DELETE_REVIEW = 'reviews/deleteReview'
 
 
 //action creator
@@ -23,10 +24,17 @@ const createReview = (review, spotId) => {
     return {
         type: CREATE_REVIEW,
         payload: review,
-        spotId
-        
+        spotId        
     }
 }
+const deleteReview = (review, reviewId) => {
+    return{
+        type:DELETE_REVIEW,
+        payload:review,
+        reviewId
+    }
+}
+
 
 //thunk action creators
 export const getAllSpotReviewsThunk = (spotId) => async (dispatch) => {
@@ -51,14 +59,15 @@ export const getAllSpotReviewsThunk = (spotId) => async (dispatch) => {
 
 export const createReviewThunk = (review,spotId) => async (dispatch) => {
 
+    console.log('INSIDE THE CREATE REVIEW THUNK');
     // fetch from api
     try {
-        const res = await csrfFetch(`/api/reviews/${spotId}/reviews`, {
+        const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(review)
         });
-        console.log('response from fetch', res);
+        console.log('response from create review fetch', res);
 
         if (res.ok) {
             const createdReview = await res.json();
@@ -72,6 +81,16 @@ export const createReviewThunk = (review,spotId) => async (dispatch) => {
         // console.log('this is the err from the catch',err);
         const errors = await err.json();
         return errors;
+    }
+}
+export const deleteReviewThunk = (reviewId) => async (dispatch) =>{
+    const res = await csrfFetch(`/api/reviews/${reviewId}`,{
+        method:'DELETE',
+        header:{ 'Content-Type': 'application/json' },
+    })
+    if (res.ok){
+        let deletedReview = await res.json()
+        dispatch(deleteReview(deletedReview,reviewId))
     }
 }
 
@@ -114,7 +133,14 @@ const reviewReducer = (state = initialState, action) =>{
             const review = action.payload
             newState = {user:{...state.user}, spot: {...state.spot} }
             newState.spot[review.id]=review
-            console.log('create a review', newState);
+            console.log('create a review from reducer', newState);
+            return newState;
+        }
+        case DELETE_REVIEW:{
+            // const review = action.payload;
+            newState = {user:{...state.user},spot:{...state.spot}}
+            console.log('review to be deleted',action.reviewId);
+            delete newState[action.reviewId]
             return newState;
         }
         default:

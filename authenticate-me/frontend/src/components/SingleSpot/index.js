@@ -47,6 +47,22 @@ const SingleSpot = () => {
         }
     }
 
+    const dateChanger=(date)=>{
+
+        if(date.endsWith('01'))return 'January'
+        if(date.endsWith('02'))return 'February'
+        if(date.endsWith('03'))return 'March'
+        if(date.endsWith('04'))return 'April'
+        if(date.endsWith('05'))return 'May'
+        if(date.endsWith('06'))return 'June'
+        if(date.endsWith('07'))return 'July'
+        if(date.endsWith('08'))return 'August'
+        if(date.endsWith('09'))return 'September'
+        if(date.endsWith('10'))return 'October'
+        if(date.endsWith('11'))return 'November'
+        if(date.endsWith('12'))return 'December'
+    }
+
     if (!spot.Owner) return <div>...On the Way! Have faith!...</div>
 
     return (
@@ -121,9 +137,14 @@ const SingleSpot = () => {
                 {Object.values(reviews).length===0 && <p>Be the first to post a review</p>}
                 {reviews ? Object.values(reviews).reverse().map((review) => {
                     // console.log('this is the review inside the map', review);
+
+                    const month = review.createdAt.slice(0,7)
+                    const year = review.createdAt.slice(0,4)
+
+                    // console.log('date from the review',year);
                     return <div key={review.id} className="review-data">
                         <p>{review.User.firstName} {review.User.lastName}</p>
-                        <p>{review.createdAt}</p>
+                        <p>{dateChanger(month)} {year}</p>
                         <p >{review.review}</p>
                         {review.User.id===user.id?
                         <OpenModalButton buttonText={'Delete'} modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id}/>}></OpenModalButton>

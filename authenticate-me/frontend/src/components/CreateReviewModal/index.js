@@ -42,7 +42,7 @@ function CreateReviewModal ({spotId}){
     return(
         <div className="create-review-box">
             <h1 className="review-modal-title">How was your stay?</h1>
-                {!!Object.values(errors).length && <p>{errors.message}</p>}
+                {!!Object.values(errors).length && <p className="errors">{errors.message}</p>}
             <form className="review-form" onSubmit={handleSubmit}>
                 <textarea 
                     className="review-modal-description" 

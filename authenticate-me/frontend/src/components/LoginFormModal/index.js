@@ -80,10 +80,10 @@ function LoginFormModal() {
               required
             />
           </label>
-          <button className='login-btn'type="submit" disabled={(password.length<6||credential.length<4)}>Log In</button>
+          <button className={(password.length<6||credential.length<4)?'login-btn-grey':'login-btn-red'}type="submit" disabled={(password.length<6||credential.length<4)}>Log In</button>
         </div>
       </form>
-      <br/>
+      {/* <br/> */}
       <hr/>
       <Link className='demo-link' onClick={loginDemoUser}>Demo user</Link>
       <hr/>

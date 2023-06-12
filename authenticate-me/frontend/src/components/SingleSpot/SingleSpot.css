@@ -12,7 +12,7 @@
     /* justify-content: center; */
     /* align-items: center; */
     width: 100%;
-    max-width:1000px;
+    max-width:1024px;
     margin:0;
     flex-direction: column;
     /* border:3px solid red; */
@@ -60,7 +60,7 @@
     height:50px;
     background-color: red;
     color:white;
-    box-shadow: 5px 3px ;
+    box-shadow: 2px 2px black;
 }
 
 .images-box{
@@ -142,9 +142,15 @@
 
 #post-review-btn{
     width: fit-content;
-    background-color: rgb(19, 36, 48);
+    /* background-color: rgb(19, 36, 48);
     color:white;
-    box-shadow: 5px,5px;
+    box-shadow: 5px,5px; */
+    color:white;
+    background-color: rgb(19, 36, 48);
+    text-decoration: none;
+    border:2px solid black;
+    padding:2px;
+    box-shadow: 2px 2px black;
 }
 
 #review-ratings-div{

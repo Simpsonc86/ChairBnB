@@ -1,5 +1,11 @@
 .manage-main-div{
     display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    /* width: 1000px; */
+}
+.manage-main-box{
+    display: flex;
     flex-direction: column;
     justify-content: center;
 }
@@ -7,11 +13,11 @@
 .manage-main-spots{
     display:flex;
     flex-wrap:wrap;
-    width:100%;
-    /* width:50%; */
     justify-content: center;
-    align-items: top;
-    max-width: 1000px;
+    width:1024px;
+    /* width:50%; */
+    /* align-items: top; */
+    /* max-width: 1000px; */
     /* padding-top: 50px; */
     /* border:5px solid red; */
 
@@ -56,16 +62,16 @@
 
 .manage-spot-btn-span{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-around; */
 }
 
-.update-btn,.delete-btn{
+#update-btn,#delete-btn{
     width: 100px;
     background-color: red;
     color: white;
     border-radius: 10px;
 }
-.update-btn,.delete-btn:hover{
+#update-btn,#delete-btn:hover{
    cursor: pointer;
 }
 

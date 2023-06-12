@@ -49,3 +49,12 @@ select{
 h1,h2,h3,p{
     margin:18px 0
 }
+#manage-create-spot-btn{
+    color:white;
+    background-color: rgb(19, 36, 48);
+    text-decoration: none;
+    border:2px solid black;
+    padding:2px;
+    box-shadow: 3px 3px black;
+
+}

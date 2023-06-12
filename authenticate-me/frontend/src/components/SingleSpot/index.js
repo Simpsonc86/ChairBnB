@@ -74,8 +74,11 @@ const SingleSpot = () => {
 
 
                     <div className="spot-heading">
+                        <br />
                         <h1>{spot.name}</h1>
+                        <br />
                         <h3>{spot.city}, {spot.state}, {spot.country}</h3>
+                        <br />
                     </div>
                     <div className="images-box">
                         <div className="previmage-div">
@@ -123,20 +126,24 @@ const SingleSpot = () => {
                 </div>
                 <hr />
                 <div className="reviews-section-div">
-                    <span>
-                        <i className='fa-solid fa-star'></i>
-                        {spot.avgStarRating}
-                        {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span> : ''}
-                    </span>
-                    <span>
-                        {spot.numReviews === 0 ? 'New' : spot.numReviews}
-                        {spot.numReviews === 1 ? ' review' : ''}
-                        {spot.numReviews > 1 ? ' reviews' : ''}
-                    </span>
                     <br />
+                    <div id='review-ratings-div'>
+                        <span>
+                            <i className='fa-solid large fa-star'></i>
+                            {spot.avgStarRating}
+                            {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span> : ''}
+                        </span>
+                        <span>
+                            {spot.numReviews === 0 ? 'New' : spot.numReviews}
+                            {spot.numReviews === 1 ? ' review' : ''}
+                            {spot.numReviews > 1 ? ' reviews' : ''}
+                        </span>
+                        <br />
+                    </div>
                     <br />
-                    <div className="post-review-btn">
+                    <div>
                         {postReview()}
+                        <br />
                     </div>
                     {Object.values(reviews).length === 0 && <p>Be the first to post a review</p>}
                     {reviews ? Object.values(reviews).reverse().map((review) => {
@@ -147,13 +154,14 @@ const SingleSpot = () => {
 
                         // console.log('date from the review',year);
                         return (review.User && <div key={review.id} className="review-data">
-                            <p>{review.User.firstName} {review.User.lastName}</p>
-                            <p>{dateChanger(month)} {year}</p>
+                            <h3>{review.User.firstName} {review.User.lastName}</h3>
+                            <h4>{dateChanger(month)} {year}</h4>
                             <p >{review.review}</p>
 
                             {user && review.userId === user.id ?
                                 <OpenModalButton buttonText={'Delete'} modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spot.id} />}></OpenModalButton>
                                 : null}
+                            <br />
                         </div>)
                     }) : null}
                 </div>

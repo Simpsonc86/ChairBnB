@@ -4,6 +4,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -79,13 +80,14 @@ function LoginFormModal() {
               required
             />
           </label>
-          <button className='login-btn'type="submit" disabled={(password.length<6||credential.length<4)}>Log In</button>
+          <button className={(password.length<6||credential.length<4)?'login-btn-grey':'login-btn-red'}type="submit" disabled={(password.length<6||credential.length<4)}>Log In</button>
         </div>
       </form>
+      {/* <br/> */}
       <hr/>
-      <button className='login-btn' onClick={loginDemoUser}>Demo user</button>
+      <Link className='demo-link' onClick={loginDemoUser}>Demo user</Link>
       <hr/>
-      <button className='login-btn' onClick={loginDemoUser2}>Demo user 2</button>
+      <Link className='demo-link' onClick={loginDemoUser2}>Demo user 2</Link>
     </div>
   );
 }

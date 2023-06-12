@@ -1,45 +1,39 @@
 
 .create-link{
     color: teal;
-    padding:0 10px
+    padding:0 10px;
+    text-decoration: none;
 }
 
 .hidden{
     display:none
 }
 
-.nav{
-    max-width: 1000px;
-    /* border:3px solid red; */
-    
-}
-
-/* body{
-    max-width: 1000px;
-} */
 
 .nav-bar{
     display:flex;
     justify-content:space-between;
     align-items: center;
-    padding-top: 20px;
-    /* padding-bottom: 20px; */
     border-bottom: 2px solid lightgrey;
-    width:1000px;
+    /* width:100%; */
+    padding:0 50px
 }
 
 .profile-menu{
     display:flex;
-    justify-content: space-evenly;
+    /* justify-content: center; */
+    align-items: center;
     margin:20px 0;
     /* margin-right:20px; */
     /* border:3px solid red; */
 }
 .menu-btn{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: center; */
+    align-items: center;
     padding:5px 10px;
-    border-radius: 10px;
+    border-radius: 20px;
+    font-size: 150%;
     /* border:3px solid red; */
 }
 
@@ -52,10 +46,10 @@
 .profile-dropdown{    
     position:absolute;
     background-color: white;
-    right:15%;
+    right:5%;
     padding:10px 20px;
     /* margin-right: 200px; */
-    border:2px solid black;
+    border:2px solid rgb(19, 38, 48);
     border-radius: 5px;
     box-shadow: 10px;
 }
@@ -70,4 +64,20 @@
     border:2mm ridge black;
     max-width: 100%;
     max-height: 75%;
+}
+#logout-btn{
+    border-radius: 20px;
+    background-color: rgb(19, 38, 48);
+    color:white;
+}
+.logout-btn-div{
+    display: flex;
+    justify-content: center;
+}
+#manage-spots-profile-link{
+    text-decoration: none;
+}
+#manage-spots-profile-link:visited{
+    text-decoration: none;
+    color: rgb(19, 38, 48);
 }

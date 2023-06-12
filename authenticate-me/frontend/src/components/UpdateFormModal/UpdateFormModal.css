@@ -25,7 +25,7 @@
 input{
     width:98%
 }
-textarea{
+.create-spot-textarea{
     width: 98%;
 }
 select{
@@ -47,5 +47,36 @@ select{
 }
 
 h1,h2,h3,p{
-    margin:20px 0
+    margin:18px 0
 }
+#manage-create-spot-btn{
+    color:white;
+    background-color: rgb(19, 36, 48);
+    text-decoration: none;
+    border:2px solid black;
+    padding:2px;
+    box-shadow: 3px 3px black;
+
+}
+#delete-review-modal{
+    display: flex;
+    /* justify-content: center; */
+}
+#delete-review-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.delete-review-title{
+    display: flex;
+    justify-content: center;
+    width:100%;
+}
+
+#delete-review-modal-form{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+

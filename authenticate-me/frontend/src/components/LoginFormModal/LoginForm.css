@@ -8,14 +8,14 @@
 .login-box{
     display: flex;
     flex-direction: column;
-    padding:0px 50px 50px;
+    padding:0px 20px 20px;
     border-radius: 50px;
     min-width: 400px;
     /* border:3px solid red; */
 }
-input{
+/* input{
     width: 400px;
-}
+} */
 
 .login{
     display: flex;
@@ -26,11 +26,17 @@ input{
     /* border-radius: 50px; */
 
 }
-.login-btn{
+.login-btn-red{
     padding:20px 0px;
     background-color: red;
     color:white;
-    box-shadow: 10px 10px 2px black;
+    box-shadow: 3px 3px black;
+}
+.login-btn-grey{
+    padding:20px 0px;
+    background-color: white;
+    color:grey;
+    box-shadow: 3px 3px black;
 }
 
 .disabled-btn{
@@ -40,4 +46,8 @@ input{
 
 .errors{
     color:red
+}
+.demo-link{
+    display: flex;
+    justify-content: center;
 }

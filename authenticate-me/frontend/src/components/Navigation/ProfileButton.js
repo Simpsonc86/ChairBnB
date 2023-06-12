@@ -45,7 +45,7 @@ function ProfileButton({ user }) {
     <>
       <button className='menu-btn' onClick={openMenu}>
         <i className="fa-solid fa-bars"></i>
-        &nbsp;&nbsp;&nbsp;
+        &nbsp;
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
@@ -54,16 +54,17 @@ function ProfileButton({ user }) {
             <div>Hello, {user.username}</div>
             <div>{user.email}</div>
             <hr/>
-            <div><Link to={`/current`}>Manage Spots</Link></div>
+            <div><Link id='manage-spots-profile-link'to={`/current`}>Manage Spots</Link></div>
             <hr/>
-            <div>
-              <button onClick={logout}>Log Out</button>
+            <div className="logout-btn-div">
+              <button id='logout-btn'onClick={logout}>Log Out</button>
             </div>
           </>
         ) : (
           <>
             <div>
               <OpenModalButton
+                id='manage-spots-profile-link'
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
@@ -71,6 +72,7 @@ function ProfileButton({ user }) {
             <br/>
             <div>
               <OpenModalButton
+              id='manage-spots-profile-link'
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}
               />

@@ -2,8 +2,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { deleteReviewThunk, getAllSpotReviewsThunk } from "../../store/reviews";
-import { getSpotThunk } from "../../store/spot";
-import { useEffect } from "react";
+import './DeleteReviewModal.css'
 
 function DeleteReviewModal({ reviewId, spotId }) {
     const dispatch = useDispatch()
@@ -14,20 +13,22 @@ function DeleteReviewModal({ reviewId, spotId }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await dispatch(deleteReviewThunk(reviewId))
-        .then( dispatch(getAllSpotReviewsThunk(spotId)))
+            .then(dispatch(getAllSpotReviewsThunk(spotId)))
             .then(closeModal())
             .then(history.push(`/spots/${spotId}`))
     }
 
 
     return (
-        <div>
-            <h1>Confirm Delete</h1>
-            <h3>Are you sure you want to delete this spot from listings?</h3>
-            <form onSubmit={handleSubmit}>
-                <button type='submit'>Yes (Delete) </button>
-                <button onClick={closeModal}>No</button>
-            </form>
+        <div id="delete-review-modal">
+            <div id='delete-review-box'>
+                <h1 className="delete-review-title">Confirm Delete</h1>
+                <p className="delete-review-description">Are you sure you want to delete this review?</p>
+                <form id='delete-review-modal-form' onSubmit={handleSubmit}>
+                    <button id="yes-delete" type='submit'>Yes (Delete Review) </button>
+                    <button id='no-delete' onClick={closeModal}>No (Keep Review)</button>
+                </form>
+            </div>
         </div>
     )
 }

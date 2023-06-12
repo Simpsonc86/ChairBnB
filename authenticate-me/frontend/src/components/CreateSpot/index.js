@@ -145,8 +145,8 @@ function CreateSpot() {
 
     return (
         <div className="form-div">
-            <form onSubmit={handleSubmit}>
-                <h1>Create a new Spot</h1>
+            <form id='create-spot-form'onSubmit={handleSubmit}>
+                <h1>Create a New Spot</h1>
                 <h2>Where's your place located?</h2>
                 <h3>Guest will only get your exact address once they booked a reservation</h3>
                 <label>
@@ -154,6 +154,7 @@ function CreateSpot() {
                     {errors.country && !country.length>0 && <span className="errors">&nbsp;{errors.country}</span>}
                     <br />
                     <input
+                        className="create-form-input"
                         type="text"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
@@ -195,6 +196,7 @@ function CreateSpot() {
                         {errors.state && !state.length>0 &&<span className="errors">&nbsp;{errors.state}</span>}
                         <br />
                         <select
+                            className="state-select"
                             type="text"
                             value={state}
                             onChange={(e) => setState(e.target.value)}
@@ -217,6 +219,7 @@ function CreateSpot() {
                 </h3>
                 <label>
                     <textarea
+                        className="create-spot-textarea"
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
@@ -315,7 +318,7 @@ function CreateSpot() {
                     {errors.image4 && !image4.length>0 &&<p className="errors">{errors.image4}</p>}
                 </label>
                 <hr />
-                <button type='submit' >Create Spot</button>
+                <button type='submit' disabled={!!Object.values(errors).length}>Create Spot</button>
             </form>
         </div>
 

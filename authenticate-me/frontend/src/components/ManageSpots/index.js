@@ -56,6 +56,8 @@ function ManageSpots() {
                         {userSpots.reverse().map(oneSpot => (
                             // console.log(oneSpot),
                             <div key={oneSpot.id} className='manage-spot-div' >
+                                <Link className='answer-from-rawaha-in-slack' to={`/spots/${oneSpot.id}`}>
+
 
                                 {oneSpot.previewImage ? <img className='manage-spot-img' src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
                                 <div className='spot-tile-desc-top'>
@@ -74,6 +76,7 @@ function ManageSpots() {
                                     <OpenModalButton id='update-btn' buttonText='Delete' modalComponent={<DeleteFormModal spotId={oneSpot.id} />} />
                                 </span>
 
+                                </Link>
                             </div>
                         )
                         )}

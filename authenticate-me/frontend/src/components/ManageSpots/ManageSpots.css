@@ -79,3 +79,12 @@
     display: flex;
     justify-content: flex-start;
 }
+
+.answer-from-rawaha-in-slack{
+    text-decoration: none;
+    color:rgb(19, 36, 48)
+}
+.answer-from-rawaha-in-slack:active{
+    text-decoration: none;
+    color:rgb(19, 36, 48)
+}

@@ -21,7 +21,7 @@
 
 .profile-menu{
     display:flex;
-    justify-content: space-evenly;
+    /* justify-content: center; */
     align-items: center;
     margin:20px 0;
     /* margin-right:20px; */
@@ -29,9 +29,10 @@
 }
 .menu-btn{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: center; */
+    align-items: center;
     padding:5px 10px;
-    border-radius: 10px;
+    border-radius: 20px;
     font-size: 150%;
     /* border:3px solid red; */
 }

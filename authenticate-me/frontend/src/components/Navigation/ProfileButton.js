@@ -54,7 +54,7 @@ function ProfileButton({ user }) {
             <div>Hello, {user.username}</div>
             <div>{user.email}</div>
             <hr/>
-            <div><Link to={`/current`}>Manage Spots</Link></div>
+            <div><Link id='manage-spots-profile-link'to={`/current`}>Manage Spots</Link></div>
             <hr/>
             <div className="logout-btn-div">
               <button id='logout-btn'onClick={logout}>Log Out</button>
@@ -64,6 +64,7 @@ function ProfileButton({ user }) {
           <>
             <div>
               <OpenModalButton
+                id='manage-spots-profile-link'
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
@@ -71,6 +72,7 @@ function ProfileButton({ user }) {
             <br/>
             <div>
               <OpenModalButton
+              id='manage-spots-profile-link'
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}
               />

@@ -106,7 +106,7 @@ const SingleSpot = () => {
                         </div>
                         <div className="price-reviews-box">
                             <div className='price-reviews'>
-                                <span>${spot.price} Night</span>
+                                <span>${spot.price.toFixed(2)} Night</span>
                                 <div className="c">
                                     <span>
                                         <i className='fa-solid fa-star'></i>

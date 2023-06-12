@@ -75,9 +75,9 @@ const SingleSpot = () => {
 
                     <div className="spot-heading">
                         <br />
-                        <h1>{spot.name}</h1>
+                        <h1 id="spot-title-name">{spot.name}</h1>
                         <br />
-                        <h3>{spot.city}, {spot.state}, {spot.country}</h3>
+                        <h3 id='spot-title-info'>{spot.city}, {spot.state}, {spot.country}</h3>
                         <br />
                     </div>
                     <div className="images-box">
@@ -98,7 +98,8 @@ const SingleSpot = () => {
                     </div>
                     <div className="spot-details-info">
                         <div className="spot-description-div">
-                            <h2>
+                            <br/>   
+                            <h2 id='spot-host'>
                                 Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
                             </h2>
                             <p>{spot.description}</p>

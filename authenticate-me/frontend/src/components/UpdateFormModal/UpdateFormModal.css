@@ -25,7 +25,7 @@
 input{
     width:98%
 }
-textarea{
+.create-spot-textarea{
     width: 98%;
 }
 select{

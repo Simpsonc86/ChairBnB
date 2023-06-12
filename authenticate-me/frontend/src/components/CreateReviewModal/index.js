@@ -41,17 +41,17 @@ function CreateReviewModal ({spotId}){
 
     return(
         <div className="create-review-box">
-            <h2 className="review-modal-title">How was your stay?</h2>
+            <h1 className="review-modal-title">How was your stay?</h1>
+                {!!Object.values(errors).length && <p>{errors.message}</p>}
             <form className="review-form" onSubmit={handleSubmit}>
                 <textarea 
-                    className="review-description" 
+                    className="review-modal-description" 
+                    rows='5'
                     type='text'
                     placeholder="Leave your review here..."
                     value={review}
                     onChange={e=>setReview(e.target.value)}
                     ></textarea>
-                    {errors && <p>{errors.message}</p>}
-                    <br/>
                     <div className="review-rating">
                         <div className="review-stars">
                          {STARS.map(numStars=>{

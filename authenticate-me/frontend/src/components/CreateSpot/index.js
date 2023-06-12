@@ -219,6 +219,7 @@ function CreateSpot() {
                 </h3>
                 <label>
                     <textarea
+                        className="create-spot-textarea"
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}

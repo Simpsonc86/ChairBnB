@@ -25,7 +25,7 @@
     /* justify-content: center; */
     flex-direction: column;
 }
-h1,h3,h2{
+#spot-title-name,#spot-title-info,#spot-host{
     display: flex;
     justify-content: left;
     margin:0;

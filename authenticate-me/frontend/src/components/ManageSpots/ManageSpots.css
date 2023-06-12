@@ -8,13 +8,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-width:1024px;
+    width: 100%;
 }
-
+.manage-spot-title{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1024px;
+}
 .manage-main-spots{
     display:flex;
     flex-wrap:wrap;
     justify-content: center;
-    width:1024px;
+    max-width:1024px;
     /* width:50%; */
     /* align-items: top; */
     /* max-width: 1000px; */

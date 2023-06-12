@@ -76,6 +76,9 @@
 }
 #manage-spots-profile-link{
     text-decoration: none;
+    color: rgb(19, 38, 48);
+
+
 }
 #manage-spots-profile-link:visited{
     text-decoration: none;

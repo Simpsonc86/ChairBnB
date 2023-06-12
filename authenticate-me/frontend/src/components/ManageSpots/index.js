@@ -45,7 +45,7 @@ function ManageSpots() {
         <div className='manage-main-div'>
             <div className="manage-main-box">
 
-                <h1>Manage Spots</h1>
+                <h1 className="manage-spots-title">Manage Spots</h1>
                 {userSpots.length === 0 ?
                     <div className="manage-create-spot">                    
                         <Link id='manage-create-spot-btn' to={`/spots/new`}>Create a New Spot</Link>                   

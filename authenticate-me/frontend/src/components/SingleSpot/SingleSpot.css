@@ -60,7 +60,7 @@
     height:50px;
     background-color: red;
     color:white;
-    box-shadow: 2px 2px black;
+    box-shadow: 3px 3px black;
 }
 
 .images-box{
@@ -156,3 +156,4 @@
 #review-ratings-div{
     font-size: 175%;
 }
+

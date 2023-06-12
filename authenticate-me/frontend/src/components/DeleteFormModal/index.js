@@ -13,8 +13,6 @@ function DeleteFormModal({spotId}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const {closeModal}= useModal();
-  
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,14 +24,14 @@ function DeleteFormModal({spotId}) {
   };
 
   return(
-    <>
-        <h1>Confirm Delete</h1>
-        <h3>Are you sure you want to delete this spot from listings?</h3>
-        <form onSubmit={handleSubmit}>
-            <button type='submit'>Yes (Delete) </button>
-            <button onClick={closeModal}>No</button>
+    <div id='delete-review-box'>
+        <h1 className="delete-review-title">Confirm Delete</h1>
+        <p className="delete-review-description">Are you sure you want to delete this spot from listings?</p>
+        <form id='delete-review-modal-form'onSubmit={handleSubmit}>
+            <button id="yes-delete" type='submit'>Yes (Delete Spot) </button>
+            <button id='no-delete' onClick={closeModal}>No (Keep Spot)</button>
         </form>
-    </>
+    </div>
 
   )
 }

@@ -28,7 +28,7 @@
     color: rgb(19, 19, 19);
 }
 
-#empty{
+#empty, .errors{
     color: red;
 }
 

@@ -62,3 +62,12 @@
     max-width: 100%;
     max-height: 75%;
 }
+#logout-btn{
+    border-radius: 20px;
+    background-color: rgb(19, 38, 48);
+    color:white;
+}
+.logout-btn-div{
+    display: flex;
+    justify-content: center;
+}

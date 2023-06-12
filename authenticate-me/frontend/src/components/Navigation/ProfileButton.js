@@ -56,8 +56,8 @@ function ProfileButton({ user }) {
             <hr/>
             <div><Link to={`/current`}>Manage Spots</Link></div>
             <hr/>
-            <div>
-              <button onClick={logout}>Log Out</button>
+            <div className="logout-btn-div">
+              <button id='logout-btn'onClick={logout}>Log Out</button>
             </div>
           </>
         ) : (

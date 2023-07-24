@@ -69,6 +69,7 @@ function ManageSpots() {
                                 </div>
                                 <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
                                 {/* {console.log('spot details: ',oneSpot)} */}
+                                </Link>
                                 <span className='manage-spot-btn-span'>
 
                                     <button id='post-review-btn'onClick={() => history.push(`/update-spot/${oneSpot.id}`)}>Update</button>
@@ -76,7 +77,6 @@ function ManageSpots() {
                                     <OpenModalButton id='update-btn' buttonText='Delete' modalComponent={<DeleteFormModal spotId={oneSpot.id} />} />
                                 </span>
 
-                                </Link>
                             </div>
                         )
                         )}

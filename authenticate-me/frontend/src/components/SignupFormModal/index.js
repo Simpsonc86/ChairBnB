@@ -50,7 +50,7 @@ function SignupFormModal() {
           {errors.username && <p className="errors">{errors.username}</p>}
           <label>
 
-            <input
+            <input className="signup-input"
               placeholder="Email"
               type="text"
               value={email}
@@ -62,6 +62,7 @@ function SignupFormModal() {
           <label>
 
             <input
+            className="signup-input"
               placeholder="Username"
               type="text"
               value={username}
@@ -72,6 +73,7 @@ function SignupFormModal() {
           <label>
 
             <input
+            className="signup-input"
               placeholder="First Name"
               type="text"
               value={firstName}
@@ -83,6 +85,7 @@ function SignupFormModal() {
           <label>
 
             <input
+            className="signup-input"
               placeholder="Last Name"
               type="text"
               value={lastName}
@@ -94,6 +97,7 @@ function SignupFormModal() {
           <label>
 
             <input
+            className="signup-input"
               placeholder=" Password"
               type="password"
               value={password}
@@ -105,6 +109,7 @@ function SignupFormModal() {
           <label>
 
             <input
+            className="signup-input"
               placeholder="Confirm Password"
               type="password"
               value={confirmPassword}
@@ -120,7 +125,9 @@ function SignupFormModal() {
                               &&firstName.length
                               &&lastName.length
                               &&password.length
-                              &&confirmPassword.length?'signup-btn':'signup-btn-locked'} type="submit" disabled={!password&&!!Object.values(errors).length}> Sign Up</button>
+                              &&confirmPassword.length?'signup-btn':'signup-btn-locked'} 
+                              type="submit" 
+                              disabled={password.length<6&&username.length<4}> Sign Up</button>
 
         </div>
       </form>

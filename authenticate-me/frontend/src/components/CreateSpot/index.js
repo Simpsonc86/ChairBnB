@@ -318,7 +318,7 @@ function CreateSpot() {
                     {errors.image4 && !image4.length>0 &&<p className="errors">{errors.image4}</p>}
                 </label>
                 <hr />
-                <button type='submit' disabled={!!Object.values(errors).length}>Create Spot</button>
+                <button type='submit' >Create Spot</button>
             </form>
         </div>
 

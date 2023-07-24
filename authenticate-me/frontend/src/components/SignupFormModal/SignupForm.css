@@ -38,6 +38,9 @@
     color:rgb(19, 36, 48);
     box-shadow: 5px 5px 4px black;
 }
+.signup-btn-locked:hover{    
+    cursor: not-allowed;
+}
 
 .errors{
     color:red

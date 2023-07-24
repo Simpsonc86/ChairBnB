@@ -36,7 +36,7 @@ function CreateSpot() {
         const errObj = {};
         if (!name.length) errObj.name = "Title is required"
         if (!address.length) errObj.address = "Address is required"
-        if (!description.length || description.length < 30) errObj.description = "Description needs a minimum of 30 characters"
+        if ((!description.length) || description.length < 30) errObj.description = "Description needs a minimum of 30 characters"
         if (!city.length) errObj.city = "City is required"
         if (!country.length) errObj.country = "Country is required"
         if (!state.length) errObj.state = "State is required"
@@ -226,7 +226,7 @@ function CreateSpot() {
                         placeholder="Please write at least 30 characters"
                     // required
                     />
-                    {errors.description && description.length<29 &&<p className="errors">{errors.description}</p>}
+                    {errors.description && description.length<30 &&<p className="errors">{errors.description}</p>}
                 </label>
                 <hr />
                 <h2>Create a title for your spot</h2>

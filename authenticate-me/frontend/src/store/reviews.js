@@ -110,13 +110,11 @@ const reviewReducer = (state = initialState, action) =>{
 
             const spot = action.payload;
             // console.log('this is ...spot', {...spot});
-            newState={user:{...state.user},spot:{}}
+            newState={...state,user:{...state.user},spot:{}}
             if(spot.Reviews){
                 spot.Reviews.forEach(review => {
                     newState.spot[review.id] = review;                                
                 });
-            }else{
-                newState = {...spot}
             }
             return newState;
         }
@@ -139,6 +137,7 @@ const reviewReducer = (state = initialState, action) =>{
             console.log('this is the previous state');
             newState = {user:{...state.user}, spot: {...state.spot} }
             newState.spot[review.id]=review
+            newState.user[review.id]=review
             console.log('create a review from reducer', newState);
             return newState;
         }
@@ -147,7 +146,7 @@ const reviewReducer = (state = initialState, action) =>{
             newState = {user:{...state.user},spot:{...state.spot}}
             // console.log('review to be deleted',action.reviewId);
             // console.log('new to be deleted',newState);
-            delete newState.spot[action.payload.id]
+            delete newState.spot[action.payload]
             // console.log('new to be deleted',newState);
             return newState;
         }

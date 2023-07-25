@@ -49,7 +49,7 @@ function AllSpots() {
                                     {oneSpot.avgRating ? oneSpot.avgRating : 'New'}
                                 </span>
                             </div>
-                            <p className='price'>${oneSpot.price.toFixed(2)} night</p>
+                            <p className='price'>${oneSpot.price} night</p>
                             {/* {console.log('spot details: ',oneSpot)} */}
 
                         </Link>

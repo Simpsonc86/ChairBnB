@@ -41,7 +41,7 @@ function CreateSpot() {
         if (city.length<2) errObj.city = "City is required"
         if (country.length<2) errObj.country = "Country is required"
         if (state.length<2) errObj.state = "State is required"
-        if (isNaN(Number(price)) || Number(price) < 1 || Number(price) >10000) errObj.price = "Price is required less than $10000"
+        if (isNaN(price) || price < 1 || price >10000) errObj.price = "Price is required less than $10000"
         if (previewImage.length<5 ) errObj.previewImage = "Preview image is required"
         if (previewImage && !previewImage.endsWith('.png') && !previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg')) errObj.previewImage2 = "Preview image must end in .png, .jpg, or .jpeg"
         if (image1 && !image1.endsWith('.png') && !image1.endsWith('.jpg') && !image1.endsWith('.jpeg')) errObj.image1 = "Image URL must end in .png, .jpg, or .jpeg"

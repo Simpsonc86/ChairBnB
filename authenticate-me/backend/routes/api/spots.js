@@ -111,7 +111,7 @@ router.get('/current', [requireAuth], async (req, res) => {
                 reviewCount++;
             });
             //parse avg to float with two decimal points
-            spot.avgRating = parseFloat((starSum / reviewCount).toFixed(2));
+            spot.avgRating = starSum / reviewCount;
 
             spot.SpotImages.forEach((image) => {
                 spot.price= parseFloat(spot.price.toFixed(2))
@@ -657,7 +657,7 @@ router.get('/', async (req, res) => {
             spotCount++;
         }
         //find the average stars for each spot fixed to one decimal point
-        spotArr[i].avgRating = parseFloat((starsSum / spotCount).toFixed(2));
+        spotArr[i].avgRating = starsSum / spotCount;
 
 
         //iterate through each Spot image to look for previewable images

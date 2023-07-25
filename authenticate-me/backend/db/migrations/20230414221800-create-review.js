@@ -33,7 +33,7 @@ module.exports = {
         allowNull: false,
       },
       stars: {
-        type: Sequelize.DECIMAL(3,2),// min 1 max 5
+        type: Sequelize.FLOAT,// min 1 max 5
         allowNull: false,
       },
       createdAt: {

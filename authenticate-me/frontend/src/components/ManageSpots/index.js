@@ -67,7 +67,7 @@ function ManageSpots() {
                                         {oneSpot.avgRating ? oneSpot.avgRating : 'New'}
                                     </span>
                                 </div>
-                                <p className='price'>${Number(oneSpot.price).toFixed(2)} per night</p>
+                                <p className='price'>${oneSpot.price} per night</p>
                                 {/* {console.log('spot details: ',oneSpot)} */}
                                 </Link>
                                 <span className='manage-spot-btn-span'>

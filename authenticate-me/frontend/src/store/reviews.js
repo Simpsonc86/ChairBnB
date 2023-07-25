@@ -27,11 +27,11 @@ const createReview = (review, spotId) => {
         spotId        
     }
 }
-const deleteReview = (review, reviewId) => {
+const deleteReview = ( reviewId) => {
     return{
         type:DELETE_REVIEW,
-        payload:review,
-        reviewId
+        payload:reviewId,
+        
     }
 }
 
@@ -44,6 +44,9 @@ export const getAllSpotReviewsThunk = (spotId) => async (dispatch) => {
         const data = await res.json();
         console.log('reviews from the thunk ', data);
         dispatch(getAllSpotReviews(data))
+    }else{
+        const error = await res.json();
+        console.log("bad data inside getAllSpotReviewsThunk=====>", error);
     }
 }
 
@@ -89,8 +92,10 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) =>{
         header:{ 'Content-Type': 'application/json' },
     })
     if (res.ok){
-        let deletedReview = await res.json()
-        dispatch(deleteReview(deletedReview,reviewId))
+        dispatch(deleteReview(reviewId))
+    } else{
+        const error = await res.json();
+        console.log("bad data=====>", error);
     }
 }
 
@@ -142,7 +147,7 @@ const reviewReducer = (state = initialState, action) =>{
             newState = {user:{...state.user},spot:{...state.spot}}
             // console.log('review to be deleted',action.reviewId);
             // console.log('new to be deleted',newState);
-            delete newState[action.reviewId]
+            delete newState.spot[action.payload.id]
             // console.log('new to be deleted',newState);
             return newState;
         }

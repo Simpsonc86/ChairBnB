@@ -16,7 +16,7 @@ function CreateReviewModal ({spotId}){
     const [errors, setErrors] = useState({})
 
     // console.log('spot id from prop:',typeof spotId,spotId);
-    const STARS = [1,2,3,4,5]
+    const STARS = [1.00,2.00,3.00,4.00,5.00]
 
     const handleSubmit= async (e)=>{
 
@@ -54,9 +54,9 @@ function CreateReviewModal ({spotId}){
                     ></textarea>
                     <div className="review-rating">
                         <div className="review-stars">
-                         {STARS.map(numStars=>{
+                         {STARS.map((numStars,idx)=>{
                             return (
-                                <span className='star-row' id={numStars>rating?'filled':'empty'}
+                                <span key={idx}className='star-row' id={numStars>rating?'filled':'empty'}
                                     onMouseEnter={()=> setRating(numStars)}
                                     onClick={()=> setRating(rating)}
                                     >

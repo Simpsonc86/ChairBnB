@@ -15,7 +15,7 @@ const validateReviewCreation = [
         .exists({checkFalsy:true})
         .withMessage("Review text is required"),
     check("stars")
-        .isInt({min:1, max:5})
+        .isFloat({min:1, max:5})
         .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors
 ]
@@ -110,11 +110,11 @@ router.get('/current', [requireAuth], async (req, res) => {
                 //increment the number of reviews
                 reviewCount++;
             });
-            //parse avg to float with one decimal point
-            spot.avgRating = parseFloat((starSum / reviewCount).toFixed(1));
+            //parse avg to float with two decimal points
+            spot.avgRating = parseFloat((starSum / reviewCount).toFixed(2));
 
             spot.SpotImages.forEach((image) => {
-                spot.price= parseInt(spot.price)
+                spot.price= parseFloat(spot.price.toFixed(2))
                 if (prevImg) {
                     return spot.previewImage = prevImg.url;
                 }else{
@@ -174,11 +174,12 @@ router.get('/:spotId', async (req, res) => {
             starsSum += review.stars;
             reviewsCount++;
         })
+        //assign object properties for numReviews and avgStarRating
         spot.numReviews = reviewsCount;
-        const avgStarRtg = (starsSum / reviewsCount).toFixed(1);
-        spot.avgStarRating = parseFloat(avgStarRtg);
+        const avgStarRtg = starsSum / reviewsCount;
+        spot.avgStarRating = parseFloat(avgStarRtg.toFixed(2));
         // const price = (spot.price).toFixed(0);
-        spot.price = parseInt(spot.price);
+        // spot.price = spot.price;
 
         // remove unused table data from spot response object
         delete spot.User;
@@ -537,8 +538,8 @@ router.get('/', async (req, res) => {
     maxLat = parseFloat(maxLat);
     minLng = parseFloat(minLng);
     maxLng = parseFloat(maxLng);
-    minPrice = parseInt(minPrice);
-    maxPrice = parseInt(maxPrice);
+    minPrice = parseFloat(minPrice);
+    maxPrice = parseFloat(maxPrice);
 
     // calcualte the page offset
     const offset = (page - 1) * size;
@@ -656,7 +657,7 @@ router.get('/', async (req, res) => {
             spotCount++;
         }
         //find the average stars for each spot fixed to one decimal point
-        spotArr[i].avgRating = parseFloat((starsSum / spotCount).toFixed(1));
+        spotArr[i].avgRating = parseFloat((starsSum / spotCount).toFixed(2));
 
 
         //iterate through each Spot image to look for previewable images
@@ -673,7 +674,7 @@ router.get('/', async (req, res) => {
             }
         }
         //parse float to int
-        spotArr[i].price = parseInt(spotArr[i].price)
+        // spotArr[i].price = parseInt(spotArr[i].price)
 
         // remove the included tables from all spots in the spotArr 
         delete spotArr[i].Reviews;

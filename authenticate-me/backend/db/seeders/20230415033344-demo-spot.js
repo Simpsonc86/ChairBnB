@@ -20,7 +20,7 @@ module.exports = {
         lng: -74.0060,
         name: "Hot spot",
         description: "Hottest place in the city. Nightlife sizzle!",
-        price: 300,
+        price: 299.99,
       },
       {
         ownerId: 3,

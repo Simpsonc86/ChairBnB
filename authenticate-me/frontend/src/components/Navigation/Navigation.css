@@ -16,7 +16,8 @@
     align-items: center;
     border-bottom: 2px solid lightgrey;
     /* width:100%; */
-    padding:0 50px
+    padding:0 50px;
+    flex-wrap: wrap;
 }
 
 .profile-menu{
@@ -64,6 +65,12 @@
 .home-link{
     height: 100px;
     width: 100px;
+    /* display: flex; */
+}
+.home-link-div{
+    /* height: 100px;
+    width: 100px; */
+    display: flex;
 }
 .logo{
     display: flex;
@@ -91,4 +98,11 @@
 #manage-spots-profile-link:visited{
     text-decoration: none;
     color: rgb(19, 38, 48);
+}
+.site-logo-text{
+    font-size: 6rem;
+    font-weight: bolder;
+    letter-spacing:0;
+    
+    
 }

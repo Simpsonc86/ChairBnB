@@ -34,10 +34,14 @@ function Navigation({ isLoaded }) {
   return (
     <nav>
       <div className="nav-bar">
+        <div className="home-link-div">
+
         <div className='home-link' >
           <NavLink exact to="/">
           <img className='logo'src='/images/Solomon-AwvvrlRBK6c271lr.avif' alt='chair'/>
           </NavLink>
+        </div>
+          <div className="site-logo-text">CHAIRBNB</div>
         </div>
         {isLoaded && sessionLinks}
       </div>

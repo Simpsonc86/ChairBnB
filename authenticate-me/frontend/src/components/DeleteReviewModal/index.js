@@ -15,7 +15,7 @@ function DeleteReviewModal({ reviewId, spotId }) {
         await dispatch(deleteReviewThunk(reviewId))
             .then(dispatch(getAllSpotReviewsThunk(spotId)))
             .then(closeModal())
-            .then(history.push(`/spots/${spotId}`))
+            // .then(history.push(`/spots/${spotId}`))
     }
 
 

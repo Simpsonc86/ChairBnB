@@ -19,6 +19,23 @@
     width: 100%;
     padding:0;
 }
+.signup-btn{
+    padding:20px 0px;
+    background-color: red;
+    color:white;
+    box-shadow: 5px 5px 4px black;
+    display: flex;
+    justify-content: center;
+}
+.signup-btn-locked{
+    padding:20px 0px;
+    background-color: white;
+    color:rgb(19, 36, 48);
+    box-shadow: 5px 5px 4px black;
+}
+.signup-btn-locked:hover{    
+    cursor: not-allowed;
+}
 
 input{
     width:98%

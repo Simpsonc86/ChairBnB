@@ -13,7 +13,7 @@
     min-width: 400px;
     /* border:3px solid red; */
 }
-input{
+.signup-input{
     width: 400px;
 }
 
@@ -33,10 +33,18 @@ input{
     box-shadow: 5px 5px 4px black;
 }
 .signup-btn-locked{
-    padding:20px 0px;
+    padding:20px 10px;
     background-color: white;
     color:rgb(19, 36, 48);
     box-shadow: 5px 5px 4px black;
+}
+.signup-btn-locked:hover{    
+    cursor: not-allowed;
+}
+.create-btn-div{
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .errors{

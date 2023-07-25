@@ -27,7 +27,7 @@ const SingleSpot = () => {
     useEffect(() => {
 
         dispatch(getSpotThunk(spotId))
-            .then(dispatch(getAllSpotReviewsThunk(spotId)))
+        .then(dispatch(getAllSpotReviewsThunk(spotId)))
 
     }, [dispatch, spotId, revArr.length]);
 
@@ -106,7 +106,7 @@ const SingleSpot = () => {
                         </div>
                         <div className="price-reviews-box">
                             <div className='price-reviews'>
-                                <span>${spot.price.toFixed(2)} Night</span>
+                                <span>${spot.price} Night</span>
                                 <div className="c">
                                     <span>
                                         <i className='fa-solid fa-star'></i>

@@ -25,6 +25,7 @@ function ManageSpots() {
     const history = useHistory();
     const spots = useSelector(state => state.spots.allSpots);
     // console.log('This is all spots',spotsObj);
+    const spot = useSelector(state => state.spots.singleSpot)
     const owner = useSelector(state => state.session.user)
 
     const userSpots = Object.values(spots).filter(ownedSpots => {
@@ -34,9 +35,8 @@ function ManageSpots() {
     console.log('This is all the owner`s spots', userSpots);
 
     useEffect(() => {
-        dispatch(getAllSpotsThunk(spots.length));
-
-    }, [dispatch, spots.length]);
+        dispatch(getAllSpotsThunk());
+    }, [dispatch, spot]);
 
 
 

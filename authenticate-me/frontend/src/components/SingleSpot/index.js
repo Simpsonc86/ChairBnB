@@ -27,7 +27,7 @@ const SingleSpot = () => {
     useEffect(() => {
 
         dispatch(getSpotThunk(spotId))
-            .then(dispatch(getAllSpotReviewsThunk(spotId)))
+        .then(dispatch(getAllSpotReviewsThunk(spotId)))
 
     }, [dispatch, spotId, revArr.length]);
 

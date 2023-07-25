@@ -4,22 +4,23 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./DeleteFormModal.css";
-import { deleteSpotThunk } from "../../store/spot";
-import { useHistory } from "react-router-dom";
-import { getAllSpotReviewsThunk } from "../../store/reviews";
+import { deleteSpotThunk, getAllSpotsThunk } from "../../store/spot";
+// import { useHistory } from "react-router-dom";
+// import { getAllSpotReviewsThunk } from "../../store/reviews";
 // import { useEffect } from "react";
 
 function DeleteFormModal({spotId}) {
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const {closeModal}= useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(deleteSpotThunk(spotId))
-    await dispatch(getAllSpotReviewsThunk(spotId))
-    closeModal();
-    await history.push(`/current`)
+    // .then(dispatch(getAllSpotReviewsThunk(spotId)))
+    .then(dispatch(getAllSpotsThunk()))
+    .then(closeModal())
+    // .then(history.push(`/current`))
     
   };
 

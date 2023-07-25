@@ -139,8 +139,10 @@ export const deleteSpotThunk = (spotId) => async (dispatch) =>{
         header:{ 'Content-Type': 'application/json' },
     })
     if (res.ok){
-        let deletedSpot = await res.json()
-        dispatch(deleteSpot(deletedSpot,spotId))
+        return dispatch(deleteSpot(deleteSpot.id))
+    } else{
+        const error = await res.json();
+        console.log("bad data=====>", error);
     }
 }
 
@@ -205,26 +207,25 @@ const spotReducer = (state = initialState, action) => {
         }
         case GET_ONE_SPOT: {
             const spot = action.payload
-            newState = {...state, singleSpot: {...spot} }
-            // newState.singleSpot[spot.id] = spot
+            newState = {...state, singleSpot: {} }
+            newState.singleSpot = spot
             
             console.log('get one spot', newState);
             return newState;
         }
         case CREATE_SPOT: {
             const spot = action.payload
-            newState = {...state, singleSpot: {} }
-            newState.singleSpot[spot.id]=spot
+            newState = {...state,allSpots:{...state.allSpots},singleSpot: {} }
+            newState.allSpots[spot.id]=spot
+            newState.singleSpot=spot
             console.log('create a spot', newState);
             return newState;
         }
 
         case DELETE_SPOT:{
-            const spot = action.payload
-            newState = {...state, singleSpot:{...spot}}
-            console.log('delete a spot', newState.singleSpot)
-            delete newState[spot]
-            return newState;
+            const currSpot = state.allSpots
+            delete currSpot[action.payload]
+            return {...state,allSpots:{...currSpot}, singleSpot:{}};
         }
         case UPDATE_SPOT:{
             const spot = action.payload

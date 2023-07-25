@@ -111,10 +111,10 @@ router.get('/current', [requireAuth], async (req, res) => {
                 reviewCount++;
             });
             //parse avg to float with two decimal points
-            spot.avgRating = parseFloat((starSum / reviewCount).toFixed(2));
+            spot.avgRating = Number.parseFloat((starSum / reviewCount).toFixed(2));
 
             spot.SpotImages.forEach((image) => {
-                spot.price= parseFloat(spot.price.toFixed(2))
+                spot.price= Number.parseFloat(spot.price.toFixed(2))
                 if (prevImg) {
                     return spot.previewImage = prevImg.url;
                 }else{
@@ -177,7 +177,7 @@ router.get('/:spotId', async (req, res) => {
         //assign object properties for numReviews and avgStarRating
         spot.numReviews = reviewsCount;
         const avgStarRtg = starsSum / reviewsCount;
-        spot.avgStarRating = parseFloat(avgStarRtg.toFixed(2));
+        spot.avgStarRating = Number.parseFloat(avgStarRtg.toFixed(2));
         // const price = (spot.price).toFixed(0);
         // spot.price = spot.price;
 
@@ -532,14 +532,14 @@ router.get('/', async (req, res) => {
     if (!size) size = 20;
 
     // parse query param strings into int and floats
-    page = parseInt(page);
-    size = parseInt(size);
-    minLat = parseFloat(minLat);
-    maxLat = parseFloat(maxLat);
-    minLng = parseFloat(minLng);
-    maxLng = parseFloat(maxLng);
-    minPrice = parseFloat(minPrice);
-    maxPrice = parseFloat(maxPrice);
+    page = Number.parseInt(page);
+    size = Number.parseInt(size);
+    minLat = Number.parseFloat(minLat);
+    maxLat = Number.parseFloat(maxLat);
+    minLng = Number.parseFloat(minLng);
+    maxLng = Number.parseFloat(maxLng);
+    minPrice = Number.parseFloat(minPrice);
+    maxPrice = Number.parseFloat(maxPrice);
 
     // calcualte the page offset
     const offset = (page - 1) * size;
@@ -657,7 +657,7 @@ router.get('/', async (req, res) => {
             spotCount++;
         }
         //find the average stars for each spot fixed to one decimal point
-        spotArr[i].avgRating = parseFloat((starsSum / spotCount).toFixed(2));
+        spotArr[i].avgRating = Number.parseFloat((starsSum / spotCount).toFixed(2));
 
 
         //iterate through each Spot image to look for previewable images

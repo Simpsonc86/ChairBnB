@@ -7,9 +7,15 @@ const GET_ONE_SPOT = 'spot/getSpot';
 const CREATE_SPOT = 'spot/createSpot'
 const DELETE_SPOT = 'spot/deleteSpot'
 const UPDATE_SPOT = 'spot/updateSpot'
+const RECEIVE_IMAGES = 'images/receiveImages';
 // const GET_ALL_USERS_SPOTS = 'spot/manageSpots'
 
 //action creator
+const receiveImages = images => ({
+    type: RECEIVE_IMAGES,
+    payload:images
+  });
+
 const getAllSpots = (spots) => {
     // console.log(' all spots: ',spots);
     return {
@@ -55,6 +61,20 @@ const updateSpot = (spotId)=>{
 // }
 
 ////////////////thunk action creators
+//upload spot images
+export const uploadImages = (images, spotId) => async dispatch => {
+    const formData = new FormData();
+    Array.from(images).forEach(image => formData.append("images", image));
+    const response = await csrfFetch(`/api/spots/${spotId}/images `, {
+      method: "POST",
+      body: formData
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(receiveImages(data));
+    }
+    return response;
+  };
 
 //get all spots thunk
 export const getAllSpotsThunk = () => async (dispatch) => {
@@ -72,7 +92,7 @@ export const getSpotThunk = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`);
     if (res.ok) {
         const data = await res.json();
-        console.log('res data from thunk',data);
+        console.log('res data from get one spot thunk',data);
         dispatch(getSpot(data));
         return data;
     }
@@ -87,7 +107,7 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(spot)
         });
-        console.log('response from fetch', res);
+        console.log('response from creat a spot thunk fetch', res);
 
         if (res.ok) {
             const createdSpot = await res.json();
@@ -96,32 +116,36 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
             // use a for let of loop to iterate thru images
             // console.log('this is the created spot from the thunk number 1', createdSpot);
             // console.log('this is the created spot id', createdSpot.id);
-            let spotImages = [];
-            for (let image of images) {
+            // let spotImages = [];
+            // for (let image of images) {
                 
-                image.spotId = createdSpot.id
+            //     image.spotId = createdSpot.id
+            //     console.log("image inside for loop", image.spotId);
                 
-                // console.log('this is the created spot id inside loop', createdSpot.id);
-                // console.log('this is the current image from loop', image);
-                const imgRes = await csrfFetch(`/api/spots/${createdSpot.id}/images`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(image)
-
-                })
+            //     // console.log('this is the created spot id inside loop', createdSpot.id);
+            //     console.log('this is the current image from loop', image);
                 
-                if (imgRes.ok) {
-                    const createdImg = await imgRes.json();
-                    spotImages.push(createdImg)
-                }
-            }
+            //     // const imgRes = await csrfFetch(`/api/spots/${createdSpot.id}/images`, {
+            //         //     method: 'POST',
+            //         //     headers: { 'Content-Type': 'application/json' },
+            //         //     body: JSON.stringify(image)
+                    
+            //         // })
+                    
+            //         console.log('this is the created imgRes:  ', imgRes);
+            //     if (imgRes.ok) {
+            //         const createdImg = await imgRes.json();
+            //         spotImages.push(createdImg)
+            //     }
+            // }
             
-            createdSpot.SpotImages = spotImages;
+            createdSpot.SpotImages = images;
             createdSpot.Owner = owner;
+            console.log("created spot spot images ==-======>",createdSpot.SpotImages);
             
             // console.log('this is the created spot from the thunk number 2', createdSpot);
             await dispatch(createSpot(createdSpot))
-            // console.log('this is the created spot from the thunk number 3', createdSpot);
+            console.log('this is the created spot from the thunk number 3', createdSpot);
             return createdSpot;
 
         }
@@ -208,17 +232,17 @@ const spotReducer = (state = initialState, action) => {
         case GET_ONE_SPOT: {
             const spot = action.payload
             newState = {...state, singleSpot: {} }
-            newState.singleSpot = spot
+            newState.singleSpot = {...spot}
             
-            console.log('get one spot', newState);
+            // console.log('get one spot', newState);
             return newState;
         }
         case CREATE_SPOT: {
             const spot = action.payload
             newState = {...state,allSpots:{...state.allSpots},singleSpot: {} }
             newState.allSpots[spot.id]=spot
-            newState.singleSpot=spot
-            console.log('create a spot', newState);
+            newState.singleSpot={...spot}
+            console.log('created a spot ', newState.singleSpot);
             return newState;
         }
 
@@ -230,7 +254,7 @@ const spotReducer = (state = initialState, action) => {
         case UPDATE_SPOT:{
             const spot = action.payload
             newState = {...state,singleSpot:{...spot}}
-            console.log('updated spot is: ',newState.singleSpot);
+            // console.log('updated spot is: ',newState.singleSpot);
             return newState;
         }
         // case GET_ALL_USERS_SPOTS:{
@@ -243,6 +267,12 @@ const spotReducer = (state = initialState, action) => {
         //     console.log('newState from:',newState);
         //     return newState;
         // }
+
+        case RECEIVE_IMAGES:
+           const images = action.payload
+           newState = {...state,singleSpot:{...state.singleSpot}}
+           newState.singleSpot.uploadImages=images;
+        return newState;
         
         default: {
             return state;

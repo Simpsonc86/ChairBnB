@@ -1,6 +1,7 @@
 const express = require('express');
 const {Spot, SpotImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
+const { multipleFilesUpload, multipleMulterUpload, retrievePrivateFile } = require("../../awsS3");
 const router = express.Router();
 
 // delete spot image by image id

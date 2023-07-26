@@ -21,13 +21,14 @@ function CreateSpot() {
     const [country, setCountry] = useState('');
     const [state, setState] = useState('');
     const [price, setPrice] = useState('');
-    const [previewImage, setPreviewImage] = useState('');
-    const [image1, setImage1] = useState('');
-    const [image2, setImage2] = useState('');
-    const [image3, setImage3] = useState('');
-    const [image4, setImage4] = useState('');
+    // const [previewImage, setPreviewImage] = useState('');
+    // const [image1, setImage1] = useState('');
+    // const [image2, setImage2] = useState('');
+    // const [image3, setImage3] = useState('');
+    // const [image4, setImage4] = useState('');
     const [errors, setErrors] = useState({});
     // const [errObj, setErrObj] = useState({});
+    const [images, setImages] = useState('')
 
     // validations for controlled inputs
 
@@ -35,31 +36,34 @@ function CreateSpot() {
         e.preventDefault();
 
         const errObj = {};
-        if (name.length<3) errObj.name = "Title is required"
-        if (address.length<6) errObj.address = "Address is required"
-        if ((description.length>5000) || description.length < 30) errObj.description = "Description needs a minimum of 30 characters and less than 5000"
-        if (city.length<2) errObj.city = "City is required"
-        if (country.length<2) errObj.country = "Country is required"
-        if (state.length<2) errObj.state = "State is required"
-        if (isNaN(price) || price < 1 || price >10000) errObj.price = "Price is required less than $10000"
-        if (previewImage.length<5 ) errObj.previewImage = "Preview image is required"
-        if (previewImage && !previewImage.endsWith('.png') && !previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg')) errObj.previewImage2 = "Preview image must end in .png, .jpg, or .jpeg"
-        if (image1 && !image1.endsWith('.png') && !image1.endsWith('.jpg') && !image1.endsWith('.jpeg')) errObj.image1 = "Image URL must end in .png, .jpg, or .jpeg"
-        if (image2 && !image2.endsWith('.png') && !image2.endsWith('.jpg') && !image2.endsWith('.jpeg')) errObj.image2 = "Image URL must end in .png, .jpg, or .jpeg"
-        if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"
-        if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
+        if (name.length < 3) errObj.name = "Title is required"
+        if (address.length < 6) errObj.address = "Address is required"
+        if ((description.length > 5000) || description.length < 30) errObj.description = "Description needs a minimum of 30 characters and less than 5000"
+        if (city.length < 2) errObj.city = "City is required"
+        if (country.length < 2) errObj.country = "Country is required"
+        if (state.length < 2) errObj.state = "State is required"
+        if (isNaN(price) || price < 1 || price > 10000) errObj.price = "Price is required less than $10000"
+        // if (previewImage.length < 5) errObj.previewImage = "Preview image is required"
+        // if (previewImage && !previewImage.endsWith('.png') && !previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg')) errObj.previewImage2 = "Preview image must end in .png, .jpg, or .jpeg"
+        // if (image1 && !image1.endsWith('.png') && !image1.endsWith('.jpg') && !image1.endsWith('.jpeg')) errObj.image1 = "Image URL must end in .png, .jpg, or .jpeg"
+        // if (image2 && !image2.endsWith('.png') && !image2.endsWith('.jpg') && !image2.endsWith('.jpeg')) errObj.image2 = "Image URL must end in .png, .jpg, or .jpeg"
+        // if (image3 && !image3.endsWith('.png') && !image3.endsWith('.jpg') && !image3.endsWith('.jpeg')) errObj.image3 = "Image URL must end in .png, .jpg, or .jpeg"
+        // if (image4 && !image4.endsWith('.png') && !image4.endsWith('.jpg') && !image4.endsWith('.jpeg')) errObj.image4 = "Image URL must end in .png, .jpg, or .jpeg"
 
         if (!Object.values(errObj).length) {
             // create an array for images for thunk arg if there are no errors in errObj
             let imgArr = [];
 
-            imgArr.push({ url: previewImage, preview: true })
-            if (image1) imgArr.push({ url: image1, preview: false })
-            if (image2) imgArr.push({ url: image2, preview: false })
-            if (image3) imgArr.push({ url: image3, preview: false })
-            if (image4) imgArr.push({ url: image4, preview: false })
-
-            console.log('this is the img Arr ', imgArr);
+            // imgArr.push({ url: previewImage, preview: true })
+            // if (image1) imgArr.push({ url: image1, preview: false })
+            // if (image2) imgArr.push({ url: image2, preview: false })
+            // if (image3) imgArr.push({ url: image3, preview: false })
+            // if (image4) imgArr.push({ url: image4, preview: false })
+            // Array.from(images).forEach((image)=> {
+            //     console.log("this is the image file", image.name);
+            //    return imgArr.push(image)})
+            // console.log('this is the img Arr ', imgArr);
+            // console.log('this is the type of img Arr ', imgArr);
             //Thunk args = (spot,images,owner)
             const createdSpot = await dispatch(createSpotThunk({
                 name,
@@ -71,13 +75,13 @@ function CreateSpot() {
                 lng: 0,
                 state,
                 price,
-            }, imgArr, owner))
+            }, images, owner))
 
             console.log('This is the created spot from the component', createdSpot);
 
 
             // console.log('This is the spot owner', owner);
-            console.log(!Object.values(errObj).length);
+            // console.log(!Object.values(errObj).length);
 
             if (createdSpot) history.push(`/spots/${createdSpot.id}`)
         } else setErrors(errObj)
@@ -143,6 +147,11 @@ function CreateSpot() {
     //call thunk and save response to variable check the created spot for errors
     //if errors display them else redirect to spot details
     // when submitted, reset the errors and validate again
+
+    const updateFiles = e => {
+        const files = e.target.files;
+        setImages(files);
+      };
 
 
     return (
@@ -266,6 +275,14 @@ function CreateSpot() {
                     Submit a link to at least one photo to publish your spot.
                 </h3>
                 <label>
+                    Images to Upload
+                    <input
+                        type="file"
+                        accept=".jpg, .jpeg, .png"
+                        multiple
+                        onChange={updateFiles} />
+                </label>
+                {/* <label>
                     <input
                         type="text"
                         value={previewImage}
@@ -319,15 +336,15 @@ function CreateSpot() {
                     // required
                     />
                     {errors.image4 && !image4.length > 0 && <p className="errors">{errors.image4}</p>}
-                </label>
+                </label> */}
                 <hr />
                 <div className="create-btn-div">
 
-                    <button 
-                    className={'signup-btn'}
+                    <button
+                        className={'signup-btn'}
                         type="submit"
-                        // disabled={!!Object.values(errors).length}
-                        >Create Spot</button>
+                    // disabled={!!Object.values(errors).length}
+                    >Create Spot</button>
                 </div>
             </form>
         </div>

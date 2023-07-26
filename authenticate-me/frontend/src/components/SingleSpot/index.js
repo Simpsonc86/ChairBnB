@@ -26,8 +26,8 @@ const SingleSpot = () => {
     let revArr = Object.values(reviews)
     useEffect(() => {
 
-        dispatch(getSpotThunk(spotId))
-        .then(dispatch(getAllSpotReviewsThunk(spotId)))
+        // dispatch(getSpotThunk(spotId))
+        (dispatch(getAllSpotReviewsThunk(spotId)))
 
     }, [dispatch, spotId, revArr.length]);
 
@@ -82,17 +82,17 @@ const SingleSpot = () => {
                     </div>
                     <div className="images-box">
                         <div className="previmage-div">
-                            <img className='spot-preview-img' src={spot.SpotImages[0].url} alt='preview' />
+                            {/* <img className='spot-preview-img' src={spot.SpotImages[0].name  } alt='preview' /> */}
                         </div>
                         <div className="non-preview-spot-images-div">
                             <div className="top-row-images">
-                                {spot.SpotImages[1] && <img className='spot-grid-img' src={spot.SpotImages[1].url} alt='spotImg1' />}
-                                {spot.SpotImages[2] && <img className='spot-grid-img' src={spot.SpotImages[2].url} alt='spotImg2' />}
+                                {/* {spot.SpotImages[1] && <img className='spot-grid-img' src={spot.SpotImages[1].url} alt='spotImg1' />}
+                                {spot.SpotImages[2] && <img className='spot-grid-img' src={spot.SpotImages[2].url} alt='spotImg2' />} */}
                             </div>
                             <div className="bottom-row-images">
                                 {/* pictures grid here */}
-                                {spot.SpotImages[3] && <img className='spot-grid-img' src={spot.SpotImages[3].url} alt='spotImg3' />}
-                                {spot.SpotImages[4] && <img className='spot-grid-img' src={spot.SpotImages[4].url} alt='spotImg4' />}
+                                {/* {spot.SpotImages[3] && <img className='spot-grid-img' src={spot.SpotImages[3].url} alt='spotImg3' />}
+                                {spot.SpotImages[4] && <img className='spot-grid-img' src={spot.SpotImages[4].url} alt='spotImg4' />} */}
                             </div>
                         </div>
                     </div>

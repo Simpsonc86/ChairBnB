@@ -6,6 +6,7 @@ const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
+const { multipleFilesUpload, multipleMulterUpload, retrievePrivateFile } = require("../../awsS3");
 
 const router = express.Router();
 
@@ -64,6 +65,78 @@ const validateSpotCreation = [
         .withMessage("Price per day is required"),
     handleValidationErrors
 ];
+// AWS UPLOAD CODE////////////////////////////////////
+router.get(
+    '/:spotId/images',
+    async (req, res) => {
+      const images = await SpotImage.findAll({where: { spotId: req.params["spotId"] }});
+      const imageUrls = images.map(image => retrievePrivateFile(image.url));
+      return res.json(imageUrls);
+    }
+  );
+
+//   router.post(
+//     '/:spotId/',
+//     multipleMulterUpload("images"),
+//     async (req, res) => {
+//       const { spotId } = req.params;
+//       const keys = await multipleFilesUpload({ files: req.files });
+//       const images = await Promise.all(
+//         keys.map(key => SpotImage.create({ key, spotId }))
+//       );
+//       const imageUrls = images.map(image => retrievePrivateFile(image.key));
+//       return res.json(imageUrls);
+//     }
+//   );
+  
+/////////////////////////////////////////////////
+
+
+// Add an image to spot based on spot id
+router.post('/:spotId/images', [ multipleMulterUpload("images"),requireAuth], async (req, res) => {
+    // const { user } = req;
+    let {spotId} = req.params;
+    spotId = Number(spotId)
+    console.log('hitting the backend------------------');
+    console.log('hitting the backend------------------spotId',req.params.spotId);
+    // console.log('hitting the backend------------------user',user);
+
+    // const spot = await Spot.findByPk(req.params.spotId);
+    console.log("Line 105 in routes/api/spots... Files passed in from multipleFilesUpload",req.files);
+    const keys = await multipleFilesUpload({ files: req.files });
+
+    console.log("keys from multipleFilesUpload:  ", keys);
+      const images = await Promise.all(
+        Object.values(keys).map(key => SpotImage.create({ spotId,key, preview:true }))
+      );
+      const imageUrls = images.map(image => retrievePrivateFile(image.key));
+      res.status(200);
+      return res.json(imageUrls);
+
+    // // spot not found
+    // if (!imageUrls) {
+    //     res.status(404);
+    //     return res.json({
+    //         message: "Spot couldn't be found"
+    //     });
+    // }
+    // // if user is the owner of spot add image to spot, else throw forbidden error
+    // if (user.id === spot.ownerId) {
+    //     const { url, preview } = req.body;
+    //     console.log('This is the url------',url,'this the preview------',preview);
+
+    //     const addImage = await SpotImage.create({
+    //         spotId: spot.id,
+    //         url, preview
+    //     });
+    //     res.status(200);
+    //     return res.json({ 'id': addImage.id, 'url': addImage.url, 'preview': addImage.preview });
+    // } else {
+    //     res.status(403)
+    //     return res.json({ message: "Forbidden" });
+    // }
+});
+
 // Get all spots by current user
 router.get('/current', [requireAuth], async (req, res) => {
     const { user } = req;
@@ -144,11 +217,11 @@ router.get('/:spotId', async (req, res) => {
             {
                 model: Review
             },
-            {
-                model: SpotImage,
-                attributes: ["id", "url", "preview"]
+            // {
+            //     model: SpotImage,
+            //     attributes: ["id", "url", "preview"]
 
-            },
+            // },
             {
                 model: User,
                 // as:"Owner",
@@ -190,38 +263,6 @@ router.get('/:spotId', async (req, res) => {
     res.json(spot)
 });
 
-// Add an image to spot based on spot id
-router.post('/:spotId/images', [requireAuth], async (req, res) => {
-    const { user } = req;
-    console.log('hitting the backend------------------');
-    console.log('hitting the backend------------------spotId',req.params.spotId);
-    console.log('hitting the backend------------------user',user);
-
-    const spot = await Spot.findByPk(req.params.spotId);
-
-    // spot not found
-    if (!spot) {
-        res.status(404);
-        return res.json({
-            message: "Spot couldn't be found"
-        });
-    }
-    // if user is the owner of spot add image to spot, else throw forbidden error
-    if (user.id === spot.ownerId) {
-        const { url, preview } = req.body;
-        console.log('This is the url------',url,'this the preview------',preview);
-
-        const addImage = await SpotImage.create({
-            spotId: spot.id,
-            url, preview
-        });
-        res.status(200);
-        return res.json({ 'id': addImage.id, 'url': addImage.url, 'preview': addImage.preview });
-    } else {
-        res.status(403)
-        return res.json({ message: "Forbidden" });
-    }
-});
 
 // Create a booking from a spot based on spot id
 router.post('/:spotId/bookings', [requireAuth, validateBookingCreation], async (req, res) => {

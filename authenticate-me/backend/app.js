@@ -20,8 +20,11 @@ const app = express();
 app.use(morgan('dev'));
 
 //Connecting cookie-parser and parsing JSON req.body middleware 
+// app.use(cookieParser());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: false })); // <-- Add this line
 app.use(express.json());
+
 
 //Connecting security middlewares
 // Security Middleware

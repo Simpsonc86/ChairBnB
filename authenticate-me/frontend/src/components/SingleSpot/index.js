@@ -27,7 +27,7 @@ const SingleSpot = () => {
     useEffect(() => {
 
         dispatch(getSpotThunk(spotId))
-        .then(dispatch(getAllSpotReviewsThunk(spotId)))
+        .then(()=>dispatch(getAllSpotReviewsThunk(spotId)))
 
     }, [dispatch, spotId, revArr.length]);
 
@@ -82,7 +82,7 @@ const SingleSpot = () => {
                     </div>
                     <div className="images-box">
                         <div className="previmage-div">
-                            <img className='spot-preview-img' src={spot.SpotImages[0].url} alt='preview' />
+                                {spot.SpotImages[0] && <img className='spot-preview-img' src={spot.SpotImages[0]?.url  } alt='preview' />}
                         </div>
                         <div className="non-preview-spot-images-div">
                             <div className="top-row-images">
@@ -110,7 +110,7 @@ const SingleSpot = () => {
                                 <div className="c">
                                     <span>
                                         <i className='fa-solid fa-star'></i>
-                                        {spot.avgStarRating}
+                                        {spot.avgStarRating && spot?.avgStarRating.toFixed(2)}
                                         {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span> : ''}
                                     </span>
                                     <span>
@@ -131,7 +131,7 @@ const SingleSpot = () => {
                     <div id='review-ratings-div'>
                         <span>
                             <i className='fa-solid large fa-star'></i>
-                            {spot.avgStarRating}
+                            {spot.avgStarRating && spot?.avgStarRating.toFixed(2)}
                             {spot.avgStarRating ? <span>&nbsp;&#x2022;&nbsp;</span> : ''}
                         </span>
                         <span>

@@ -107,11 +107,13 @@ router.post('/:spotId/images', [ multipleMulterUpload("images"),requireAuth], as
 
     console.log("keys from multipleFilesUpload:  ", keys);
       const images = await Promise.all(
-        Object.values(keys).map(key => SpotImage.create({ spotId,key, preview:true }))
+        keys.map(key => SpotImage.create({ spotId,url:key, preview:true }))
       );
-      const imageUrls = images.map(image => retrievePrivateFile(image.key));
+    //   console.log("image from inside post route :" , images);
+    //   const imageUrls = images.map(image => image.url);
+    //   console.log("image urls from inside post route :" , images);
       res.status(200);
-      return res.json(imageUrls);
+      return res.json(images);
 
     // // spot not found
     // if (!imageUrls) {
@@ -217,11 +219,11 @@ router.get('/:spotId', async (req, res) => {
             {
                 model: Review
             },
-            // {
-            //     model: SpotImage,
-            //     attributes: ["id", "url", "preview"]
+            {
+                model: SpotImage,
+                attributes: ["id", "url", "preview"]
 
-            // },
+            },
             {
                 model: User,
                 // as:"Owner",

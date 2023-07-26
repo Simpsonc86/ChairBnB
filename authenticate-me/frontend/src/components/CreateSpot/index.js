@@ -52,7 +52,7 @@ function CreateSpot() {
 
         if (!Object.values(errObj).length) {
             // create an array for images for thunk arg if there are no errors in errObj
-            let imgArr = [];
+            // let imgArr = [];
 
             // imgArr.push({ url: previewImage, preview: true })
             // if (image1) imgArr.push({ url: image1, preview: false })

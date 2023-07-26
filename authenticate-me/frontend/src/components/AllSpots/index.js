@@ -46,7 +46,7 @@ function AllSpots() {
                                 <span className='city-state'>{oneSpot.city}, {oneSpot.state}</span>
                                 <span className='rating'>
                                     <i className='fa-solid fa-star'></i>
-                                    {oneSpot.avgRating ? oneSpot.avgRating : 'New'}
+                                    {oneSpot.avgRating ? oneSpot.avgRating.toFixed(2) : 'New'}
                                 </span>
                             </div>
                             <p className='price'>${oneSpot.price} night</p>

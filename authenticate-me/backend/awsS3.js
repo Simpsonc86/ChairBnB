@@ -5,7 +5,7 @@ const multer = require("multer");
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 const NAME_OF_BUCKET = "chairbnb-cs"; // <-- Use your bucket name here
 
-const singleFileUpload = async ({ file, public = false }) => {
+const singleFileUpload = async ({ file, public = true }) => {
     const { originalname, buffer } = file;
     const path = require("path");
   
@@ -21,10 +21,10 @@ const singleFileUpload = async ({ file, public = false }) => {
   
     // Return the link if public. If private, return the name of the file in your
     // S3 bucket as the key in your database for subsequent retrieval.
-    return public ? result.Location : result.Key;
+    return result.Location;
   };
 
-  const multipleFilesUpload = async ({files, public = false}) => {
+  const multipleFilesUpload = async ({files, public = true}) => {
     return await Promise.all(
       files.map((file) => {
         return singleFileUpload({file, public});

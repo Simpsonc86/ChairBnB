@@ -71,9 +71,13 @@ export const uploadImages = (images, spotId) => async dispatch => {
     });
     if (response.ok) {
       const data = await response.json();
+      console.log("data inside uploadImages thunk", data);
       dispatch(receiveImages(data));
+      return data;
+    }else{
+        const errors = await response.json();
+        return errors;
     }
-    return response;
   };
 
 //get all spots thunk
@@ -138,8 +142,15 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
             //         spotImages.push(createdImg)
             //     }
             // }
+            const imgArr = await dispatch(uploadImages(images,createdSpot.id))
+
+            console.log("This is inside the create spot thunk imgArr: ",imgArr
+            );
+            // const imgArray = await imgArr.json()
+            // console.log("This is inside the create spot thunk img Array: ",imgArray
+            // );
             
-            createdSpot.SpotImages = images;
+            createdSpot.SpotImages = imgArr;
             createdSpot.Owner = owner;
             console.log("created spot spot images ==-======>",createdSpot.SpotImages);
             
@@ -150,9 +161,9 @@ export const createSpotThunk = (spot, images, owner) => async (dispatch) => {
 
         }
     } catch (err) {
-        // console.log('this is the err from the catch',err);
-        const errors = await err.json();
-        return errors;
+        console.log('this is the err from the catch',err);
+        // const errors = await err.json();
+        // return errors;
     }
 }
 //delete spot thunk

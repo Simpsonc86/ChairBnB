@@ -7,7 +7,7 @@ This project is an Airbnb clone that aims to replicate some of the key features 
 
 ### Spots CRUD
 
-The project allows users to create, read, update, and delete spots. Users can add details about their properties, such as the location, description, price, type of place, and how much of the place is available. They can also update and delete their spots as needed. The listing data is stored securely in a database and can be easily accessed and managed by users.
+The project allows users to create, read, update, and delete spots. Users can add details about their properties, such as the location, description, price, type of place, and how much of the place is available. They can also update and delete their spots as needed. The spot data is stored securely in a database and can be easily accessed and managed by users.
 
 ### Reviews CRUD
 

@@ -1,7 +1,7 @@
 # ChairBnB
 
 
-This project is an Airbnb clone that aims to replicate some of the key features of the popular online accommodation marketplace. The focus of this clone is to provide two main CRUD (Create, Read, Update, Delete) functionalities for spots(listings) and reviews.
+This project is an Airbnb clone that aims to replicate some of the key features of the popular online accommodation marketplace. The focus of this clone is to provide two main CRUD (Create, Read, Update, Delete) functionalities for spots(listings) and reviews. Implemented AWS for user spot image storage.
 
 ## Project Features
 
@@ -20,6 +20,7 @@ To develop this Airbnb clone, the following technologies and tools were utilized
 - Backend: Express
 - Frontend: Create-React-App, Redux
 - Database: Sequelize, Sqlite3 (locally), PostgreSQL (live)
+- AWS: S3 Bucket for images
 
 ## Project Goals
 

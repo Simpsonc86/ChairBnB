@@ -41,7 +41,7 @@ function Navigation({ isLoaded }) {
           <img className='logo'src='/images/Solomon-AwvvrlRBK6c271lr.avif' alt='chair'/>
           </NavLink>
         </div>
-          <div className="site-logo-text">CHAIRBNB</div>
+          <div className="site-logo-text"><NavLink className="main-logo-text" to="/">CHAIRBNB</NavLink></div>
         </div>
         {isLoaded && sessionLinks}
       </div>

@@ -42,7 +42,24 @@ function CreateSpot() {
         if (city.length < 2) errObj.city = "City is required"
         if (country.length < 2) errObj.country = "Country is required"
         if (state.length < 2) errObj.state = "State is required"
-        if (isNaN(price) || price < 1 || price > 10000) errObj.price = "Price is required less than $10000"
+        if (isNaN(price) || price > 10000) errObj.price = "Price is required less than $10000"
+        if (isNaN(price) || price < 100) errObj.price = "Price is required more than $100"
+        if (!images.length || images.length > 5) errObj.images = "1 to 5 images are required."
+        // if (images.length && images.length <= 5) {
+        //     errObj.images = [];
+        //     for (let i = 0; i < images.length; i++) {
+
+        //         console.log(images[i].name);
+        //         if (
+        //             images[i].name.slice(-3) !== "png" ||
+        //             images[i].name.slice(-3) !== "jpg" ||
+        //             images[i].name.slice(-4) !== "jpeg"
+        //         ){
+        //             errObj.images[i](`Image ${i+1} does not end in .png .jpg or .jpeg \n\n`)
+        //         }
+        //     }
+        // }
+        // console.log("images object: ", images[0].name);
         // if (previewImage.length < 5) errObj.previewImage = "Preview image is required"
         // if (previewImage && !previewImage.endsWith('.png') && !previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg')) errObj.previewImage2 = "Preview image must end in .png, .jpg, or .jpeg"
         // if (image1 && !image1.endsWith('.png') && !image1.endsWith('.jpg') && !image1.endsWith('.jpeg')) errObj.image1 = "Image URL must end in .png, .jpg, or .jpeg"
@@ -77,7 +94,7 @@ function CreateSpot() {
                 price,
             }, images, owner))
 
-            console.log('This is the created spot from the component', createdSpot);
+            // console.log('This is the created spot from the component', createdSpot);
 
 
             // console.log('This is the spot owner', owner);
@@ -148,10 +165,10 @@ function CreateSpot() {
     //if errors display them else redirect to spot details
     // when submitted, reset the errors and validate again
 
-    const updateFiles = e => {
-        const files = e.target.files;
-        setImages(files);
-      };
+    // const updateFiles = e => {
+    //     const files = e.target.files;
+    //     setImages(files);
+    //   };
 
 
     return (
@@ -267,21 +284,24 @@ function CreateSpot() {
                         placeholder="Price per night (USD)"
                     // required
                     />
-                    {errors.price && !price.length > 0 && <p className="errors">{errors.price}</p>}
+                    {errors.price && !(price.length > 2) && <p className="errors">{errors.price}</p>}
                 </label>
                 <hr />
                 <h2>Liven up your spot with photos</h2>
                 <h3>
-                    Submit a link to at least one photo to publish your spot.
+                    Submit a link to at least ONE photo and up to FIVE photos to publish your spot.
+                    Only file types jpg, jpeg, or png allowed.
                 </h3>
+                {errors.images && <p className="errors">{errors.images}</p>}
+
                 <label>
-                    Images to Upload
                     <input
                         type="file"
                         accept=".jpg, .jpeg, .png"
                         multiple
-                        onChange={updateFiles} />
+                        onChange={(e) => setImages(e.target.files)} />
                 </label>
+                <h4 className="red">WARNING: Uploading Multiple Images Will Delay Spot Creation. DO NOT REFRESH THE PAGE UNTIL UPLOAD IS COMPLETE!!</h4>
                 {/* <label>
                     <input
                         type="text"

@@ -32,7 +32,7 @@ function ManageSpots() {
         // console.log('owned spots id------>', ownedSpots.ownerId)
         return ownedSpots.ownerId === owner.id;
     })
-    console.log('This is all the owner`s spots', userSpots);
+    // console.log('This is all the owner`s spots', userSpots);
 
     useEffect(() => {
         dispatch(getAllSpotsThunk());

@@ -39,7 +39,7 @@ const SingleSpot = () => {
         if (user) {
             if (user.id !== spot.Owner.id) {
                 const userRev = Object.values(reviews).filter(review => review.userId === user.id)
-                console.log('user has a review', userRev);
+                // console.log('user has a review', userRev);
                 if (userRev.length === 0) {
 
                     return <OpenModalButton buttonText='Post Your Review' modalComponent={<CreateReviewModal spotId={spotId} />} />

@@ -13,9 +13,9 @@ function UpdateFormModal() {
     const {closeModal}= useModal();
     const {spotId} = useParams()
 
-    console.log(typeof spotId);
+    // console.log(typeof spotId);
     const spotNum = Number(spotId)
-    console.log('spot num', spotNum);
+    // console.log('spot num', spotNum);
 
 
     const owner = useSelector(state => {
@@ -87,11 +87,11 @@ function UpdateFormModal() {
                 price,
             }, owner))
 
-            console.log('This is the updated spot from the component',  updatedSpot);
+            // console.log('This is the updated spot from the component',  updatedSpot);
             
 
             // console.log('This is the spot owner', owner);
-            console.log(!Object.values(errors).length);
+            // console.log(!Object.values(errors).length);
 
             if(updatedSpot){
                 closeModal()

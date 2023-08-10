@@ -97,15 +97,15 @@ router.post('/:spotId/images', [ multipleMulterUpload("images"),requireAuth], as
     // const { user } = req;
     let {spotId} = req.params;
     spotId = Number(spotId)
-    console.log('hitting the backend------------------');
-    console.log('hitting the backend------------------spotId',req.params.spotId);
+    // console.log('hitting the backend------------------');
+    // console.log('hitting the backend------------------spotId',req.params.spotId);
     // console.log('hitting the backend------------------user',user);
 
     // const spot = await Spot.findByPk(req.params.spotId);
-    console.log("Line 105 in routes/api/spots... Files passed in from multipleFilesUpload",req.files);
+    // console.log("Line 105 in routes/api/spots... Files passed in from multipleFilesUpload",req.files);
     const keys = await multipleFilesUpload({ files: req.files });
 
-    console.log("keys from multipleFilesUpload:  ", keys);
+    // console.log("keys from multipleFilesUpload:  ", keys);
       const images = await Promise.all(
         keys.map(key => SpotImage.create({ spotId,url:key, preview:true }))
       );

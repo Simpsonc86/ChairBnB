@@ -61,3 +61,10 @@ input{
 h1,h2,h3,p{
     margin:20px 0
 }
+.create-btn-div{
+    padding-bottom:2rem;
+}
+.red{
+    color: red;
+    /* border-bottom: 2px solid red; */
+}

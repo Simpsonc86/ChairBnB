@@ -42,11 +42,11 @@ export const getAllSpotReviewsThunk = (spotId) => async (dispatch) => {
 
     if(res.ok){
         const data = await res.json();
-        console.log('reviews from the thunk ', data);
+        // console.log('reviews from the thunk ', data);
         dispatch(getAllSpotReviews(data))
     }else{
-        const error = await res.json();
-        console.log("bad data inside getAllSpotReviewsThunk=====>", error);
+        // const error = await res.json();
+        // console.log("bad data inside getAllSpotReviewsThunk=====>", error);
     }
 }
 
@@ -62,7 +62,7 @@ export const getAllSpotReviewsThunk = (spotId) => async (dispatch) => {
 
 export const createReviewThunk = (review,spotId) => async (dispatch) => {
 
-    console.log('INSIDE THE CREATE REVIEW THUNK-------------');
+    // console.log('INSIDE THE CREATE REVIEW THUNK-------------');
     // fetch from api
     try {
         const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
@@ -70,7 +70,7 @@ export const createReviewThunk = (review,spotId) => async (dispatch) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(review)
         });
-        console.log('response from create review fetch', res);
+        // console.log('response from create review fetch', res);
 
         if (res.ok) {
             const createdReview = await res.json();
@@ -94,8 +94,8 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) =>{
     if (res.ok){
         dispatch(deleteReview(reviewId))
     } else{
-        const error = await res.json();
-        console.log("bad data=====>", error);
+        // const error = await res.json();
+        // console.log("bad data=====>", error);
     }
 }
 
@@ -134,11 +134,11 @@ const reviewReducer = (state = initialState, action) =>{
         // }
         case CREATE_REVIEW: {
             const review = action.payload
-            console.log('this is the previous state');
+            // console.log('this is the previous state');
             newState = {user:{...state.user}, spot: {...state.spot} }
             newState.spot[review.id]=review
             newState.user[review.id]=review
-            console.log('create a review from reducer', newState);
+            // console.log('create a review from reducer', newState);
             return newState;
         }
         case DELETE_REVIEW:{

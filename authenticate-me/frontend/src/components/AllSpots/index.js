@@ -41,7 +41,7 @@ function AllSpots() {
                         <Link to={`/spots/${oneSpot.id}`} key={oneSpot.id} onClick={handleClick} className='spot-link hover-text' >
                             <span className='tooltip-text'>{oneSpot.name}</span>
 
-                            {oneSpot.previewImage ? <img className='preview-img'src={oneSpot.previewImage} alt='Preview' /> : <img src={noImg} alt='No Preview' />}
+                            {oneSpot?.previewImage ? <img className='preview-img'src={oneSpot.previewImage} alt='Preview' /> : <img className='preview-img'src={noImg} alt='No Preview' />}
                             <div className='spot-tile-desc-top'>
                                 <span className='city-state'>{oneSpot.city}, {oneSpot.state}</span>
                                 <span className='rating'>

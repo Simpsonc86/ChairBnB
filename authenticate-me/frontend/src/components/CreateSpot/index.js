@@ -37,10 +37,14 @@ function CreateSpot() {
 
         const errObj = {};
         if (name.length < 3) errObj.name = "Title is required"
+        if (name.length > 60) errObj.name = "Title maximum of 60 characters"
         if (address.length < 6) errObj.address = "Address is required"
+        if (address.length > 50) errObj.address = "Address maximum of 50 characters"
         if ((description.length > 5000) || description.length < 30) errObj.description = "Description needs a minimum of 30 characters and less than 5000"
         if (city.length < 2) errObj.city = "City is required"
+        if (city.length > 30) errObj.city = "City maximum of 30 characters"
         if (country.length < 2) errObj.country = "Country is required"
+        if (country.length > 60) errObj.country = "Country maximum of 60 characters"
         if (state.length < 2) errObj.state = "State is required"
         if (isNaN(price) || price > 10000) errObj.price = "Price is required less than $10000"
         if (isNaN(price) || price < 100) errObj.price = "Price is required more than $100"
@@ -179,7 +183,7 @@ function CreateSpot() {
                 <h3>Guest will only get your exact address once they booked a reservation</h3>
                 <label>
                     Country
-                    {errors.country && !country.length > 0 && <span className="errors">&nbsp;{errors.country}</span>}
+                    {errors.country && country.length < 3 && <span className="errors">&nbsp;{errors.country}</span>}
                     <br />
                     <input
                         className="create-form-input"
@@ -193,7 +197,7 @@ function CreateSpot() {
                 <br />
                 <label>
                     Street Address
-                    {errors.address && !address.length > 0 && <span className="errors">&nbsp;{errors.address}</span>}
+                    {errors.address && address.length < 6 && <span className="errors">&nbsp;{errors.address}</span>}
                     <br />
                     <input
                         type="text"
@@ -243,7 +247,7 @@ function CreateSpot() {
                 <hr />
                 <h2>Describe your place to guests</h2>
                 <h3>
-                    Mention the best features of your space, any special amentities like  fast wifi or paraking, and what you love about the neighborhood.
+                    Mention the best features of your space, any special amentities like    fast wifi or paraking, and what you love about the neighborhood.
                 </h3>
                 <label>
                     <textarea
@@ -301,7 +305,7 @@ function CreateSpot() {
                         multiple
                         onChange={(e) => setImages(e.target.files)} />
                 </label>
-                <h4 className="red">WARNING: Uploading Multiple Images Will Delay Spot Creation. DO NOT REFRESH THE PAGE UNTIL UPLOAD IS COMPLETE!!</h4>
+                {/* <h4 className="red">WARNING: Uploading Multiple Images Will Delay Spot Creation. DO NOT REFRESH THE PAGE UNTIL UPLOAD IS COMPLETE!!</h4> */}
                 {/* <label>
                     <input
                         type="text"

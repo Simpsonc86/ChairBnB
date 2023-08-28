@@ -1,7 +1,7 @@
 # ChairBnB
 
 ## Table of Contents
-- [ChairBnb](#ChairBnB)
+- [ChairBnB](#ChairBnB)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [Technologies](#technologies)
@@ -11,7 +11,7 @@
   - [Contact](#contact)
 
 ## About
-ChairBnB is an application for booking some very unique spots in the United States, that centers on bringing people back to nature and away from the hustle and bustle of busy city lives. My site is live on https://chairbnb-zv2s.onrender.com/
+ChairBnB is an application for booking some very unique chairs located in various spots in the United States, that centers on bringing people back to relaxing away from the hustle and bustle of busy city lives. My site is live on https://chairbnb-zv2s.onrender.com/
 
 ## Technologies
 React/Redux CSS

@@ -1,7 +1,7 @@
 # ChairBnB
 
 ## Table of Contents
-- [ChairBnb](#ChairBnB)
+- [ChairBnB](#ChairBnB)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [Technologies](#technologies)

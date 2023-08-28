@@ -17,6 +17,9 @@ ChairBnB is an application for booking some very unique chairs located in variou
 React/Redux CSS
 
 Leveraging React, I created a dynamic and responsive user interface that adapts to your needs. Through Redux, I efficiently manage the application's state, ensuring a smooth flow of information. Additionally, CSS allows me to apply custom styles and layout elements, elevating the visual appeal of the website.
+
+## Amazon Web Services S3
+* For setting up your AWS refer to this [guide](https://github.com/jdrichardsappacad/aws-s3-pern-demo)
 <!--!!END -->
 <!--!!ADD -->
 <!-- # `<name of application here>` -->
@@ -35,6 +38,10 @@ Leveraging React, I created a dynamic and responsive user interface that adapts 
 - Logged in users can perform the following actions:
   - Create, view, update and delete spots
   - Create, view, update and delete reviews
+  
+## AWS
+Logged-in Users can
+* Upload multiple images of their spot to AWS S3
 
 ## Database Schema Design
 
@@ -47,6 +54,10 @@ Leveraging React, I created a dynamic and responsive user interface that adapts 
 <!--!!ADD -->
 <!-- `<insert database schema design here>` -->
 <!--!!END_ADD -->
+## Future Features
+### Google Maps Api
+Logged in Users can
+* Locate their spot with Google Maps Api 
 
 ## API Documentation
 - [API Documentation](./oldREADME.md)

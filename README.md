@@ -54,5 +54,5 @@ Leveraging React, I created a dynamic and responsive user interface that adapts 
 ## Contact
 
 * Christopher Simpson:
-    * LinkedIn: https://www.linkedin.com/in/beverly-duran/
-    * GitHub: https://github.com/duranbeverly
+    * LinkedIn: https://www.linkedin.com/in/christopher-simpson-sc/
+    * GitHub: https://github.com/simpsonc86
